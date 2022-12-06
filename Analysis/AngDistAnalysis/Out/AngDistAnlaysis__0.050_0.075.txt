@@ -1,0 +1,4 @@
+PD05: Average Angle: 0.0825864, Number of Tracks: 2059232, Track per Vertex: 3.88356
+PD04: Average Angle: 0.0825895, Number of Tracks: 1889699, Track per Vertex: 3.88423
+Pythia: Average Angle: 0.0822572, Number of Tracks: 629472, Track per Vertex: 3.73696
+Geant4: Average Angle: 0.0816218, Number of Tracks: 762225, Track per Vertex: 4.66173
