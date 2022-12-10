@@ -221,7 +221,7 @@ TFile *Dat2Root(string inputName, string outputName)
    par->Branch("pl_dwn1ry_plmax",&parC_pl_dwn1ry_plmax,"pl_dwn1ry_plmax/I");
    par->Branch("vID",&parC_vID,"vID/I");
 
-   int VtxId = 0, chldNum = 0;
+   int VtxId = -1, chldNum = 0;
    char line[1024];
 
    int vNum = 0, pNum = 0, tNum = 0, recNum = 0, notRecNum = 0;
@@ -236,7 +236,7 @@ TFile *Dat2Root(string inputName, string outputName)
 
          chldNum = 0;
          
-         if (trk_n_1ry_parent_dmin_cut == 1)
+         if (vtx_n_1ry_parent_dmin_cut == 1)
          {
             VtxId++;
             vtx_vID = VtxId;

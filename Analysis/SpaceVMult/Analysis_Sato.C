@@ -15,15 +15,18 @@
 
 using namespace std;
 
-void Analysis()
+void Analysis_Sato()
 {
   TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,800,800);
   Canvas->SetWindowSize(800, 800);
 
-  TH2F *MultThetaHist1 = new TH2F("MultTheta","Multiplicity vs. Theta",50,0,50,50,0,0.4);
-  TH2F *MultThetaHist2 = new TH2F("MultThetaXNorm","Multiplicity vs. Theta",50,0,50,50,0,0.4);
-  TH2F *MultThetaHist3 = new TH2F("MultThetaYNorm","Multiplicity vs. Theta",50,0,50,50,0,0.4);
+  TH2F *MultThetaHist1 = new TH2F("MultTheta","Multiplicity vs. Theta",50,0,50,50,0,0.2);
+  TH2F *MultThetaHist2 = new TH2F("MultThetaXNorm","Multiplicity vs. Theta",50,0,50,50,0,0.2);
+  TH2F *MultThetaHist3 = new TH2F("MultThetaYNorm","Multiplicity vs. Theta",50,0,50,50,0,0.2);
 
+	FILE *fpo;
+	fpo= fopen("Trk_dump.dat","wt");
+	
   TFile *Data1, *Data2;
 
   int Data1TrkIndex = 0, Data2TrkIndex = 0;
@@ -45,59 +48,68 @@ void Analysis()
 
   int preVID = -1;
   int ind = 0;
+  int ntr=0;
+  int last=-1;
+  for (int i = 0; i < treeDataTrk1->GetEntriesFast(); i++){
+      treeDataTrk1->GetEntry(i);
 
-  for (int i = 0; i < treeDataTrk1->GetEntriesFast(); i++)
-  {
-    treeDataTrk1->GetEntry(i);
+      TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
+      TLeaf *w = treeDataTrk1->GetLeaf("flagw");
+      TLeaf *vID = treeDataTrk1->GetLeaf("vID");
 
-    TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
-    TLeaf *w = treeDataTrk1->GetLeaf("flagw");
-    TLeaf *vID = treeDataTrk1->GetLeaf("vID");
+      int vtxIndex = vID->GetValue();
 
-    int vtxIndex = vID->GetValue();
+      if (w->GetValue() == 1){
+          TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
+          TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
+          TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
+          TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
 
-    if (/*w->GetValue() == 1*/true)
-    {
-      TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
-      TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
-      TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
-      TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
+          double TX = slpTX->GetValue() - beamTX->GetValue();
+          double TY = slpTY->GetValue() - beamTY->GetValue();
+          double T2 = sqrt(TX*TX+TY*TY);
 
-      double TX = slpTX->GetValue() - beamTX->GetValue();
-      double TY = slpTY->GetValue() - beamTY->GetValue();
-      double T2 = sqrt(TX*TX+TY*TY);
+          treeDataVtx1->GetEntry(vtxIndex);
+          TLeaf *mlt = treeDataVtx1->GetLeaf("n_1ry_trk");
 
-      TLeaf *mlt = treeDataVtx1->GetLeaf("n_1ry_trk");
+          if (vtxIndex!=last) {
+              ntr=0;
+              fprintf(fpo,"-------------------------------------------\n");
+          }
+          ntr +=1;
 
-      treeDataVtx1->GetEntry(vtxIndex);
+// printout information
+          fprintf(fpo,   "%6d %4.0f %3d %8.5f %8.5f %8.5f\n", vtxIndex, mlt->GetValue(), ntr, slpTX->GetValue(), slpTY->GetValue(), T2);
+          last = vtxIndex;
+          
+          MultThetaHist1->Fill(mlt->GetValue(), T2);
 
-      MultThetaHist1->Fill(mlt->GetValue(), T2);
-
-      /*
-      if (vtxIndex != preVID)
-      {
-        if (ind == mlt->GetValue())
-        {
-          for (int x = ind; x > 0; x--)
+          /*
+          if (vtxIndex != preVID)
           {
-            MultThetaHist1->Fill(mlt->GetValue(), T2);
-            //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
+            if (ind == mlt->GetValue())
+            {
+              for (int x = ind; x > 0; x--)
+              {
+                MultThetaHist1->Fill(mlt->GetValue(), T2);
+                //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
+              }
+
+              //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
+
+            }
+
+            preVID = vtxIndex;
+            ind = 0;
           }
 
-          //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
-
-        }
-
-        preVID = vtxIndex;
-        ind = 0;
+          ind++;
+          //cout << "Index: " << ind << ", Mlt: " << mlt->GetValue() << endl;
+          */
       }
-      */
-      ind++;
-      if (ind<100) cout << "Index: " << vtxIndex << ", Mlt: " << mlt->GetValue() << endl;
-      
-    }
   }
-
+	fclose(fpo);
+	
   int binx = 50, biny = 50;
   float num, Entry;
 
@@ -138,7 +150,7 @@ void Analysis()
   MultThetaHist2->SetContour(20);
 
   gStyle->SetOptStat(0);
-  gStyle->SetPalette(kRainBow);
+//  gStyle->SetPalette(kRainBow); // KRainBow ����`����Ă��Ȃ��B
 
   MultThetaHist1->Draw("COLZ");
   //MultThetaHist1->SetMinimum(0);
