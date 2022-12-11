@@ -41,6 +41,7 @@ Float_t         trk_ph_mean;
 Float_t         trk_dtrms1_trk;
 Int_t           trk_sub_vol;
 
+/*
 // Parent Tree Variables
 Int_t           par_area1;
 Int_t           par_area2;
@@ -72,6 +73,7 @@ Float_t         par_ip_to_1ry_using_2ndseg;
 Float_t         par_ph_mean;
 Float_t         par_dtrms1_trk;
 Int_t           par_sub_vol;
+*/
 
 // Vertex Tree Variables
 Int_t           vtx_area1;
@@ -104,6 +106,35 @@ Float_t         vtx_ip_to_1ry_using_2ndseg;
 Float_t         vtx_ph_mean;
 Float_t         vtx_dtrms1_trk;
 Int_t           vtx_sub_vol;
+
+// Parent Tree Variables
+Int_t           par_area1;
+Int_t           par_area2;
+Float_t         par_txpeak;
+Float_t         par_typeak;
+Int_t           par_i;
+Float_t         par_vx;
+Float_t         par_vy;
+Float_t         par_vz;
+Float_t         par_dz;
+Int_t           par_id;
+Int_t           par_plt_of_1seg;
+Int_t           par_seg_id_of_1seg;
+Float_t         par_tx05pos;
+Float_t         par_ty05pos;
+Int_t           par_nseg;
+Int_t           par_n_1ry_trk;
+Float_t         par_ip_pos05; 
+Float_t         par_ip_pos04;
+Int_t           par_ntrk_small;
+Float_t         par_dt;
+Float_t         par_dt_pos;
+Int_t           par_pl_up1ry_plmin;
+Int_t           par_pl_up1ry_plmax;
+Int_t           par_pl_dwn1ry_plmin;
+Int_t           par_pl_dwn1ry_plmax;
+Int_t           par_sub_vol;
+Int_t           par_vID;
 
 TLeaf *Vtx_area1;
 TLeaf *Vtx_area2;
@@ -149,6 +180,7 @@ TLeaf *Trk_IPSeg2;
 TLeaf *Trk_PHMean;
 TLeaf *Trk_dtrms1;
 
+/*
 TLeaf *Par_area1;
 TLeaf *Par_area2;
 TLeaf *Par_txPeak;
@@ -175,26 +207,55 @@ TLeaf *Par_IPSeg1;
 TLeaf *Par_IPSeg2;
 TLeaf *Par_PHMean;
 TLeaf *Par_dtrms1;
+*/
+
+TLeaf *Par_area1;
+TLeaf *Par_area2;
+TLeaf *Par_txPeak;
+TLeaf *Par_tyPeak;
+TLeaf *Par_I;
+TLeaf *Par_VX;
+TLeaf *Par_VY;
+TLeaf *Par_VZ;
+TLeaf *Par_dz;
+TLeaf *Par_ID;
+TLeaf *Par_plt1Seg;
+TLeaf *Par_segIdSeg1;
+TLeaf *Par_tx05pos;
+TLeaf *Par_ty05pos;
+TLeaf *Par_Mlt;
+TLeaf *Par_nSeg;
+TLeaf *Par_ipPos05;
+TLeaf *Par_ipPos04;
+TLeaf *Par_ntrkSmall;
+TLeaf *Par_dt;
+TLeaf *Par_dt_pos;
+TLeaf *Par_pl_up1ry_plmin;
+TLeaf *Par_pl_up1ry_plmax;
+TLeaf *Par_pl_dwn1ry_plmin;
+TLeaf *Par_pl_dwn1ry_plmax;
+TLeaf *Par_vID;
 
 TFile *hfile;
 TTree *vtx;
 TTree *trk;
 TTree *par;
+//TTree *parCand;
 
 void VtxCopy();
 void TrkCopy();
 void ParCopy();
+//void ParCCopy();
 
-vector<string> inFiles = {"p006.root", "p016.root", "p026.root", "p036.root", "p046.root"};
-//vector<string> inFiles = {"p006.root", "p016.root"};
-//vector<string> inFiles = {"p006.root"};
+vector<string> inFiles = {"p006.root", "p016.root", "p026.root", "p036.root" ,"p046.root", "p056.root", "p066.root", "p076.root", "p086.root"};
 
 void VertexReduction()
 {
-  hfile = TFile::Open("PD01Full.root","RECREATE");
+  hfile = TFile::Open("Out.root","RECREATE");
   vtx = new TTree("VTX","VTXinfo");
   trk = new TTree("TRK","TRKinfo");
   par = new TTree("PAR","ParentInfo");
+  //parCand = new TTree("PARCand","ParentCandidateInfo");
 
   vtx->Branch("area1",&vtx_area1,"area1/I");
   vtx->Branch("area2",&vtx_area2,"area2/I");
@@ -242,6 +303,7 @@ void VertexReduction()
   trk->Branch("dtrms1_trk",&trk_dtrms1_trk,"dtrms1_trk/F");
   trk->Branch("sub_vol",&trk_sub_vol,"sub_vol/I");
 
+  /*
   par->Branch("area1",&par_area1,"area1/I");
   par->Branch("area2",&par_area2,"area2/I");
   par->Branch("txpeak",&par_txpeak,"txpeak/F");
@@ -269,6 +331,36 @@ void VertexReduction()
   par->Branch("ph_mean",&par_ph_mean,"ph_mean/F");
   par->Branch("dtrms1_trk",&par_dtrms1_trk,"dtrms1_trk/F");
   par->Branch("sub_vol",&par_sub_vol,"sub_vol/I");
+  */
+
+  par->Branch("area1",&par_area1,"area1/I");
+  par->Branch("area2",&par_area2,"area2/I");
+  par->Branch("txpeak",&par_txpeak,"txpeak/F");
+  par->Branch("typeak",&par_typeak,"typeak/F");
+  par->Branch("i",&par_i,"i/I");
+  par->Branch("vx",&par_vx,"vx/F");
+  par->Branch("vy",&par_vy,"vy/F");
+  par->Branch("vz",&par_vz,"vz/F");
+  par->Branch("dz",&par_dz,"dz/F");
+  par->Branch("trk_id",&par_id,"trk_id/I");
+  par->Branch("plt_of_1seg",&par_plt_of_1seg,"plt_of_1seg/I");
+  par->Branch("seg_id_of_1seg",&par_seg_id_of_1seg,"seg_id_of_1seg/I");
+  par->Branch("tx05pos",&par_tx05pos,"tx05pos/F");
+  par->Branch("ty05pos",&par_ty05pos,"ty05pos/F");
+  par->Branch("nseg",&par_nseg,"nseg/I");
+  par->Branch("n_1ry_trk",&par_n_1ry_trk,"n_1ry_trk/I");
+  par->Branch("ip_pos05",&par_ip_pos05,"ip_pos05/F");
+  par->Branch("ip_pos04",&par_ip_pos04,"ip_pos04/F");
+  par->Branch("ntrk_small",&par_ntrk_small,"ntrk_small/I");
+  par->Branch("dt",&par_dt,"dt/F");
+  par->Branch("dt_pos",&par_dt_pos,"dt_pos/F");
+  par->Branch("pl_up1ry_plmin",&par_pl_up1ry_plmin,"pl_up1ry_plmin/I");
+  par->Branch("pl_up1ry_plmax",&par_pl_up1ry_plmax,"pl_up1ry_plmax/I");
+  par->Branch("pl_dwn1ry_plmin",&par_pl_dwn1ry_plmin,"pl_dwn1ry_plmin/I");
+  par->Branch("pl_dwn1ry_plmax",&par_pl_dwn1ry_plmax,"pl_dwn1ry_plmax/I");
+  par->Branch("vID",&par_vID,"vID/I");
+
+  int newVID = 0;
 
   for (int subV = 0; subV < inFiles.size(); subV++)
   {
@@ -334,7 +426,7 @@ void VertexReduction()
     Trk_IPSeg2 = TrkTree->GetLeaf("ip_to_1ry_using_2ndseg");
     Trk_PHMean = TrkTree->GetLeaf("ph_mean");
     Trk_dtrms1 = TrkTree->GetLeaf("dtrms1_trk");
-
+    /*
     Par_area1 = ParTree->GetLeaf("area1");
     Par_area2 = ParTree->GetLeaf("area2");
     Par_txPeak = ParTree->GetLeaf("txpeak");
@@ -361,6 +453,33 @@ void VertexReduction()
     Par_IPSeg2 = ParTree->GetLeaf("ip_to_1ry_using_2ndseg");
     Par_PHMean = ParTree->GetLeaf("ph_mean");
     Par_dtrms1 = ParTree->GetLeaf("dtrms1_trk");
+    */
+    Par_area1 = ParTree->GetLeaf("area1");
+    Par_area2 = ParTree->GetLeaf("area2");
+    Par_txPeak = ParTree->GetLeaf("txpeak");
+    Par_tyPeak = ParTree->GetLeaf("typeak");
+    Par_I = ParTree->GetLeaf("i");
+    Par_VX = ParTree->GetLeaf("vx");
+    Par_VY = ParTree->GetLeaf("vy");
+    Par_VZ = ParTree->GetLeaf("vz");
+    Par_dz = ParTree->GetLeaf("dz");
+    Par_ID = ParTree->GetLeaf("trk_id");
+    Par_plt1Seg = ParTree->GetLeaf("plt_of_1seg");
+    Par_segIdSeg1 = ParTree->GetLeaf("seg_id_of_1seg");
+    Par_tx05pos = ParTree->GetLeaf("tx05pos");
+    Par_ty05pos = ParTree->GetLeaf("ty05pos");
+    Par_nSeg = ParTree->GetLeaf("nseg");
+    Par_Mlt = ParTree->GetLeaf("n_1ry_trk");
+    Par_ipPos05 = ParTree->GetLeaf("ip_pos05");
+    Par_ipPos04 = ParTree->GetLeaf("ip_pos04");
+    Par_ntrkSmall = ParTree->GetLeaf("ntrk_small");
+    Par_dt = ParTree->GetLeaf("dt");
+    Par_dt_pos = ParTree->GetLeaf("dt_pos");
+    Par_pl_up1ry_plmin = ParTree->GetLeaf("pl_up1ry_plmin");
+    Par_pl_up1ry_plmax = ParTree->GetLeaf("pl_up1ry_plmax");
+    Par_pl_dwn1ry_plmin = ParTree->GetLeaf("pl_dwn1ry_plmin");
+    Par_pl_dwn1ry_plmax = ParTree->GetLeaf("pl_dwn1ry_plmax");
+    Par_vID = ParTree->GetLeaf("vID");
 
     int refIDEvent = 0, currentEID = 0;
 
@@ -395,6 +514,7 @@ void VertexReduction()
       int cnt = count(eIDListFull.begin(), eIDListFull.end(), eIDList[i]);
       
       ParTree->GetEntry(i);
+      //ParCandTree->GetEntry(i);
       VtxTree->GetEntry(i);
 
       int index = 0;
@@ -411,12 +531,12 @@ void VertexReduction()
 
         for (int j = 0; j < cnt; j++)
         {
-
           auto it = find(eIDListFull.begin() + index + 1, eIDListFull.end(), eIDList[i]);
           if (it != eIDListFull.end())
           {
             index = it - eIDListFull.begin();
             ParTree->GetEntry(index);
+            //ParCandTree->GetEntry(index);
 
             int VtxX = Par_VX->GetValue();
             int VtxY = Par_VY->GetValue();
@@ -439,7 +559,9 @@ void VertexReduction()
 
               if (initMult < Mult)
               {
+                //newMult = 0;
                 ParTree->GetEntry(index);
+                //ParCandTree->GetEntry(index);
                 VtxTree->GetEntry(index);
 
                 TrkList.clear();
@@ -450,7 +572,7 @@ void VertexReduction()
                   {
                     indexSec = iter - tVIDList.begin();
                     TrkTree->GetEntry(indexSec);
-                    
+
                     if (TrackReduction == true)
                     {
                       int currentTrID = Trk_ID->GetValue();
@@ -462,32 +584,48 @@ void VertexReduction()
                         TrkList.push_back(currentTrID);
 
                         trk_sub_vol = subV;
+                        trk_vID = newVID;
                         TrkCopy();
+                        trk->Fill();
 
                         //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                         newMult++;
+                        //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Mult << ", NewMult: " << newMult << endl;
                       }
+
                     }
                     else
                     {
                       trk_sub_vol = subV;
+                      trk_vID = newVID;
                       TrkCopy();
+                      trk->Fill();
                     }
                   }
                 }
                 par_sub_vol = subV;
                 vtx_sub_vol = subV;
 
+                //cout << "1: NewMult: " << newMult << endl;
+
                 par_n_1ry_trk = newMult;
                 vtx_n_1ry_trk = newMult;
 
-                ParCopy();
-                VtxCopy();
+                par_vID = newVID;
+                vtx_vID = newVID;
 
+                ParCopy();
+                par->Fill();
+                VtxCopy();
+                vtx->Fill();
+
+                newVID++;
               }
               if (initMult >= Mult)
               {
+                newMult = 0;
                 ParTree->GetEntry(initIndex);
+                //ParCandTree->GetEntry(initIndex);
                 VtxTree->GetEntry(initIndex);
                 
                 TrkList.clear();
@@ -510,27 +648,41 @@ void VertexReduction()
                         TrkList.push_back(currentTrID);
 
                         trk_sub_vol = subV;
+                        trk_vID = newVID;
                         TrkCopy();
+                        trk->Fill();
 
                         //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                         newMult++;
+                        //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Mult << ", NewMult: " << newMult << endl;
                       }
                     }
                     else
                     {
                       trk_sub_vol = subV;
+                      trk_vID = newVID;
                       TrkCopy();
+                      trk->Fill();
                     }
                   }
                 }
                 par_sub_vol = subV;
                 vtx_sub_vol = subV;
 
+                //cout << "2: NewMult: " << newMult << endl;
+
                 par_n_1ry_trk = newMult;
                 vtx_n_1ry_trk = newMult;
 
+                par_vID = newVID;
+                vtx_vID = newVID;
+
                 ParCopy();
+                par->Fill();
                 VtxCopy();
+                vtx->Fill();
+
+                newVID++;
               }
             }
           }
@@ -560,27 +712,41 @@ void VertexReduction()
                 TrkList.push_back(currentTrID);
 
                 trk_sub_vol = subV;
+                trk_vID = newVID;
                 TrkCopy();
+                trk->Fill();
 
                 //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                 newMult++;
+                //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Par_Mlt->GetValue() << ", NewMult: " << newMult << endl;
               }
             }
             else
             {
               trk_sub_vol = subV;
+              trk_vID = newVID;
               TrkCopy();
+              trk->Fill();
             }
           }
         }
         par_sub_vol = subV;
         vtx_sub_vol = subV;
 
+        //cout << "3: NewMult: " << newMult << endl;
+
         par_n_1ry_trk = newMult;
         vtx_n_1ry_trk = newMult;
 
+        par_vID = newVID;
+        vtx_vID = newVID;
+
         ParCopy();
+        par->Fill();
         VtxCopy();
+        vtx->Fill();
+
+        newVID++;
       }
     }
 
@@ -592,6 +758,7 @@ void VertexReduction()
   vtx->Write();
   trk->Write();
   par->Write();
+  //parCand->Write();
 
   hfile->Close();
   delete hfile;
@@ -609,14 +776,14 @@ void VtxCopy()
   vtx_vz = Vtx_VZ->GetValue();
   vtx_n_1ry_pl = Vtx_Plt->GetValue();
   vtx_flagw = Vtx_w->GetValue();
-  vtx_vID = Vtx_ID->GetValue();
+  //vtx_vID = Vtx_ID->GetValue();
   if (TrackReduction == false) { vtx_n_1ry_trk = Vtx_Mlt->GetValue(); }
   vtx_n_1ry_parent_cut0 = Vtx_cut0->GetValue();
   vtx_n_1ry_parent_dmin_cut = Vtx_dminCut->GetValue();
   vtx_n_1ry_parent_dmin_cut_dt_cut = Vtx_dminDtCut->GetValue();
   vtx_dt = Vtx_dt->GetValue();
 
-  vtx->Fill();
+  //vtx->Fill();
 }
 
 void TrkCopy()
@@ -642,15 +809,15 @@ void TrkCopy()
   trk_tx = Trk_TX->GetValue();
   trk_ty = Trk_TY->GetValue();
   trk_nseg = Trk_nSeg->GetValue();
-  trk_vID = Trk_vID->GetValue();
+  //trk_vID = Trk_vID->GetValue();
   trk_ip_to_1ry_using_1stseg = Trk_IPSeg1->GetValue();
   trk_ip_to_1ry_using_2ndseg = Trk_IPSeg2->GetValue();
   trk_ph_mean = Trk_PHMean->GetValue();
   trk_dtrms1_trk = Trk_dtrms1->GetValue();
 
-  trk->Fill();
+  //trk->Fill();
 }
-
+/*
 void ParCopy()
 {
   par_area1 = Par_area1->GetValue();
@@ -681,4 +848,36 @@ void ParCopy()
   par_dtrms1_trk = Par_dtrms1->GetValue();
 
   par->Fill();
+}
+*/
+void ParCopy()
+{
+  par_area1 = Par_area1->GetValue();
+  par_area2 = Par_area2->GetValue();
+  par_txpeak = Par_txPeak->GetValue();
+  par_typeak = Par_tyPeak->GetValue();
+  par_i = Par_I->GetValue();
+  par_vx = Par_VX->GetValue();
+  par_vy = Par_VY->GetValue();
+  par_vz = Par_VZ->GetValue();
+  par_dz = Par_dz->GetValue();
+  par_id = Par_ID->GetValue();
+  par_plt_of_1seg = Par_plt1Seg->GetValue();
+  par_seg_id_of_1seg = Par_segIdSeg1->GetValue();
+  par_tx05pos = Par_tx05pos->GetValue();
+  par_ty05pos = Par_ty05pos->GetValue();
+  par_nseg = Par_nSeg->GetValue();
+  if (TrackReduction == false) { par_n_1ry_trk = Par_Mlt->GetValue(); }
+  par_ip_pos05 = Par_ipPos05->GetValue(); 
+  par_ip_pos04 = Par_ipPos04->GetValue();
+  par_ntrk_small = Par_ntrkSmall->GetValue();
+  par_dt = Par_dt->GetValue();
+  par_dt_pos = Par_dt_pos->GetValue();
+  par_pl_up1ry_plmin = Par_pl_up1ry_plmin->GetValue();
+  par_pl_up1ry_plmax = Par_pl_up1ry_plmax->GetValue();
+  par_pl_dwn1ry_plmin = Par_pl_dwn1ry_plmin->GetValue();
+  par_pl_dwn1ry_plmax = Par_pl_dwn1ry_plmax->GetValue();
+  //par_vID = Par_vID->GetValue();
+
+  //par->Fill();
 }

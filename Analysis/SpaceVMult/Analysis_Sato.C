@@ -37,7 +37,7 @@ void Analysis_Sato()
   sprintf(outNameEnd,"%s)", outName);
 
   //Data1 = TFile::Open("../Root/p006.root");
-  //Data1 = TFile::Open("../Root/Pythia.root");
+  //Data1 = TFile::Open("../Root/Geant4.root");
   Data1 = TFile::Open("../Root/PD05.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -50,63 +50,66 @@ void Analysis_Sato()
   int ind = 0;
   int ntr=0;
   int last=-1;
-  for (int i = 0; i < treeDataTrk1->GetEntriesFast(); i++){
-      treeDataTrk1->GetEntry(i);
+  for (int i = 0; i < treeDataTrk1->GetEntriesFast(); i++)
+  {
+    treeDataTrk1->GetEntry(i);
 
-      TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
-      TLeaf *w = treeDataTrk1->GetLeaf("flagw");
-      TLeaf *vID = treeDataTrk1->GetLeaf("vID");
+    TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *w = treeDataTrk1->GetLeaf("flagw");
+    TLeaf *vID = treeDataTrk1->GetLeaf("vID");
 
-      int vtxIndex = vID->GetValue();
+    int vtxIndex = vID->GetValue();
 
-      if (w->GetValue() == 1){
-          TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
-          TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
-          TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
-          TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
+    if (w->GetValue() == 1)
+    {
+      TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
+      TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
+      TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
+      TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
 
-          double TX = slpTX->GetValue() - beamTX->GetValue();
-          double TY = slpTY->GetValue() - beamTY->GetValue();
-          double T2 = sqrt(TX*TX+TY*TY);
+      double TX = slpTX->GetValue() - beamTX->GetValue();
+      double TY = slpTY->GetValue() - beamTY->GetValue();
+      double T2 = sqrt(TX*TX+TY*TY);
 
-          treeDataVtx1->GetEntry(vtxIndex);
-          TLeaf *mlt = treeDataVtx1->GetLeaf("n_1ry_trk");
+      treeDataVtx1->GetEntry(vtxIndex);
+      TLeaf *mlt = treeDataVtx1->GetLeaf("n_1ry_trk");
 
-          if (vtxIndex!=last) {
-              ntr=0;
-              fprintf(fpo,"-------------------------------------------\n");
-          }
-          ntr +=1;
-
-// printout information
-          fprintf(fpo,   "%6d %4.0f %3d %8.5f %8.5f %8.5f\n", vtxIndex, mlt->GetValue(), ntr, slpTX->GetValue(), slpTY->GetValue(), T2);
-          last = vtxIndex;
-          
-          MultThetaHist1->Fill(mlt->GetValue(), T2);
-
-          /*
-          if (vtxIndex != preVID)
-          {
-            if (ind == mlt->GetValue())
-            {
-              for (int x = ind; x > 0; x--)
-              {
-                MultThetaHist1->Fill(mlt->GetValue(), T2);
-                //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
-              }
-
-              //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
-
-            }
-
-            preVID = vtxIndex;
-            ind = 0;
-          }
-
-          ind++;
-          //cout << "Index: " << ind << ", Mlt: " << mlt->GetValue() << endl;
-          */
+      if (vtxIndex!=last) 
+      {
+      ntr=0;
+      fprintf(fpo,"-------------------------------------------\n");
       }
+      ntr +=1;
+
+      // printout information
+      fprintf(fpo, "%6d %4.0f %3d %8.5f %8.5f %8.5f\n", vtxIndex, mlt->GetValue(), ntr, slpTX->GetValue(), slpTY->GetValue(), T2);
+      last = vtxIndex;
+      
+      MultThetaHist1->Fill(mlt->GetValue(), T2);
+
+      /*
+      if (vtxIndex != preVID)
+      {
+        if (ind == mlt->GetValue())
+        {
+          for (int x = ind; x > 0; x--)
+          {
+            MultThetaHist1->Fill(mlt->GetValue(), T2);
+            //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
+          }
+
+          //cout << "Index: " << ind << ", VtxIndex: " << vtxIndex << endl;
+
+        }
+
+        preVID = vtxIndex;
+        ind = 0;
+      }
+
+      ind++;
+      //cout << "Index: " << ind << ", Mlt: " << mlt->GetValue() << endl;
+      */
+    }
   }
 	fclose(fpo);
 	

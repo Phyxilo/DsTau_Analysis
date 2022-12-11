@@ -247,7 +247,7 @@ void TrkCopy();
 void ParCopy();
 //void ParCCopy();
 
-vector<string> inFiles = {"p006.root", "p016.root", "p026.root", "p036.root", "p046.root", "p056.root", "p066.root", "p076.root", "p086.root"};
+vector<string> inFiles = {"p006.root", "p016.root", "p026.root", "p036.root" ,"p046.root", "p056.root", "p066.root", "p076.root", "p086.root"};
 
 void VertexReduction()
 {
@@ -359,6 +359,8 @@ void VertexReduction()
   par->Branch("pl_dwn1ry_plmin",&par_pl_dwn1ry_plmin,"pl_dwn1ry_plmin/I");
   par->Branch("pl_dwn1ry_plmax",&par_pl_dwn1ry_plmax,"pl_dwn1ry_plmax/I");
   par->Branch("vID",&par_vID,"vID/I");
+
+  int newVID = 0;
 
   for (int subV = 0; subV < inFiles.size(); subV++)
   {
@@ -529,7 +531,6 @@ void VertexReduction()
 
         for (int j = 0; j < cnt; j++)
         {
-
           auto it = find(eIDListFull.begin() + index + 1, eIDListFull.end(), eIDList[i]);
           if (it != eIDListFull.end())
           {
@@ -558,6 +559,7 @@ void VertexReduction()
 
               if (initMult < Mult)
               {
+                //newMult = 0;
                 ParTree->GetEntry(index);
                 //ParCandTree->GetEntry(index);
                 VtxTree->GetEntry(index);
@@ -582,32 +584,46 @@ void VertexReduction()
                         TrkList.push_back(currentTrID);
 
                         trk_sub_vol = subV;
+                        trk_vID = newVID;
                         TrkCopy();
+                        trk->Fill();
 
                         //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                         newMult++;
+                        //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Mult << ", NewMult: " << newMult << endl;
                       }
+
                     }
                     else
                     {
                       trk_sub_vol = subV;
+                      trk_vID = newVID;
                       TrkCopy();
+                      trk->Fill();
                     }
                   }
                 }
                 par_sub_vol = subV;
                 vtx_sub_vol = subV;
 
+                //cout << "1: NewMult: " << newMult << endl;
+
                 par_n_1ry_trk = newMult;
                 vtx_n_1ry_trk = newMult;
 
-                ParCopy();
-                //ParCCopy();
-                VtxCopy();
+                par_vID = newVID;
+                vtx_vID = newVID;
 
+                ParCopy();
+                par->Fill();
+                VtxCopy();
+                vtx->Fill();
+
+                newVID++;
               }
               if (initMult >= Mult)
               {
+                newMult = 0;
                 ParTree->GetEntry(initIndex);
                 //ParCandTree->GetEntry(initIndex);
                 VtxTree->GetEntry(initIndex);
@@ -632,28 +648,41 @@ void VertexReduction()
                         TrkList.push_back(currentTrID);
 
                         trk_sub_vol = subV;
+                        trk_vID = newVID;
                         TrkCopy();
+                        trk->Fill();
 
                         //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                         newMult++;
+                        //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Mult << ", NewMult: " << newMult << endl;
                       }
                     }
                     else
                     {
                       trk_sub_vol = subV;
+                      trk_vID = newVID;
                       TrkCopy();
+                      trk->Fill();
                     }
                   }
                 }
                 par_sub_vol = subV;
                 vtx_sub_vol = subV;
 
+                //cout << "2: NewMult: " << newMult << endl;
+
                 par_n_1ry_trk = newMult;
                 vtx_n_1ry_trk = newMult;
 
+                par_vID = newVID;
+                vtx_vID = newVID;
+
                 ParCopy();
-                //ParCCopy();
+                par->Fill();
                 VtxCopy();
+                vtx->Fill();
+
+                newVID++;
               }
             }
           }
@@ -683,28 +712,41 @@ void VertexReduction()
                 TrkList.push_back(currentTrID);
 
                 trk_sub_vol = subV;
+                trk_vID = newVID;
                 TrkCopy();
+                trk->Fill();
 
                 //cout << fixed << "Reduced: " << Trk_ID->GetValue() << endl;
                 newMult++;
+                //cout << "VertexID: " << Trk_vID->GetValue() << ", TrackID: " << Trk_ID->GetValue() << ", Multiplicity: " << Par_Mlt->GetValue() << ", NewMult: " << newMult << endl;
               }
             }
             else
             {
               trk_sub_vol = subV;
+              trk_vID = newVID;
               TrkCopy();
+              trk->Fill();
             }
           }
         }
         par_sub_vol = subV;
         vtx_sub_vol = subV;
 
+        //cout << "3: NewMult: " << newMult << endl;
+
         par_n_1ry_trk = newMult;
         vtx_n_1ry_trk = newMult;
 
+        par_vID = newVID;
+        vtx_vID = newVID;
+
         ParCopy();
-        //ParCCopy();
+        par->Fill();
         VtxCopy();
+        vtx->Fill();
+
+        newVID++;
       }
     }
 
@@ -734,14 +776,14 @@ void VtxCopy()
   vtx_vz = Vtx_VZ->GetValue();
   vtx_n_1ry_pl = Vtx_Plt->GetValue();
   vtx_flagw = Vtx_w->GetValue();
-  vtx_vID = Vtx_ID->GetValue();
+  //vtx_vID = Vtx_ID->GetValue();
   if (TrackReduction == false) { vtx_n_1ry_trk = Vtx_Mlt->GetValue(); }
   vtx_n_1ry_parent_cut0 = Vtx_cut0->GetValue();
   vtx_n_1ry_parent_dmin_cut = Vtx_dminCut->GetValue();
   vtx_n_1ry_parent_dmin_cut_dt_cut = Vtx_dminDtCut->GetValue();
   vtx_dt = Vtx_dt->GetValue();
 
-  vtx->Fill();
+  //vtx->Fill();
 }
 
 void TrkCopy()
@@ -767,13 +809,13 @@ void TrkCopy()
   trk_tx = Trk_TX->GetValue();
   trk_ty = Trk_TY->GetValue();
   trk_nseg = Trk_nSeg->GetValue();
-  trk_vID = Trk_vID->GetValue();
+  //trk_vID = Trk_vID->GetValue();
   trk_ip_to_1ry_using_1stseg = Trk_IPSeg1->GetValue();
   trk_ip_to_1ry_using_2ndseg = Trk_IPSeg2->GetValue();
   trk_ph_mean = Trk_PHMean->GetValue();
   trk_dtrms1_trk = Trk_dtrms1->GetValue();
 
-  trk->Fill();
+  //trk->Fill();
 }
 /*
 void ParCopy()
@@ -835,7 +877,7 @@ void ParCopy()
   par_pl_up1ry_plmax = Par_pl_up1ry_plmax->GetValue();
   par_pl_dwn1ry_plmin = Par_pl_dwn1ry_plmin->GetValue();
   par_pl_dwn1ry_plmax = Par_pl_dwn1ry_plmax->GetValue();
-  par_vID = Par_vID->GetValue();
+  //par_vID = Par_vID->GetValue();
 
-  par->Fill();
+  //par->Fill();
 }
