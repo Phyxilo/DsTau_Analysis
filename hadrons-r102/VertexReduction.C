@@ -517,7 +517,7 @@ void VertexReduction()
       //ParCandTree->GetEntry(i);
       VtxTree->GetEntry(i);
 
-      int index = 0;
+      int index = -1;
       vector <int> TrkList;
 
       if (cnt > 1)
@@ -527,7 +527,7 @@ void VertexReduction()
         float initVtxZ = 0;
         float initMult = 0;
         int initVID = 0;
-        int initIndex = 0;
+        int initIndex = -1;
 
         for (int j = 0; j < cnt; j++)
         {
@@ -555,7 +555,7 @@ void VertexReduction()
             }
             else if (abs(initVtxX-VtxX) <= 100 && abs(initVtxY-VtxY) <= 100 && abs(initVtxZ-VtxZ) <= 100)
             {
-              int indexSec = 0, newMult = 0;
+              int indexSec = -1, newMult = 0;
 
               if (initMult < Mult)
               {
@@ -690,7 +690,7 @@ void VertexReduction()
       }
       else
       {
-        int indexSec = 0, newMult = 0;
+        int indexSec = -1, newMult = 0;
         
         TrkList.clear();
         for (int mlt = 0; mlt < Par_Mlt->GetValue(); mlt++)

@@ -20,9 +20,9 @@ void Analysis()
   TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,800,800);
   Canvas->SetWindowSize(800, 800);
 
-  TH2F *MultThetaHist1 = new TH2F("MultTheta","Multiplicity vs. Theta",50,0,50,50,0,0.4);
-  TH2F *MultThetaHist2 = new TH2F("MultThetaXNorm","Multiplicity vs. Theta",50,0,50,50,0,0.4);
-  TH2F *MultThetaHist3 = new TH2F("MultThetaYNorm","Multiplicity vs. Theta",50,0,50,50,0,0.4);
+  TH2F *MultThetaHist1 = new TH2F("MultTheta","Multiplicity vs. Theta",50,0,50,50,0,0.2);
+  TH2F *MultThetaHist2 = new TH2F("MultThetaXNorm","Multiplicity vs. Theta",50,0,50,50,0,0.2);
+  TH2F *MultThetaHist3 = new TH2F("MultThetaYNorm","Multiplicity vs. Theta",50,0,50,50,0,0.2);
 
   TFile *Data1, *Data2;
 
@@ -92,8 +92,6 @@ void Analysis()
         ind = 0;
       }
       */
-      ind++;
-      if (ind<100) cout << "Index: " << vtxIndex << ", Mlt: " << mlt->GetValue() << endl;
       
     }
   }
