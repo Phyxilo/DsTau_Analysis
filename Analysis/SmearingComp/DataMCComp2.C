@@ -88,9 +88,9 @@ void DataMCComp2()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/p016.root");
-  Data2 = TFile::Open("../Root/Geant4.root");
-  Data3 = TFile::Open("../Root/Geant4Sm.root");
+  Data1 = TFile::Open("../Root/PD05_p006.root");
+  Data2 = TFile::Open("../Root/Geant4NewSm.root");
+  Data3 = TFile::Open("../Root/Geant4SM_v2.1.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -561,8 +561,8 @@ void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3)
   
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"PD05","f");
-  legend->AddEntry(hist2,"reco-bt-001-040","f");
-  legend->AddEntry(hist3,"reco-bt-001-040_new_smearing","f");
+  legend->AddEntry(hist2,"Geant4SM","f");
+  legend->AddEntry(hist3,"Geant4SM_v2.1","f");
   legend->Draw();
   
 }

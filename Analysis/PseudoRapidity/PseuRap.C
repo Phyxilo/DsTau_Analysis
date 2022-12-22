@@ -37,7 +37,7 @@ void PseuRap()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/PD04_05_Merged.root");
+  Data1 = TFile::Open("../Root/PD05.root");
   //Data2 = TFile::Open("Root/PD04.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");

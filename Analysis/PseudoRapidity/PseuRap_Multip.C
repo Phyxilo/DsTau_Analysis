@@ -39,7 +39,7 @@ void PseuRap_Multip()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/PD04_05_Merged.root");
+  Data1 = TFile::Open("../Root/PD05.root");
   //Data2 = TFile::Open("Root/PD04.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -81,7 +81,7 @@ void PseuRap_Multip()
 
         double TX = slpTX->GetValue() - beamTX->GetValue();
         double TY = slpTY->GetValue() - beamTY->GetValue();
-        double T2 = sqrt(TX*TX+TY*TY)*1000;
+        double T2 = sqrt(TX*TX+TY*TY);
         double PRap = -log(tan(TX/2));
 
         if (PRap > 1 && PRap <= 2)
@@ -162,7 +162,7 @@ void PseuRap_Multip()
     //cout << binCnt/data1VtxSize << endl;
   }
 
-  Mult1->GetYaxis()->SetRangeUser(0, 500000);
+  //Mult1->GetYaxis()->SetRangeUser(0, 500000);
 
   Mult1->SetLineWidth(1);
   //Mult1->Scale(1/data1VtxSize);

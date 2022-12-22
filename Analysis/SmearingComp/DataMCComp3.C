@@ -19,20 +19,20 @@ void HistDraw(TH1F *hist1, TH1F *hist2);
 
 TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1200,1200);
 
-TH1F *SlpTXHist1 = new TH1F("TX","X Slope",100,-0.4,0.4);
-TH1F *SlpTXHist2 = new TH1F("TX","X Slope",100,-0.4,0.4);
+TH1F *SlpTXHist1 = new TH1F("TX","X Slope",50,-0.4,0.4);
+TH1F *SlpTXHist2 = new TH1F("TX","X Slope",50,-0.4,0.4);
 
-TH1F *SlpTYHist1 = new TH1F("TY","Y Slope",100,-0.4,0.4);
-TH1F *SlpTYHist2 = new TH1F("TY","Y Slope",100,-0.4,0.4);
+TH1F *SlpTYHist1 = new TH1F("TY","Y Slope",50,-0.4,0.4);
+TH1F *SlpTYHist2 = new TH1F("TY","Y Slope",50,-0.4,0.4);
 
-TH1F *SlpT2Hist1 = new TH1F("T2","Space Angle",100,0,0.5);
-TH1F *SlpT2Hist2 = new TH1F("T2","Space Angle",100,0,0.5);
+TH1F *SlpT2Hist1 = new TH1F("T2","Space Angle",50,0,0.4);
+TH1F *SlpT2Hist2 = new TH1F("T2","Space Angle",50,0,0.4);
 
-TH1F *IPData1 = new TH1F("IP","Impact Parameter",50,0,10);
-TH1F *IPData2 = new TH1F("IP","Impact Parameter",50,0,10);
+TH1F *IPData1 = new TH1F("IP","Impact Parameter",25,0,6);
+TH1F *IPData2 = new TH1F("IP","Impact Parameter",25,0,6);
 
-TH1F *Mult1 = new TH1F("Mlt","Multiplicity",100,0,100);
-TH1F *Mult2 = new TH1F("Mlt","Multiplicity",100,0,100);
+TH1F *Mult1 = new TH1F("Mlt","Multiplicity",36,4,40);
+TH1F *Mult2 = new TH1F("Mlt","Multiplicity",36,4,40);
 
 TFile *Data1, *Data2;
 
@@ -51,9 +51,9 @@ void DataMCComp3()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/p016.root");
-  //Data2 = TFile::Open("../Root/Geant4.root");
-  Data2 = TFile::Open("../Root/Geant4Sm.root");
+  Data1 = TFile::Open("../Root/PD05_p006.root");
+  Data2 = TFile::Open("../Root/Geant4NewSm.root");
+  //Data2 = TFile::Open("../Root/EPOS_Test.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -203,16 +203,17 @@ void DataMCComp3()
   Canvas->cd(1);
   gPad->SetGrid(100);
   //IPData1->Draw();
-  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 58000);
+  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 110000);
+  //SlpT2Hist1->GetYaxis()->SetRangeUser(0, 700000);
   HistDraw(SlpT2Hist1, SlpT2Hist2);
 
   Canvas->cd(2);
   gPad->SetGrid(100);
   copyT2Hist->GetYaxis()->SetLabelOffset(0.01);
-  copyT2Hist->Draw("HIST");
+  copyT2Hist->Draw("HIST E1");
   copyT2Hist->SetTitle("Division");
   copyT2Hist->SetLineWidth(2);
-  copyT2Hist->GetYaxis()->SetRangeUser(0, 100);
+  copyT2Hist->GetYaxis()->SetRangeUser(0, 2);
 
   TF1 *fa1 = new TF1("fa1","1",0,100);
   fa1->Draw("SAME");
@@ -221,15 +222,16 @@ void DataMCComp3()
 
   Canvas->cd(1);
   //IPData1->Draw();
-  IPData1->GetYaxis()->SetRangeUser(0, 200000);
+  IPData1->GetYaxis()->SetRangeUser(0, 250000);
+  //IPData1->GetYaxis()->SetRangeUser(0, 1600000);
   HistDraw(IPData1, IPData2);
 
   Canvas->cd(2);
   copyIPHist->GetYaxis()->SetLabelOffset(0.01);
-  copyIPHist->Draw("HIST");
+  copyIPHist->Draw("HIST E1");
   copyIPHist->SetTitle("Division");
   copyIPHist->SetLineWidth(2);
-  copyIPHist->GetYaxis()->SetRangeUser(0, 5);
+  copyIPHist->GetYaxis()->SetRangeUser(0, 2);
 
   fa1->Draw("SAME");
 
@@ -238,14 +240,15 @@ void DataMCComp3()
   Canvas->cd(1);
   //IPData1->Draw();
   Mult1->GetYaxis()->SetRangeUser(0, 5200);
+  //Mult1->GetYaxis()->SetRangeUser(0, 32000);
   HistDraw(Mult1, Mult2);
 
   Canvas->cd(2);
   copyMultHist->GetYaxis()->SetLabelOffset(0.01);
-  copyMultHist->Draw("HIST");
+  copyMultHist->Draw("HIST E1");
   copyMultHist->SetTitle("Division");
   copyMultHist->SetLineWidth(2);
-  copyMultHist->GetYaxis()->SetRangeUser(0, 50);
+  copyMultHist->GetYaxis()->SetRangeUser(0, 5);
 
   fa1->Draw("SAME");
 
@@ -256,7 +259,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
 {
 
   Canvas->cd(1);
-  hist1->Draw("HIST"); hist1->SetLineColor(kBlue); hist1->SetLineStyle(1); hist1->SetLineWidth(2); //hist1->SetFillColorAlpha(kBlue, 0.1);
+  hist1->Draw("HIST E1"); hist1->SetLineColor(kBlue); hist1->SetLineStyle(1); hist1->SetLineWidth(2); //hist1->SetFillColorAlpha(kBlue, 0.1);
   /*
   Canvas->Modified(); Canvas->Update();
   TPaveStats *StatBox1 = (TPaveStats*)Canvas->GetPrimitive("stats");
@@ -291,7 +294,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"PD05","f");
   //legend->AddEntry(hist2,"reco-bt-001-040","f");
-  legend->AddEntry(hist2,"reco-bt-001-040_new_smearing","f");
+  legend->AddEntry(hist2,"Geant4SM","f");
   legend->Draw();
   
 }
