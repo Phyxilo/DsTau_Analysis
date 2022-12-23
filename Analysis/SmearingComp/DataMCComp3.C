@@ -53,6 +53,7 @@ void DataMCComp3()
 
   Data1 = TFile::Open("../Root/PD05_p006.root");
   Data2 = TFile::Open("../Root/Geant4NewSm.root");
+  //Data2 = TFile::Open("../Root/Pythia_p006.root");
   //Data2 = TFile::Open("../Root/EPOS_Test.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -72,21 +73,25 @@ void DataMCComp3()
     TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
     TLeaf *IP = treeDataTrk1->GetLeaf("ip_to_1ry_using_1stseg");
     TLeaf *vID = treeDataTrk1->GetLeaf("vID");
+    TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
 
-    double TX = slpTX->GetValue() - beamTX->GetValue();
-    double TY = slpTY->GetValue() - beamTY->GetValue();
-    
-    //double TX = slpTX->GetValue();
-    //double TY = slpTY->GetValue();
+    if(PN->GetValue() == 1)
+    {
+      double TX = slpTX->GetValue() - beamTX->GetValue();
+      double TY = slpTY->GetValue() - beamTY->GetValue();
+      
+      //double TX = slpTX->GetValue();
+      //double TY = slpTY->GetValue();
 
-    //beamTXTot += TX;
-    //beamTYTot += TY;
+      //beamTXTot += TX;
+      //beamTYTot += TY;
 
-    SlpTXHist1->Fill(TX);
-    SlpTYHist1->Fill(TY);
-    //SlpT2Hist1->Fill(slpT2->GetValue());
-    SlpT2Hist1->Fill(sqrt(TX*TX+TY*TY));
-    IPData1->Fill(IP->GetValue());
+      SlpTXHist1->Fill(TX);
+      SlpTYHist1->Fill(TY);
+      //SlpT2Hist1->Fill(slpT2->GetValue());
+      SlpT2Hist1->Fill(sqrt(TX*TX+TY*TY));
+      IPData1->Fill(IP->GetValue());
+    }
   }
   
   //float beamTXAvg = beamTXTot/treeDataTrk1->GetEntriesFast();
@@ -103,18 +108,22 @@ void DataMCComp3()
     TLeaf *beamTY = treeDataTrk2->GetLeaf("typeak");
     TLeaf *IP = treeDataTrk2->GetLeaf("ip_to_1ry_using_1stseg");
     TLeaf *vID = treeDataTrk2->GetLeaf("vID");
+    TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
 
-    double TX = slpTX->GetValue() - beamTX->GetValue();
-    double TY = slpTY->GetValue() - beamTY->GetValue();
+    if(PN->GetValue() == 1)
+    {
+      double TX = slpTX->GetValue() - beamTX->GetValue();
+      double TY = slpTY->GetValue() - beamTY->GetValue();
 
-    //double TX = slpTX->GetValue();
-    //double TY = slpTY->GetValue();
+      //double TX = slpTX->GetValue();
+      //double TY = slpTY->GetValue();
 
-    SlpTXHist2->Fill(TX);
-    SlpTYHist2->Fill(TY);
-    //SlpT2Hist2->Fill(slpT2->GetValue());
-    SlpT2Hist2->Fill(sqrt(TX*TX+TY*TY));
-    IPData2->Fill(IP->GetValue());
+      SlpTXHist2->Fill(TX);
+      SlpTYHist2->Fill(TY);
+      //SlpT2Hist2->Fill(slpT2->GetValue());
+      SlpT2Hist2->Fill(sqrt(TX*TX+TY*TY));
+      IPData2->Fill(IP->GetValue());
+    }
   }
 
   for (int i = 0; i < treeDataVtx1->GetEntriesFast(); i++)
@@ -158,6 +167,7 @@ void DataMCComp3()
   }
   
   float r12 = Data1VtxSize/Data2VtxSize;
+  //float r12 = treeDataVtx1->GetEntriesFast()/treeDataVtx2->GetEntriesFast();;
 
   //cout << Data1VtxSize << ", " << Data2VtxSize << ", " << Data3VtxSize << ", " << Data4VtxSize << endl;
   //cout << r12 << ", " << r13 << ", " << r14 << endl;
