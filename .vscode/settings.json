@@ -11,6 +11,21 @@
         "linked_tracks.C": "cpp",
         "ostream": "cpp",
         "ProtonTracking.C": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "PLvVert.C": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "filesystem": "cpp",
+        "initializer_list": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "unordered_map": "cpp",
+        "bitset": "cpp",
+        "stack": "cpp"
     }
 }

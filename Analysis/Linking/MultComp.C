@@ -8,7 +8,10 @@
 
 using namespace std;
 
-TCanvas *Canvas;
+TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1920,1080);
+
+TH1F *Mult1 = new TH1F("Mlt","Multiplicity",35,5,40);
+TH1F *Mult2 = new TH1F("Mlt","Multiplicity",35,5,40);
 
 TFile *Data;
 
@@ -23,8 +26,9 @@ vector<int> intVec;
 vector<int> intVecVertexing;
 
 vector<int> ReadFile(char *inFile);
+void HistDraw(TH1F *hist1, TH1F *hist2);
 
-void PLvVert()
+void MultComp()
 {
     //Canvas->SetWindowSize(1920, 1080);
     //Canvas->SetCanvasSize(192*6, 108*6);
@@ -34,7 +38,7 @@ void PLvVert()
 
     char outName[64], outNameStart[64], outNameEnd[64];
 
-    sprintf(outName,"PLvVert.pdf");
+    sprintf(outName,"MultComp.pdf");
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
 
@@ -42,17 +46,6 @@ void PLvVert()
     {
         UStrID = ReadFile(USInName);
         DStrID = ReadFile(DSInName);
-
-        for (int i = 0; i < DStrID.size(); i++)
-        {
-            auto it = find(UStrID.begin(), UStrID.end(), DStrID[i]);
-            if (it != UStrID.end())
-            {
-                UStrID.erase(it);
-            }
-        }
-
-        intVec.assign(UStrID.begin(), UStrID.end());
 
         char dir [128];
         sprintf(dir,"../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
@@ -69,36 +62,29 @@ void PLvVert()
             TLeaf *vy = parData->GetLeaf("vy");
             TLeaf *plt = parData->GetLeaf("plt_of_1seg");
             TLeaf *trk = parData->GetLeaf("trk_id");
+            TLeaf *mlt = parData->GetLeaf("n_1ry_trk");
 
             int VX = vx->GetValue();
             int VY = vy->GetValue();
             int Plt = plt->GetValue();
             int Trk = trk->GetValue();
+            int Mlt = mlt->GetValue();
 
             if((VX < posInt && VX > -posInt) && (VY < posInt && VY > -posInt))
             {
-                if (Plt >= 5 + j*10 && Plt < 10 + j*10)
+                auto it = find(UStrID.begin(), UStrID.end(), Trk);
+                if (it != UStrID.end())
                 {
-                    intVecVertexing.push_back(Trk);
+                    Mult1->Fill(Mlt);
                 }
+                Mult2->Fill(Mlt);
             }
         }
-
-        int commonCnt = 0;
-
-        for (int i = 0; i < intVec.size(); i++)
-        {
-            auto it = find(intVecVertexing.begin(), intVecVertexing.end(), intVec[i]);
-            if (it == intVecVertexing.end())
-            {
-                commonCnt++;
-                //cout << intVec[i] << endl;
-            }
-        }
-
-        cout << commonCnt << endl;
     }
-    
+
+    Mult1->GetYaxis()->SetRangeUser(0, 75);
+    HistDraw(Mult1, Mult2);
+    Canvas->Print(outName, "pdf");
 }
 
 vector<int> ReadFile(char *inFile)
@@ -146,4 +132,33 @@ vector<int> ReadFile(char *inFile)
     fclose(fUS);
 
     return trIDVec;
+}
+
+void HistDraw(TH1F *hist1, TH1F *hist2)
+{
+
+  hist1->Draw("HIST"); hist1->SetLineColor(kBlue); hist1->SetLineStyle(1); hist1->SetLineWidth(2); //hist1->SetFillColorAlpha(kBlue, 0.1);
+
+  Canvas->Modified(); Canvas->Update();
+  TPaveStats *StatBox1 = (TPaveStats*)Canvas->GetPrimitive("stats");
+  StatBox1->SetName("Primary");
+  StatBox1->SetY1NDC(0.9);
+  StatBox1->SetY2NDC(0.7);
+  StatBox1->SetTextColor(kBlue);
+  StatBox1->Draw();
+
+  hist2->Draw("SAMES HIST"); hist2->SetLineColor(kRed); hist2->SetLineStyle(1); hist2->SetLineWidth(2); //hist2->SetFillColorAlpha(kRed, 0.2);
+
+  Canvas->Update();
+  TPaveStats *StatBox2 = (TPaveStats*)Canvas->GetPrimitive("stats");
+  StatBox2->SetName("All");
+  StatBox2->SetY1NDC(0.7);
+  StatBox2->SetY2NDC(0.5);
+  StatBox2->SetTextColor(kRed);
+  StatBox2->Draw();
+  
+  TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
+  legend->AddEntry(hist1,"Primary","f");
+  legend->AddEntry(hist2,"All","f");
+  legend->Draw();
 }
