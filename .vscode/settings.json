@@ -1,5 +1,16 @@
 {
     "files.associations": {
-        "DataMCComp3.C": "cpp"
+        "DataMCComp3.C": "cpp",
+        "DataMCComp2.C": "cpp",
+        "MultComp.C": "cpp",
+        "Dat2Root.C": "cpp",
+        "ZVertex_aligned_vertices.C": "cpp",
+        "Z_adjustment.C": "cpp",
+        "IntRatio.C": "cpp",
+        "PseuRap_Multip.C": "cpp",
+        "linked_tracks.C": "cpp",
+        "ostream": "cpp",
+        "ProtonTracking.C": "cpp",
+        "new": "cpp"
     }
 }

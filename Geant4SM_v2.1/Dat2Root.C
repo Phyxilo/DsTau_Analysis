@@ -234,25 +234,22 @@ TFile *Dat2Root(string inputName, string outputName)
          sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %d %d %f",&vtx_area1,&vtx_area2,&vtx_txpeak,&vtx_typeak,&vtx_i,&vtx_vx,&vtx_vy,&vtx_vz,&vtx_n_1ry_pl,&vtx_flagw,&vtx_multip,
             &vtx_n_1ry_parent_cut0,&vtx_n_1ry_parent_dmin_cut,&vtx_n_1ry_parent_dmin_cut_dt_cut,&vtx_dt);
 
-         if (chldNum != 0)
+         chldNum = 0;
+         
+         if (vtx_n_1ry_parent_dmin_cut > 0)
          {
-            vtx_n_1ry_trk = chldNum;
-            trk_n_1ry_trk = chldNum;
-            parC_n_1ry_trk = chldNum;
+            VtxId++;
+            vtx_vID = VtxId;
+
+            vtx_n_1ry_trk = vtx_multip;
+            trk_n_1ry_trk = vtx_multip;
+            parC_n_1ry_trk = vtx_multip;
 
             pNum++;
             vNum++;
 
             par->Fill();
             vtx->Fill();
-         }
-
-         chldNum = 0;
-         
-         if (vtx_n_1ry_parent_dmin_cut == 1)
-         {
-            VtxId++;
-            vtx_vID = VtxId;
          }
       }
       else if (strcmp(type,"parent_cand") == 0)
@@ -279,7 +276,7 @@ TFile *Dat2Root(string inputName, string outputName)
          if (trk_n_1ry_parent_dmin_cut == 1)
          {
 
-            if (parC_id != trk_id)
+            if (/*parC_id != trk_id*/ true)
             {
                chldNum++;
                trk_vID = VtxId;

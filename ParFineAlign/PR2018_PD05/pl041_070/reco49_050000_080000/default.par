@@ -1,0 +1,17 @@
+SIGMA0   0       5  5  .005  .005
+DEGRAD   0       5.
+BINS     0       4 4 4 4
+RAMP0    0       15  15
+RAMP04   0       15  15
+CHI2MAX  0	 4.5
+CHI2PMAX 0	 4.5
+RADX0    0       5810.
+
+
+
+#RCUT 0  eN1==1&&eN2==1&&eCHI2P<3.5
+#RCUT 0	abs(s.eTX)<.3&&abs(s.eTY)<.3
+#RCUT 0	!(abs(s.eTX)<0.05&&abs(s.eTY)<0.05)
+#RCUT 0	abs(s.eX-50000)<11000&&abs(s.eY-40000)<11000
+
+

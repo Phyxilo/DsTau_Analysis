@@ -52,9 +52,10 @@ void DataMCComp3()
   sprintf(outNameEnd,"%s)", outName);
 
   Data1 = TFile::Open("../Root/PD05_p006.root");
-  Data2 = TFile::Open("../Root/Geant4NewSm.root");
+  //Data2 = TFile::Open("../Root/Geant4.root");
+  //Data2 = TFile::Open("../Root/Geant4SM_v2.1.root");
   //Data2 = TFile::Open("../Root/Pythia_p006.root");
-  //Data2 = TFile::Open("../Root/EPOS_Test.root");
+  Data2 = TFile::Open("../Root/Geant4_p006.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -108,9 +109,9 @@ void DataMCComp3()
     TLeaf *beamTY = treeDataTrk2->GetLeaf("typeak");
     TLeaf *IP = treeDataTrk2->GetLeaf("ip_to_1ry_using_1stseg");
     TLeaf *vID = treeDataTrk2->GetLeaf("vID");
-    TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *PN = treeDataTrk2->GetLeaf("n_1ry_parent_dmin_cut");
 
-    if(PN->GetValue() == 1)
+    if(PN->GetValue() > 0)
     {
       double TX = slpTX->GetValue() - beamTX->GetValue();
       double TY = slpTY->GetValue() - beamTY->GetValue();
@@ -133,7 +134,7 @@ void DataMCComp3()
     TLeaf *mult = treeDataVtx1->GetLeaf("n_1ry_trk");
     TLeaf *PN = treeDataVtx1->GetLeaf("n_1ry_parent_dmin_cut");
 
-    if(PN->GetValue() == 1)
+    if(PN->GetValue() > 0)
     {
       Mult1->Fill(mult->GetValue());
 
@@ -153,7 +154,7 @@ void DataMCComp3()
     TLeaf *mult = treeDataVtx2->GetLeaf("n_1ry_trk");
     TLeaf *PN = treeDataVtx2->GetLeaf("n_1ry_parent_dmin_cut");
 
-    if(PN->GetValue() == 1)
+    if(PN->GetValue() > 0)
     {
       Mult2->Fill(mult->GetValue());
 
@@ -167,7 +168,7 @@ void DataMCComp3()
   }
   
   float r12 = Data1VtxSize/Data2VtxSize;
-  //float r12 = treeDataVtx1->GetEntriesFast()/treeDataVtx2->GetEntriesFast();;
+  //float r12 = treeDataVtx1->GetEntriesFast()/treeDataVtx2->GetEntriesFast();
 
   //cout << Data1VtxSize << ", " << Data2VtxSize << ", " << Data3VtxSize << ", " << Data4VtxSize << endl;
   //cout << r12 << ", " << r13 << ", " << r14 << endl;
@@ -304,7 +305,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"PD05","f");
   //legend->AddEntry(hist2,"reco-bt-001-040","f");
-  legend->AddEntry(hist2,"Geant4SM","f");
+  legend->AddEntry(hist2,"Geant4","f");
   legend->Draw();
   
 }

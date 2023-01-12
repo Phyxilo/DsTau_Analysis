@@ -35,7 +35,7 @@ void Analysis()
 
   //Data1 = TFile::Open("../Root/p006.root");
   //Data1 = TFile::Open("../Root/Pythia.root");
-  Data1 = TFile::Open("../Root/PD05.root");
+  Data1 = TFile::Open("../Root/PD05_p006.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   //TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
