@@ -54,6 +54,7 @@ void PLvVert()
 
         intVec.assign(UStrID.begin(), UStrID.end());
 
+        //char dir [128] = "../../Geant4SM_v1.0/RootOut/pl011_040.root";
         char dir [128];
         sprintf(dir,"../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
 
@@ -75,7 +76,7 @@ void PLvVert()
             int Plt = plt->GetValue();
             int Trk = trk->GetValue();
 
-            if((VX < posInt && VX > -posInt) && (VY < posInt && VY > -posInt))
+            if(/*(VX < posInt && VX > -posInt) && (VY < posInt && VY > -posInt)*/ true)
             {
                 if (Plt >= 5 + j*10 && Plt < 10 + j*10)
                 {
@@ -89,14 +90,14 @@ void PLvVert()
         for (int i = 0; i < intVec.size(); i++)
         {
             auto it = find(intVecVertexing.begin(), intVecVertexing.end(), intVec[i]);
-            if (it == intVecVertexing.end())
+            if (it != intVecVertexing.end())
             {
                 commonCnt++;
-                //cout << intVec[i] << endl;
+                cout << intVec[i] << endl;
             }
         }
 
-        cout << commonCnt << endl;
+        cout << "ProtonLinking: " << intVec.size() << ", VertexOut: " << intVecVertexing.size() << ", Commons: " << commonCnt << endl;
     }
     
 }

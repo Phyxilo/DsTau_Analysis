@@ -16,7 +16,7 @@ TH1F *Mult2 = new TH1F("Mlt","Multiplicity",35,5,40);
 TFile *Data;
 
 int subV = 0;
-int posInt = 4000;
+int posInt = 1000;
 
 char dir [128];
 
@@ -41,6 +41,8 @@ void MultComp()
     sprintf(outName,"MultComp.pdf");
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
+
+    float dataSize = 0;
 
     for (int j = 0; j < 1; j++)
     {
@@ -76,13 +78,19 @@ void MultComp()
                 if (it != UStrID.end())
                 {
                     Mult1->Fill(Mlt);
+                    cout << Trk << endl;
                 }
                 Mult2->Fill(Mlt);
+
+                dataSize++;
             }
         }
     }
 
-    Mult1->GetYaxis()->SetRangeUser(0, 75);
+    Mult1->Scale(1/dataSize);
+    Mult2->Scale(1/dataSize);
+
+    Mult1->GetYaxis()->SetRangeUser(0, 0.1);
     HistDraw(Mult1, Mult2);
     Canvas->Print(outName, "pdf");
 }
@@ -151,7 +159,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
 
   Canvas->Update();
   TPaveStats *StatBox2 = (TPaveStats*)Canvas->GetPrimitive("stats");
-  StatBox2->SetName("All");
+  StatBox2->SetName("VertexOut");
   StatBox2->SetY1NDC(0.7);
   StatBox2->SetY2NDC(0.5);
   StatBox2->SetTextColor(kRed);
@@ -159,6 +167,6 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
   
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"Primary","f");
-  legend->AddEntry(hist2,"All","f");
+  legend->AddEntry(hist2,"VertexOut","f");
   legend->Draw();
 }
