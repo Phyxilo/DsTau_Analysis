@@ -31,12 +31,13 @@ TH1F *SlpT2Hist2 = new TH1F("T2","Space Angle",50,0,0.4);
 TH1F *IPData1 = new TH1F("IP","Impact Parameter",25,0,6);
 TH1F *IPData2 = new TH1F("IP","Impact Parameter",25,0,6);
 
-TH1F *Mult1 = new TH1F("Mlt","Multiplicity",36,4,40);
-TH1F *Mult2 = new TH1F("Mlt","Multiplicity",36,4,40);
+TH1F *Mult1 = new TH1F("Mlt","Multiplicity",35,5,40);
+TH1F *Mult2 = new TH1F("Mlt","Multiplicity",35,5,40);
 
 TFile *Data1, *Data2;
 
 float Data1VtxSize = 0, Data2VtxSize = 0;
+float Data1TrkSize = 0, Data2TrkSize = 0;
 
 void DataMCComp3()
 {
@@ -52,10 +53,9 @@ void DataMCComp3()
   sprintf(outNameEnd,"%s)", outName);
 
   Data1 = TFile::Open("../Root/PD05_p006.root");
-  //Data2 = TFile::Open("../Root/Geant4.root");
-  //Data2 = TFile::Open("../Root/Geant4SM_v2.1.root");
   //Data2 = TFile::Open("../Root/Pythia_p006.root");
-  Data2 = TFile::Open("../Root/Geant4_p006.root");
+  Data2 = TFile::Open("../Root/EPOSSM_v2.0.root");
+  //Data2 = TFile::Open("../Root/Geant4_p006.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -75,8 +75,9 @@ void DataMCComp3()
     TLeaf *IP = treeDataTrk1->GetLeaf("ip_to_1ry_using_1stseg");
     TLeaf *vID = treeDataTrk1->GetLeaf("vID");
     TLeaf *PN = treeDataTrk1->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *w = treeDataTrk1->GetLeaf("flagw");
 
-    if(PN->GetValue() == 1)
+    if(PN->GetValue() > 0 && w->GetValue() == 1)
     {
       double TX = slpTX->GetValue() - beamTX->GetValue();
       double TY = slpTY->GetValue() - beamTY->GetValue();
@@ -92,6 +93,8 @@ void DataMCComp3()
       //SlpT2Hist1->Fill(slpT2->GetValue());
       SlpT2Hist1->Fill(sqrt(TX*TX+TY*TY));
       IPData1->Fill(IP->GetValue());
+
+      Data1TrkSize++;
     }
   }
   
@@ -110,8 +113,9 @@ void DataMCComp3()
     TLeaf *IP = treeDataTrk2->GetLeaf("ip_to_1ry_using_1stseg");
     TLeaf *vID = treeDataTrk2->GetLeaf("vID");
     TLeaf *PN = treeDataTrk2->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *w = treeDataTrk2->GetLeaf("flagw");
 
-    if(PN->GetValue() > 0)
+    if(PN->GetValue() > 0 && w->GetValue() == 1)
     {
       double TX = slpTX->GetValue() - beamTX->GetValue();
       double TY = slpTY->GetValue() - beamTY->GetValue();
@@ -124,6 +128,8 @@ void DataMCComp3()
       //SlpT2Hist2->Fill(slpT2->GetValue());
       SlpT2Hist2->Fill(sqrt(TX*TX+TY*TY));
       IPData2->Fill(IP->GetValue());
+
+      Data2TrkSize++;
     }
   }
 
@@ -133,8 +139,9 @@ void DataMCComp3()
 
     TLeaf *mult = treeDataVtx1->GetLeaf("n_1ry_trk");
     TLeaf *PN = treeDataVtx1->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *w = treeDataVtx1->GetLeaf("flagw");
 
-    if(PN->GetValue() > 0)
+    if(PN->GetValue() > 0 && w->GetValue() == 1)
     {
       Mult1->Fill(mult->GetValue());
 
@@ -153,8 +160,9 @@ void DataMCComp3()
 
     TLeaf *mult = treeDataVtx2->GetLeaf("n_1ry_trk");
     TLeaf *PN = treeDataVtx2->GetLeaf("n_1ry_parent_dmin_cut");
+    TLeaf *w = treeDataVtx2->GetLeaf("flagw");
 
-    if(PN->GetValue() > 0)
+    if(PN->GetValue() > 0 && w->GetValue() == 1)
     {
       Mult2->Fill(mult->GetValue());
 
@@ -168,6 +176,7 @@ void DataMCComp3()
   }
   
   float r12 = Data1VtxSize/Data2VtxSize;
+  float r12Trk = Data1TrkSize/Data2TrkSize;
   //float r12 = treeDataVtx1->GetEntriesFast()/treeDataVtx2->GetEntriesFast();
 
   //cout << Data1VtxSize << ", " << Data2VtxSize << ", " << Data3VtxSize << ", " << Data4VtxSize << endl;
@@ -177,9 +186,12 @@ void DataMCComp3()
 
   //SlpTYHist2->Scale(r12);
 
-  SlpT2Hist2->Scale(r12);
+  cout << r12Trk << endl;
+  cout << r12 << endl;
 
-  IPData2->Scale(r12);
+  SlpT2Hist2->Scale(r12Trk);
+
+  IPData2->Scale(r12Trk);
 
   Mult2->Scale(r12);
 
@@ -214,7 +226,7 @@ void DataMCComp3()
   Canvas->cd(1);
   gPad->SetGrid(100);
   //IPData1->Draw();
-  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 110000);
+  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 65000);
   //SlpT2Hist1->GetYaxis()->SetRangeUser(0, 700000);
   HistDraw(SlpT2Hist1, SlpT2Hist2);
 
@@ -233,7 +245,7 @@ void DataMCComp3()
 
   Canvas->cd(1);
   //IPData1->Draw();
-  IPData1->GetYaxis()->SetRangeUser(0, 250000);
+  IPData1->GetYaxis()->SetRangeUser(0, 120000);
   //IPData1->GetYaxis()->SetRangeUser(0, 1600000);
   HistDraw(IPData1, IPData2);
 
@@ -250,7 +262,7 @@ void DataMCComp3()
 
   Canvas->cd(1);
   //IPData1->Draw();
-  Mult1->GetYaxis()->SetRangeUser(0, 5200);
+  Mult1->GetYaxis()->SetRangeUser(0, 2200);
   //Mult1->GetYaxis()->SetRangeUser(0, 32000);
   HistDraw(Mult1, Mult2);
 
@@ -305,7 +317,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2)
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"PD05","f");
   //legend->AddEntry(hist2,"reco-bt-001-040","f");
-  legend->AddEntry(hist2,"Geant4","f");
+  legend->AddEntry(hist2,"EPOS","f");
   legend->Draw();
   
 }

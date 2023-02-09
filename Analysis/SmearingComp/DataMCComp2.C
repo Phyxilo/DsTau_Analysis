@@ -89,7 +89,7 @@ void DataMCComp2()
   sprintf(outNameEnd,"%s)", outName);
 
   Data1 = TFile::Open("../Root/PD05_p006.root");
-  Data2 = TFile::Open("../Root/Geant4NewSm.root");
+  Data2 = TFile::Open("../Root/EPOSSM_v2.0.root");
   Data3 = TFile::Open("../Root/Geant4SM_v2.1.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -407,7 +407,7 @@ void DataMCComp2()
   HistDraw(SlpTYHist1, SlpTYHist2, SlpTYHist3);
   Canvas->Print( outName, "pdf");
 
-  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 58000);
+  SlpT2Hist1->GetYaxis()->SetRangeUser(0, 65000);
   HistDraw(SlpT2Hist1, SlpT2Hist2, SlpT2Hist3);
   Canvas->Print( outName, "pdf");
 
@@ -415,7 +415,7 @@ void DataMCComp2()
   HistDraw(IPData1, IPData2, IPData3);
   Canvas->Print( outName, "pdf");
 
-  Mult1->GetYaxis()->SetRangeUser(0, 5200);
+  Mult1->GetYaxis()->SetRangeUser(0, 6200);
   HistDraw(Mult1, Mult2, Mult3);
   Canvas->Print( outNameEnd, "pdf");
 
@@ -561,7 +561,7 @@ void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3)
   
   TLegend *legend = new TLegend(0.1, 0.85, 0.32, 0.95);
   legend->AddEntry(hist1,"PD05","f");
-  legend->AddEntry(hist2,"Geant4SM","f");
+  legend->AddEntry(hist2,"EPOSSM_v2.1","f");
   legend->AddEntry(hist3,"Geant4SM_v2.1","f");
   legend->Draw();
   

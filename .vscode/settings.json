@@ -26,6 +26,17 @@
         "string_view": "cpp",
         "unordered_map": "cpp",
         "bitset": "cpp",
-        "stack": "cpp"
-    }
+        "stack": "cpp",
+        "iosfwd": "cpp",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "MultComp.C.old.C": "cpp",
+        "VertexReduction.C": "cpp",
+        "NotConnectedVertices.C": "cpp",
+        "NonMatchingVert.C": "cpp",
+        "Analysis.C": "cpp",
+        "set": "cpp",
+        "NonMatchedMult.C": "cpp"
+    },
+    "C_Cpp.dimInactiveRegions": false
 }
