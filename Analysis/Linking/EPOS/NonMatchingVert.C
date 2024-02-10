@@ -33,16 +33,18 @@ void NonMatchingVert()
 
     float dataSize = 0;
 
+    noMatch = new TH2F("NonMatched","Position Distribution",80,-8000,8000,80,-8000,8000);
+
     for (int j = 0; j < 7; j++)
     {
-        noMatch = new TH2F("NonMatched","Position Distribution",80,-8000,8000,80,-8000,8000);
-        
+        //noMatch = new TH2F("NonMatched","Position Distribution",80,-8000,8000,80,-8000,8000);
+
         sprintf(outName,"NonMatched/NonMatched_%d.png", j);
         sprintf(outNameStart,"%s(", outName);
         sprintf(outNameEnd,"%s)", outName);
 
         char dir [128];
-        sprintf(dir,"../../../EPOS_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
+        sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
 
         Data = TFile::Open(dir);
         
@@ -73,11 +75,7 @@ void NonMatchingVert()
 
             if (plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+1 && pNum->GetValue() == 0*/)
             {
-                if (fp == 1)
-                {
-                    //Mult2->Fill(Mlt);
-                }
-                else
+                if (fp == 0)
                 {
                     //cout << fixed << trk->GetValue() << endl;
 
@@ -89,6 +87,9 @@ void NonMatchingVert()
 
             dataSize++;
         }
+        
+        gStyle->SetOptStat(0);
+        gStyle->SetPalette(kRainBow);
 
         noMatch->Draw("COLZ");
         Canvas->Print(outName, "png");

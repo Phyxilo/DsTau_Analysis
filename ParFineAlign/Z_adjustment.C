@@ -10,9 +10,11 @@
 
 using namespace std;
 
-TH1F *h, *h_all, *h_align;
-TH1F *hW_G4, *hP_G4,*hE_G4,*hW_F, *hE_F, *hP_F;
-TH1F *hW_data, *hP_data,*hE_data;
+TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1920,1080);
+
+TH1F *Hist1 = new TH1F("Hist1","Histogram",200,0,10000);
+TH1F *Hist2 = new TH1F("Hist2","Histogram",200,0,10000);
+TH1F *Hist3 = new TH1F("Hist3","Histogram",200,0,10000);
 
 int evtotW,evtotP,evtotE,evtotALL;
 int numWF,numBF,numEF,numALLF;
@@ -320,22 +322,7 @@ bool verify_inside_main_part(int Xmin, int Xmax, int Ymin, int Ymax,float x, flo
 
 void Z_adjustment()
 {   
-    All_limits(); //only once!!
-    
-    //h_align = new TH1F("h_all","h_all",300,0,6000);
-    h_align = new TH1F("h_all","h_all",2500,0,50000);
-    // h_all = new TH1F("h_all","h_all",225,1200,5700);
-    h_align->GetXaxis()->SetTitle("mkm");
-    h_align->GetXaxis()->SetTitleSize(0.06);
-    h_align-> GetXaxis() -> SetTitleOffset(0.7);
-    h_align-> GetXaxis() ->SetTickLength(0.009);
-    h_align->GetXaxis()->SetLabelSize(0.04);
-    h_align-> GetYaxis() ->SetTickLength(0.009);
-
-    TPaveText *t3=new TPaveText (.35,.91,.65,.96, "NDC"); 
-    TCanvas *c3 = new TCanvas("c3","cLng", 1000,400);
-    gStyle->SetOptTitle(0);
-    gStyle->SetOptFit();
+    //All_limits(); //only once!!
 
     int area=0;
     double mean_thickness=0, scanned_thickness=0, vertex_correction=0;
@@ -345,10 +332,11 @@ void Z_adjustment()
     int TotalColumns = 9;
     int TotalRows = 7;
    
-    for(int i_name=0;i_name<=8;i_name++)
+    for(int i_name=0;i_name<=0;i_name++)
     {
         char filename[100];
-        sprintf(filename, "../v20220912/PD05/ds_res_PR2018_PD05_p0%d6.txt",i_name);
+        sprintf(filename, "Vertexing/ds_res_PR2018_PD05_p0%d6.txt",i_name);
+        //sprintf(filename, "Vertexing/ds_res_PR2018_PD05_p0%d6.txt",i_name);
 
         //calculate the limits for this file
         int plt=i_name*10+1;
@@ -442,7 +430,7 @@ void Z_adjustment()
                     f >> p13;
                     f >> p14;
                     f >> p15; 
-
+                    
                     //Reinitalizing seconday elements container
                     s1 = (int*)calloc(p8+1, sizeof(int));
                     s2 = (int*)calloc(p8+1, sizeof(int));
@@ -469,11 +457,10 @@ void Z_adjustment()
                     s23 = (float*)calloc(p8+1, sizeof(float));  
                     s24 = (char*)calloc(p8+1, sizeof(char));  
                     s25 = (float*)calloc(p8+1, sizeof(float));  
-                   
 
                     //Reading p5 elements
                     int i = -1;//contorul de secunzi
-     
+                    
                     while (f >> paritate && strcmp("1ry_trk",paritate)==0 && f.peek()!=EOF) 
                     {
                         ++i;
@@ -506,7 +493,7 @@ void Z_adjustment()
                     }
                     //margins,parent,z position
                     i++;  //cout<<p2<<" "<<p5<<endl;
-                   
+                    
                     if (p13>0)
                     {   
                         if(area<p1 )
@@ -534,41 +521,45 @@ void Z_adjustment()
                         {
                             
                           //Tungsten
-                          for(int j=1;j<=1;j++)
+                          for(int j=0;j<=1;j++)
                             if(p8>tl[j] && p8<=tr[j]) 
                             {
                                 mean_thickness = mtr[j]-mtl[j]; //cout<<mean_thickness<<" tungsten "<<endl;
                                 scanned_thickness = tr[j]-tl[j];
                                 vertex_correction = p8-tl[j];
-                                h_align->Fill(mtl[j] + mean_thickness * vertex_correction / scanned_thickness);
+                                Hist1->Fill(mtl[j] + mean_thickness * vertex_correction / scanned_thickness);
                                
                             }
 
                           //Emulsion
                           for(int j=1;j<=20;j++)
-                           if(p8>el[j] && p8<=er[j]) 
+                          {
+                            //cout << el[j] << ", " << er[j] << endl;
+                            if(p8>el[j] && p8<=er[j]) 
                             {
                                 mean_thickness = mer[j]-mel[j]; //cout<<mean_thickness<<" emulsion "<<endl;
                                 scanned_thickness = er[j]-el[j];
                                 vertex_correction = p8-el[j];
-                                h_align->Fill(mel[j] + mean_thickness * vertex_correction / scanned_thickness);
+                                Hist2->Fill(mel[j] + mean_thickness * vertex_correction / scanned_thickness);
                                 
+                                //cout << mel[j] + mean_thickness * vertex_correction / scanned_thickness << endl;
                             }
+                          }
 
                           //Plastic
-                          for(int j=1;j<20;j++)
+                          for(int j=1;j<=20;j++)
                             if(p8>pl[j] && p8<=pr[j]) 
                             {
                                 mean_thickness = mpr[j]-mpl[j]; //cout<<mean_thickness<<" plastic "<<endl;
                                 scanned_thickness = pr[j]-pl[j];
                                 vertex_correction = p8-pl[j];
-                                h_align->Fill(mpl[j] + mean_thickness * vertex_correction / scanned_thickness);
+                                Hist3->Fill(mpl[j] + mean_thickness * vertex_correction / scanned_thickness);
                                
                             } 
                         }
                        
                     }
-                         
+                    
                     free(s1); free(s2); free(s3); free(s4); free(s5); free(s6); free(s7); free(s8); free(s9);
                     free(s10); free(s11); free(s12); free(s13); free(s14); free(s15); free(s16); free(s17); free(s18); free(s19);
                     free(s20); free(s21); free(s22);  
@@ -582,63 +573,15 @@ void Z_adjustment()
         else
             cout << "Unable to open file";
         f.close();
-
-
-        // h_align->SetLineColor(kBlack);
-        // h_align->SetLineWidth(1);
-        h_align->Draw();
-
-        int max= h_align->GetMaximum(); 
-        max=max+100; //to fill untill the frame 
-
-        // for(int i=1;i<=20; i++)
-        //  {
-        //     //emulsion
-        //     TBox *pe = new TBox(mel[i],0,mer[i],max);
-        //     pe->SetFillStyle(3001);
-        //     pe->SetFillColor(kBlue);//600
-        //     //pe->SetBorderSize(0);
-        //     pe->Draw();
-        //  }
-
-        //  for(int i=1;i<20; i++)
-        //  {
-        //     //plastic
-        //     TBox *pp = new TBox(mpl[i],0,mpr[i],max);
-        //     pp->SetFillStyle(3001);
-        //     pp->SetFillColor(kGreen); //416
-        //     //pp->SetBorderSize(0);
-        //     pp->Draw();
-        //  }
-
-        //  for(int i=1;i<=1; i++)
-        //  {
-        //     TPaveText *pt = new TPaveText(mtl[i],0,mtr[i],max);
-        //     pt->SetFillStyle(3001);
-        //     pt->SetFillColor(920);
-        //     pt->SetBorderSize(0);
-        //     pt->Draw();
-        //  }
     }
 
+    gStyle->SetOptStat(0);
 
-    h_align->SetLineColor(kBlack);
-    h_align->SetLineWidth(1);
-   h_align->Draw("sames");
-
- c3->Modified(); c3->Update();
- TPaveStats *stats =(TPaveStats*)c3->GetPrimitive("stats");
-   stats->SetName("h1stats");
-   stats->SetX1NDC(.82);
-   stats->SetX2NDC(.99);
-   stats->SetY1NDC(.75);
-   stats->SetY2NDC(.95);
-
-
- t3->AddText("Vertices in the depth of detector PD05");
- t3->SetTextSize(0.06);
- t3->SetFillColor(0);
- t3->SetBorderSize(0);
- t3->Draw();
- c3->Print("ZVertex_PD05_all_aligned_vertices.pdf");
+    Hist1->Draw();
+    Hist1->SetLineColor(kBlack);
+    Hist2->Draw("SAMES");
+    Hist2->SetLineColor(kRed);
+    Hist3->Draw("SAMES");
+    Hist3->SetLineColor(kBlue);
+    Canvas->Print( "Test.pdf", "pdf");
 }

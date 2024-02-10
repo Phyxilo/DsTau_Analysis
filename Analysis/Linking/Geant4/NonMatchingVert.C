@@ -73,22 +73,19 @@ void NonMatchingVert()
 
             if (plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+1 && pNum->GetValue() == 0*/)
             {
-                if (fp == 1)
-                {
-                    //Mult2->Fill(Mlt);
-                }
-                else
+                if (fp == 0)
                 {
                     //cout << fixed << trk->GetValue() << endl;
 
                     noMatch->Fill(VX, VY);
                 }
                 //Mult1->Fill(Mlt);
-                
             }
-
             dataSize++;
         }
+
+        gStyle->SetOptStat(0);
+        gStyle->SetPalette(kRainBow);
 
         noMatch->Draw("COLZ");
         Canvas->Print(outName, "png");

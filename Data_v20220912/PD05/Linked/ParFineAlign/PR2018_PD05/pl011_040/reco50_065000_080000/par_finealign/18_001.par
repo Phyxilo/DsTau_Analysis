@@ -1,0 +1,3 @@
+INCLUDE default.par
+ZLAYER 0 8810.833008 0. 0.
+AFFXY 0 1 0 0 1 0 0

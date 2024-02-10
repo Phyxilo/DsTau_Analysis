@@ -1,0 +1,87 @@
+Slope X Sigma: 0.00033
+----------------------------------
+Tungsten # 0
+
+Total Size: 9830, Non-Proton Size: 9
+
+Segment Vector Size -- Upstream: 9830, Downstream: 282539
+Track Vector Size -- Upstream: 9830, Downstream: 9813
+
+Average Distance Square: 0
+--------------------------------------------------------------------
+Tungsten # 1
+
+Total Size: 46910, Non-Proton Size: 382
+
+Segment Vector Size -- Upstream: 46910, Downstream: 279437
+Track Vector Size -- Upstream: 9849, Downstream: 9740
+
+Average Distance Square: 10.3946
+--------------------------------------------------------------------
+Tungsten # 2
+
+Total Size: 46974, Non-Proton Size: 726
+
+Segment Vector Size -- Upstream: 46974, Downstream: 279049
+Track Vector Size -- Upstream: 9878, Downstream: 9774
+
+Average Distance Square: 33.6146
+--------------------------------------------------------------------
+Tungsten # 3
+
+Total Size: 46442, Non-Proton Size: 1170
+
+Segment Vector Size -- Upstream: 46442, Downstream: 275129
+Track Vector Size -- Upstream: 9768, Downstream: 9665
+
+Average Distance Square: 69.0082
+--------------------------------------------------------------------
+TTungsten # 4
+
+Total Size: 44815, Non-Proton Size: 1750
+
+Segment Vector Size -- Upstream: 44815, Downstream: 265016
+Track Vector Size -- Upstream: 9466, Downstream: 9371
+
+Average Distance Square: 109.923
+--------------------------------------------------------------------Tungsten # 5
+
+Total Size: 44306, Non-Proton Size: 2000
+
+Segment Vector Size -- Upstream: 44306, Downstream: 260863
+Track Vector Size -- Upstream: 9375, Downstream: 9274
+
+Average Distance Square: 159.749
+--------------------------------------------------------------------TTTungsten # 6
+
+Total Size: 43175, Non-Proton Size: 2487
+
+Segment Vector Size -- Upstream: 43175, Downstream: 253049
+Track Vector Size -- Upstream: 9191, Downstream: 9068
+
+Average Distance Square: 167.789
+-------------------------------------------------------------------TTTungsten # 7
+
+Total Size: 42007, Non-Proton Size: 2815
+
+Segment Vector Size -- Upstream: 42007, Downstream: 261515
+Track Vector Size -- Upstream: 8973, Downstream: 8868
+
+Average Distance Square: 195.426
+-------------------------------------------------------------------TTTungsten # 8
+
+Total Size: 0, Non-Proton Size: 0
+
+Segment Vector Size -- Upstream: 261515, Downstream: 260147
+Track Vector Size -- Upstream: 8868, Downstream: 8769
+
+Average Distance Square: -nan
+-------------------------------------------------------------------TTTungsten # 9
+
+Total Size: 0, Non-Proton Size: 0
+
+Segment Vector Size -- Upstream: 260147, Downstream: 254906
+Track Vector Size -- Upstream: 8769, Downstream: 8614
+
+Average Distance Square: -nan
+--------------------------------------------------------------------

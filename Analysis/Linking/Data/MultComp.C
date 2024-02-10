@@ -72,6 +72,8 @@ void MultComp()
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
             TLeaf *plmax = parData->GetLeaf("pl_up1ry_plmax");
 
+            TLeaf *area1 = parData->GetLeaf("area1");
+
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
 
             int VX = vx->GetValue();
@@ -81,7 +83,10 @@ void MultComp()
             int Mlt = mlt->GetValue();
             int fp = flagp->GetValue();
 
-            if ((VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) && plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+1 && pNum->GetValue() == 0*/)
+            bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
+            //bool areaBool = true;
+
+            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) && */ areaBool && plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+1 && pNum->GetValue() == 0*/)
             {
                 if (fp == 1)
                 {

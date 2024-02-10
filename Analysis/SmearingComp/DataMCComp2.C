@@ -88,9 +88,14 @@ void DataMCComp2()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/PD05_p006.root");
-  Data2 = TFile::Open("../Root/EPOSSM_v2.0.root");
-  Data3 = TFile::Open("../Root/Geant4SM_v2.1.root");
+  //Data1 = TFile::Open("../Root/PD05_p006.root");
+  //Data2 = TFile::Open("../Root/EPOSSM_v2.0.root");
+  //Data3 = TFile::Open("../Root/Geant4SM_v2.1.root");
+
+  Data1 = TFile::Open("../../Data_v20220912/PD05/Linked/RootOut/p006.root");
+  //Data2 = TFile::Open("../../EPOS_v2.1/Linked/RootOut/pl001_030.root");
+  Data2 = TFile::Open("../../Geant4SM_v1.0/RootOut/pl001_030.root");
+  Data3 = TFile::Open("../../Geant4SM_v2.1/p006.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");

@@ -39,9 +39,12 @@ void NonMatchingVert()
 
     float dataSize = 0;
 
+    noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
+
     for (int j = 0; j < 7; j++)
     {
-        noMatch = new TH2F("NonMatched","Position Distribution",80,56000,74000,80,56000,74000);
+        //noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
+        //noMatch = new TH2F("NonMatched","Position Distribution",80,56000,74000,80,56000,74000);
         
         sprintf(outName,"NonMatched/NonMatched_%d.png", j);
         sprintf(outNameStart,"%s(", outName);
@@ -49,6 +52,7 @@ void NonMatchingVert()
 
         char dir [128];
         sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut/p0%d6.root", j);
+        //sprintf(dir,"../../../Data_v20220912/PD05/Linked/Backup/RootOut_3Sigma/p0%d6.root", j);
 
         Data = TFile::Open(dir);
         
@@ -58,6 +62,7 @@ void NonMatchingVert()
         for (int i = 0; i < parData->GetEntriesFast(); i++)
         {
             parData->GetEntry(i);
+            vtxData->GetEntry(i);
 
             TLeaf *vx = parData->GetLeaf("vx");
             TLeaf *vy = parData->GetLeaf("vy");
@@ -67,8 +72,9 @@ void NonMatchingVert()
             TLeaf *flagp = parData->GetLeaf("flagp");
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
             TLeaf *plmax = parData->GetLeaf("pl_up1ry_plmax");
+            TLeaf *area1 = parData->GetLeaf("area1");
 
-            TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
+            TLeaf *iMed = vtxData->GetLeaf("intMed");
 
             int VX = vx->GetValue();
             int VY = vy->GetValue();
@@ -77,24 +83,27 @@ void NonMatchingVert()
             int Mlt = mlt->GetValue();
             int fp = flagp->GetValue();
 
-            if ((VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) && plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+1 && pNum->GetValue() == 0*/)
+            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));
+            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29) || (area1->GetValue() <= 26 && area1->GetValue() >= 20) || (area1->GetValue() <= 17 && area1->GetValue() >= 11)); //New Method
+            //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
+            //bool areaBool = area1->GetValue() == 42;
+            //bool areaBool = area1->GetValue() == 31;
+
+            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) &&*/ areaBool && plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+2 && pNum->GetValue() == 0*/)
             {
-                if (fp == 1)
-                {
-                    //Mult2->Fill(Mlt);
-                }
-                else
+                if (fp == 0)
                 {
                     //cout << fixed << trk->GetValue() << endl;
 
                     noMatch->Fill(VX, VY);
                 }
                 //Mult1->Fill(Mlt);
-                
             }
-
             dataSize++;
         }
+
+        gStyle->SetOptStat(0);
+        gStyle->SetPalette(kRainBow);
 
         noMatch->Draw("COLZ");
         Canvas->Print(outName, "png");

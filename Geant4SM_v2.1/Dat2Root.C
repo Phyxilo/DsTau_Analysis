@@ -1,4 +1,16 @@
-TFile *Dat2Root(string inputName, string outputName) 
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<pair<int, int>> ReadFile(char *inFile, int segNum);
+
+bool firstEqual(const pair<int, int>& a, const pair<int, int>& b) 
+{
+   return a.first == b.first;
+}
+
+TFile *Dat2Root(string inputName, string outputName, string inputDS, string inputUS, int dirIndex)
 {
 
    Char_t          type[16];
@@ -64,6 +76,7 @@ TFile *Dat2Root(string inputName, string outputName)
    Float_t         vtx_ip_to_1ry_using_2ndseg;
    Float_t         vtx_ph_mean;
    Float_t         vtx_dtrms1_trk;
+   Int_t           vtx_int_type;
 
    // Parent Candidate Tree Variables
    Int_t           parC_area1;
@@ -92,6 +105,20 @@ TFile *Dat2Root(string inputName, string outputName)
    Int_t           parC_pl_dwn1ry_plmin;
    Int_t           parC_pl_dwn1ry_plmax;
    Int_t           parC_vID;
+   Int_t           par_flagp;
+   Int_t           glob_parid;
+
+   // Upstream Proton Track Tree Variables
+   Int_t           ptrk_US_area1;
+   Int_t           ptrk_US_trID;
+   Int_t           ptrk_US_gtrID;
+   Int_t           ptrk_US_plt_of_1seg;
+
+   // Downstream Proton Track Tree Variables
+   Int_t           ptrk_DS_area1;
+   Int_t           ptrk_DS_trID;
+   Int_t           ptrk_DS_gtrID;
+   Int_t           ptrk_DS_plt_of_1seg;
 
    Char_t ipChar05[16],ipChar04[16],ntrk_smallChar[16],dtChar[16],dt_posChar[16];
 
@@ -126,6 +153,7 @@ TFile *Dat2Root(string inputName, string outputName)
    vtx->Branch("n_1ry_parent_dmin_cut",&vtx_n_1ry_parent_dmin_cut,"n_1ry_parent_dmin_cut/I");
    vtx->Branch("n_1ry_parent_dmin_cut_dt_cut",&vtx_n_1ry_parent_dmin_cut_dt_cut,"n_1ry_parent_dmin_cut_dt_cut/I");
    vtx->Branch("dt",&vtx_dt,"dt/F");
+   vtx->Branch("intType",&vtx_int_type,"intType/I");
 
    TTree *trk = new TTree("TRK","TRKinfo");
 
@@ -220,122 +248,233 @@ TFile *Dat2Root(string inputName, string outputName)
    par->Branch("pl_dwn1ry_plmin",&parC_pl_dwn1ry_plmin,"pl_dwn1ry_plmin/I");
    par->Branch("pl_dwn1ry_plmax",&parC_pl_dwn1ry_plmax,"pl_dwn1ry_plmax/I");
    par->Branch("vID",&parC_vID,"vID/I");
+   par->Branch("flagp",&par_flagp,"flagp/I");
+   par->Branch("global_parID",&glob_parid,"global_parID/I");
+
+   TTree *us_ptrk = new TTree("US_PTRK","PTRKinfo");
+
+   us_ptrk->Branch("area1",&ptrk_US_area1,"area1/I");
+   us_ptrk->Branch("US_trID",&ptrk_US_trID,"US_trID/I");
+   us_ptrk->Branch("US_gtrID",&ptrk_US_gtrID,"US_gtrID/I");
+   us_ptrk->Branch("US_plt_of_1seg",&ptrk_US_plt_of_1seg,"US_plt_of_1seg/I");
+
+   TTree *ds_ptrk = new TTree("DS_PTRK","PTRKinfo");
+
+   ds_ptrk->Branch("area1",&ptrk_DS_area1,"area1/I");
+   ds_ptrk->Branch("DS_trID",&ptrk_DS_trID,"DS_trID/I");
+   ds_ptrk->Branch("DS_gtrID",&ptrk_DS_gtrID,"DS_gtrID/I");
+   ds_ptrk->Branch("DS_plt_of_1seg",&ptrk_DS_plt_of_1seg,"DS_plt_of_1seg/I");
 
    int VtxId = -1, chldNum = 0;
    char line[1024];
 
    int vNum = 0, pNum = 0, tNum = 0, recNum = 0, notRecNum = 0;
 
-   while (fgets(line,1024,fp)) 
+   int prevSubArea = 1, recoNum = 1;
+
+   for (int segNum = 0; segNum <= 2; segNum++)
    {
-      sscanf(&line[0],"%s ",type);
-      if(strcmp(type,"1ry_vtx") == 0)
+      int parid = 0;
+      vector<int> paridVec;
+
+      vector<pair<int, int>> USPair [63], DSPair [63];
+      //vector<pair<int, int>> USPair, DSPair;
+      //set<pair<int, int>> USPair, DSPair;
+
+      vector<int> UStrID[63], USgtrID[63];
+      vector<int> DStrID[63], DSgtrID[63];
+      vector<int> intVec[63];
+
+      for (int areaInd = 0; areaInd < 63; areaInd++)
       {
-         sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %d %d %f",&vtx_area1,&vtx_area2,&vtx_txpeak,&vtx_typeak,&vtx_i,&vtx_vx,&vtx_vy,&vtx_vz,&vtx_n_1ry_pl,&vtx_flagw,&vtx_multip,
-            &vtx_n_1ry_parent_cut0,&vtx_n_1ry_parent_dmin_cut,&vtx_n_1ry_parent_dmin_cut_dt_cut,&vtx_dt);
+         const int USStrLength = inputUS.length();
+         const int DSStrLength = inputDS.length();
 
-         if (chldNum != 0)
-         {
-            /*
-            vtx_n_1ry_trk = chldNum;
-            trk_n_1ry_trk = chldNum;
-            parC_n_1ry_trk = chldNum;
-            */
+         char* USChr = new char[USStrLength + 1];
+         char* DSChr = new char[DSStrLength + 1];
 
-            vtx_n_1ry_trk = vtx_multip;
-            trk_n_1ry_trk = vtx_multip;
-            parC_n_1ry_trk = vtx_multip;
+         strcpy(USChr, inputUS.c_str());
+         strcpy(DSChr, inputDS.c_str());
 
-            pNum++;
-            vNum++;
+         char USIn[64], DSIn[64];
 
-            par->Fill();
-            vtx->Fill();
-         }
+         sprintf(USIn, "Geant4_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
+         sprintf(DSIn, "Geant4_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
 
-         chldNum = 0;
+         //sprintf(USIn, "Links/%s", USChr);
+         //sprintf(DSIn, "Links/%s", DSChr);
+
+         cout << USIn << endl;
+
+         USPair[areaInd] = ReadFile(USIn, segNum);
+         DSPair[areaInd] = ReadFile(DSIn, segNum);
          
-         if (vtx_n_1ry_parent_dmin_cut > 0)
-         {
-            VtxId++;
-            vtx_vID = VtxId;
-         }
-      }
-      else if (strcmp(type,"parent_cand") == 0)
-      {
-         sscanf(&line[11],"%d %d %f %f %d %f %f %f %f %d %d %d %f %f %d %s %f %s %f %s %d %s %f %s %f %d %d %d %d",&parC_area1,&parC_area2,&parC_txpeak,&parC_typeak,&parC_i,&parC_vx,&parC_vy,&parC_vz,&parC_dz,
-            &parC_id,&parC_plt_of_1seg,&parC_seg_id_of_1seg,&parC_tx05pos,&parC_ty05pos,&parC_nseg,&ipChar05[8],&parC_ip_pos05,&ipChar04[8],&parC_ip_pos04,&ntrk_smallChar[10],&parC_ntrk_small,&dtChar[2],&parC_dt,
-            &dt_posChar[6],&parC_dt_pos,&parC_pl_up1ry_plmin,&parC_pl_up1ry_plmax,&parC_pl_dwn1ry_plmin,&parC_pl_dwn1ry_plmax);
-
-         /*
-         if (trk_n_1ry_parent_dmin_cut == 1)
-         {
-            trk_vID = VtxId+1;
-            parCand->Fill();
-            cout << trk_vID << "-> ParCand: " << trk_id << endl;
-         }
-         */
-      }
-      else if(strcmp(type,"1ry_trk") == 0)
-      {
-         sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %f %d %d %d %f %f %f %f %d %f %f %f %f",&trk_area1,&trk_area2,&trk_txpeak,&trk_typeak,&trk_i,&trk_vx,&trk_vy,&trk_vz,&trk_flagw,&trk_multip,
-            &trk_n_1ry_parent_cut0,&trk_n_1ry_parent_dmin_cut,&trk_dz,&trk_id,&trk_plt_of_1seg,&trk_seg_id_of_1seg,&trk_seg_x,&trk_seg_y,&trk_tx,&trk_ty,&trk_nseg,&trk_ip_to_1ry_using_1stseg,
-            &trk_ip_to_1ry_using_2ndseg,&trk_ph_mean,&trk_dtrms1_trk);
+         sort(USPair[areaInd].begin(), USPair[areaInd].end());
+         sort(DSPair[areaInd].begin(), DSPair[areaInd].end());
          
-         if (trk_n_1ry_parent_dmin_cut == 1)
-         {
+         USPair[areaInd].erase(unique(USPair[areaInd].begin(), USPair[areaInd].end(), firstEqual), USPair[areaInd].end());
+         DSPair[areaInd].erase(unique(DSPair[areaInd].begin(), DSPair[areaInd].end(), firstEqual), DSPair[areaInd].end());
 
-            if (/*parC_id != trk_id*/ true)
+         for (int i = 0; i < USPair[areaInd].size(); i++)
+         {
+            int trid = USPair[areaInd][i].first;
+            int gtrid = USPair[areaInd][i].second;
+
+            UStrID[areaInd].push_back(trid);
+            USgtrID[areaInd].push_back(gtrid);
+
+            ptrk_US_area1 = areaInd;
+            ptrk_US_trID = trid;
+            ptrk_US_gtrID = gtrid;
+            ptrk_US_plt_of_1seg = segNum+1;
+
+            us_ptrk->Fill();
+         }
+
+         for (int i = 0; i < DSPair[areaInd].size(); i++)
+         {
+            int trid = DSPair[areaInd][i].first;
+            int gtrid = DSPair[areaInd][i].second;
+
+            DStrID[areaInd].push_back(trid);
+            DSgtrID[areaInd].push_back(gtrid);
+
+            ptrk_DS_area1 = areaInd;
+            ptrk_DS_trID = trid;
+            ptrk_DS_gtrID = gtrid;
+            ptrk_DS_plt_of_1seg = segNum+1;
+
+            ds_ptrk->Fill();
+         }
+
+         intVec[areaInd].assign(UStrID[areaInd].begin(), UStrID[areaInd].end());
+
+         for (int i = 0; i < DStrID[areaInd].size(); i++)
+         {
+            auto it = find(intVec[areaInd].begin(), intVec[areaInd].end(), DStrID[areaInd][i]);
+            if (it != intVec[areaInd].end())
             {
-               chldNum++;
-               trk_vID = VtxId;
-               parC_vID = VtxId;
-
-               tNum++;
-               if (chldNum == vtx_multip)
-               {
-                  /*
-                  vtx_n_1ry_trk = chldNum;
-                  trk_n_1ry_trk = chldNum;
-                  parC_n_1ry_trk = chldNum;
-
-                  par->Fill();
-                  vtx->Fill();
-                  //parCand->Fill();
-                  
-                  pNum++;
-                  vNum++;
-                  */
-                  notRecNum++;
-
-                  //cout << "Parent TrkId (Parent not reconstructed): " << parC_id << endl;
-               }
-               trk->Fill();
+               intVec[areaInd].erase(it);
             }
-            else
+         }
+
+         cout << "Area " << areaInd << " - Done" << endl;
+      }
+
+      while (fgets(line,1024,fp))
+      {
+         sscanf(&line[0],"%s ",type);
+         if(strcmp(type,"1ry_vtx") == 0)
+         {
+            sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %d %d %f",&vtx_area1,&vtx_area2,&vtx_txpeak,&vtx_typeak,&vtx_i,&vtx_vx,&vtx_vy,&vtx_vz,&vtx_n_1ry_pl,&vtx_flagw,&vtx_multip,
+               &vtx_n_1ry_parent_cut0,&vtx_n_1ry_parent_dmin_cut,&vtx_n_1ry_parent_dmin_cut_dt_cut,&vtx_dt);
+
+            chldNum = 0;
+            
+            if (vtx_n_1ry_parent_dmin_cut > 0)
             {
-               /*
-               trk_vID = VtxId;
-               parC_vID = VtxId;
+               parC_id = parid;
 
-               vtx_n_1ry_trk = chldNum;
-               trk_n_1ry_trk = chldNum;
-               parC_n_1ry_trk = chldNum;
+               vtx_int_type = 0;
+               par_flagp = 0;
+               glob_parid = 0;
 
-               par->Fill();
-               vtx->Fill();
-               //parCand->Fill();
+               for(int x = 0; x < paridVec.size(); x++)
+               {
+                  auto it = find(UStrID[parC_area1].begin(), UStrID[parC_area1].end(), paridVec[x]);
+                  if (it != UStrID[parC_area1].end())
+                  {
+                     int index = it - UStrID[parC_area1].begin();
+                     parC_id = paridVec[x];
+                     
+                     vtx_int_type = 1;
+                     par_flagp = 1;
+
+                     glob_parid = USgtrID[parC_area1][index];
+                  }
+
+                  it = find(intVec[parC_area1].begin(), intVec[parC_area1].end(), paridVec[x]);
+                  if (it != intVec[parC_area1].end())
+                  {
+                     int index = it - UStrID[parC_area1].end();
+
+                     vtx_int_type = 2;
+                  }
+               }
+
+               VtxId++;
+               vtx_vID = VtxId;
+
+               vtx_n_1ry_trk = vtx_multip;
+               trk_n_1ry_trk = vtx_multip;
+               parC_n_1ry_trk = vtx_multip;
 
                pNum++;
                vNum++;
-               */
-               recNum++;
 
-               //cout << "Parent TrkId: " << parC_id << endl;
+               par->Fill();
+               vtx->Fill();
             }
 
+            paridVec.clear();
          }
-         
+         else if (strcmp(type,"parent_cand") == 0)
+         {
+            sscanf(&line[11],"%d %d %f %f %d %f %f %f %f %d %d %d %f %f %d %s %f %s %f %s %d %s %f %s %f %d %d %d %d",&parC_area1,&parC_area2,&parC_txpeak,&parC_typeak,&parC_i,&parC_vx,&parC_vy,&parC_vz,&parC_dz,
+               &parid,&parC_plt_of_1seg,&parC_seg_id_of_1seg,&parC_tx05pos,&parC_ty05pos,&parC_nseg,&ipChar05[8],&parC_ip_pos05,&ipChar04[8],&parC_ip_pos04,&ntrk_smallChar[10],&parC_ntrk_small,&dtChar[2],&parC_dt,
+               &dt_posChar[6],&parC_dt_pos,&parC_pl_up1ry_plmin,&parC_pl_up1ry_plmax,&parC_pl_dwn1ry_plmin,&parC_pl_dwn1ry_plmax);
+
+            parC_area1 = recoNum-1;
+
+            if (parC_area2 != prevSubArea && parC_area2 == 1)
+            {
+               //cout << parC_area1 << endl;
+               recoNum++;
+            }
+            /*
+            if (trk_n_1ry_parent_dmin_cut == 1)
+            {
+               trk_vID = VtxId+1;
+               parCand->Fill();
+               cout << trk_vID << "-> ParCand: " << trk_id << endl;
+            }
+            */
+            if(parC_pl_up1ry_plmin == dirIndex*10+segNum+1){paridVec.push_back(parid);}
+
+            prevSubArea = parC_area2;
+         }
+         else if(strcmp(type,"1ry_trk") == 0)
+         {
+            sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %f %d %d %d %f %f %f %f %d %f %f %f %f",&trk_area1,&trk_area2,&trk_txpeak,&trk_typeak,&trk_i,&trk_vx,&trk_vy,&trk_vz,&trk_flagw,&trk_multip,
+               &trk_n_1ry_parent_cut0,&trk_n_1ry_parent_dmin_cut,&trk_dz,&trk_id,&trk_plt_of_1seg,&trk_seg_id_of_1seg,&trk_seg_x,&trk_seg_y,&trk_tx,&trk_ty,&trk_nseg,&trk_ip_to_1ry_using_1stseg,
+               &trk_ip_to_1ry_using_2ndseg,&trk_ph_mean,&trk_dtrms1_trk);
+            
+            if (trk_n_1ry_parent_dmin_cut == 1)
+            {
+
+               if (/*parC_id != trk_id*/ true)
+               {
+                  chldNum++;
+                  trk_vID = VtxId;
+                  parC_vID = VtxId;
+
+                  tNum++;
+                  if (chldNum == vtx_multip)
+                  {
+                     notRecNum++;
+
+                     //cout << "Parent TrkId (Parent not reconstructed): " << parC_id << endl;
+                  }
+                  trk->Fill();
+               }
+               else
+               {
+                  recNum++;
+
+                  //cout << "Parent TrkId: " << parC_id << endl;
+               }
+            }
+         }
       }
    }
 
@@ -349,6 +488,9 @@ TFile *Dat2Root(string inputName, string outputName)
    par->Write();
    //parCand->Write();
 
+   us_ptrk->Write();
+   ds_ptrk->Write();
+
    fclose(fp);
    delete hfile;
    
@@ -357,4 +499,54 @@ TFile *Dat2Root(string inputName, string outputName)
    cout << "Vertex Size: " << vNum << ", Parent Size: " << pNum << ", Track Size: " << tNum << endl;
    //cout << "Reconstructed Size: " << recNum << ", Not Reconstructed Size: " << notRecNum << endl;
    return hfile;
+}
+
+vector<pair<int, int>> ReadFile(char *inFile, int segNum)
+{
+   vector<pair<int, int>> trIDVec;
+
+   FILE *fUS = fopen(inFile, "r");
+      
+   char line[1024];
+   
+   int numLines = 0;
+   char buff[512];
+
+   size_t num;
+   
+   while ((num = fread(buff, 1, 512, fUS)) > 0)
+   {
+      for (int i = 0; i < num; i++)
+      {
+         if(buff[i] == '\n')
+         {
+            ++numLines;
+         }
+      }
+      
+   }
+   fclose(fUS);
+
+   const int numL = numLines;
+
+   int initSegPlt[numLines];
+   int trID[numLines];
+   int globalTrID[numLines];
+   
+   int pltID[numLines];
+   int segID[numLines];
+   
+   fUS = fopen(inFile, "r");
+   
+   for(int i = 0; i < numLines; i++)
+   {
+      //fscanf(fUS, "%8d, %8d, %8d", &globalTrID[i], &trID[i], &initSegPlt[i]);
+      fscanf(fUS, "%8d, %8d, %10d", &initSegPlt[i], &trID[i], &globalTrID[i]);
+      //fscanf(fUS, "%8d, %8d, %8d, %8d", &trID[i], &pltID[i], &segID[i], &initSegPlt[i]);
+      
+      if (segNum == initSegPlt[i]) {trIDVec.push_back(make_pair(trID[i], globalTrID[i]));}
+   }
+   fclose(fUS);
+
+   return trIDVec;
 }

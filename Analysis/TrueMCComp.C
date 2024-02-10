@@ -34,7 +34,8 @@ void TrueMCComp()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("TrueMCCombined.root");
+  //Data1 = TFile::Open("Root/dstaug4_r93_FTFP_BERT_PYTHIA8_001.root");
+  Data1 = TFile::Open("Root/TrueMCCombined_DecayTree.root");
   //Data2 = TFile::Open("Root/PD04.root");
   
   TTree *DecayTree1 = (TTree*)Data1->Get("DecayTree");
@@ -46,7 +47,7 @@ void TrueMCComp()
     DecayTree1->GetEntry(i);
 
     TLeaf *flag = DecayTree1->GetLeaf("Flag");
-    TLeaf *mult = DecayTree1->GetLeaf("Mult");
+    TLeaf *mult = DecayTree1->GetLeaf("Multip");
 
     if (flag->GetValue() == 111)
     {

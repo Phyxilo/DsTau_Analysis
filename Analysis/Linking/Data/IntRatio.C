@@ -8,46 +8,26 @@
 
 using namespace std;
 
+double* DataEndPoints(TTree *data);
+double DataMean(TTree *data);
+
 TCanvas *Canvas;
 
 TGraph *IntRatioGraph = new TGraph (7);
 
 TFile *Data;
 
-float linkedProton[8] = 
-{
-    236286, 
-    204247, 
-    189037, 
-    174759, 
-    160534, 
-    146232, 
-    132456, 
-    117580
-};
-/*
-float linkedProton[8] = 
-{
-    215879, 
-    198611, 
-    184469, 
-    170625, 
-    156658, 
-    142552, 
-    128711, 
-    113519
-};
-*/
 float dirArr[8];
 float intRatio1[8], intRatio2[8];
 float err1X[8], err1Y[8], err2X[8], err2Y[8];
 
-int subV = 0;
+float migCut = 22.5;
+
 //int posXMin = 56000, posXMax = 74000;
 //int posYMin = 56000, posYMax = 74000;
 
-int posXMin = 57000, posXMax = 73000;
-int posYMin = 57000, posYMax = 73000;
+float posXMin = 57000, posXMax = 73000;
+float posYMin = 57000, posYMax = 73000;
 
 char dir [128];
 
@@ -62,11 +42,12 @@ void IntRatio()
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
 
-    for (int j = 0; j < 7; j++)
+    for (int j = 0; j < 8; j++)
     {
-        int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
+        int IntPar1 = 0, TotalPar = 0;
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
+        //sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_TrackSel+Res5/p0%d6.root", j);
         sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut/p0%d6.root", j);
 
         cout << dir << endl;
@@ -77,6 +58,9 @@ void IntRatio()
         TTree *parData = (TTree*)Data->Get("PAR");
         TTree *vtxData = (TTree*)Data->Get("VTX");
         TTree *ptrkData = (TTree*)Data->Get("US_PTRK");
+
+        double *endArr = DataEndPoints(vtxData);
+        double mean = DataMean(vtxData);
         
         for (int i = 0; i < parData->GetEntriesFast(); i++)
         {
@@ -85,37 +69,59 @@ void IntRatio()
 
             TLeaf *vx = parData->GetLeaf("vx");
             TLeaf *vy = parData->GetLeaf("vy");
+            TLeaf *vz = parData->GetLeaf("vz");
             TLeaf *plt = parData->GetLeaf("plt_of_1seg");
             TLeaf *flagp = parData->GetLeaf("flagp");
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
+            TLeaf *plmax = parData->GetLeaf("pl_up1ry_plmax");
 
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
+            TLeaf *area1 = vtxData->GetLeaf("area1");
+            TLeaf *iMed = vtxData->GetLeaf("intMed");
+            TLeaf *flagw = vtxData->GetLeaf("flagw");
 
-            int VX = vx->GetValue();
-            int VY = vy->GetValue();
+            float VX = vx->GetValue();
+            float VY = vy->GetValue();
             int Plt = plt->GetValue();
             int fp = flagp->GetValue();
 
-            if ((VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax)/* && plmin->GetValue() == j*10+1 && pNum->GetValue() == 1*/)
+            //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
+            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
+            //bool areaBool = (area1->GetValue() == 34);
+            
+            //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
+            if (areaBool && (iMed->GetValue() == 1) && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
             {
-                if (Plt >= 5 + j*10 && Plt < 10 + j*10)
-                {                    
-                    IntPar2++;
-                }
-                if (fp == 1)
+                if (fp >= 1)
                 {
                     IntPar1++;
                 }
 
-                TotalPar++;  
+                TotalPar++;
             }
         }
 
-        //float ratio1 = ((float)IntPar1/linkedProton[j])*100;
-        //float ratio2 = ((float)TotalPar/linkedProton[j])*100;
+        int totProtons = 0;
 
-        float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
-        float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
+        for (int i = 0; i < ptrkData->GetEntriesFast(); i++)
+        {
+            ptrkData->GetEntry(i);
+
+            TLeaf *area1 = ptrkData->GetLeaf("area1");
+            TLeaf *pltFirst = ptrkData->GetLeaf("US_plt_of_1seg");
+
+            //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
+            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
+            //bool areaBool = (area1->GetValue() == 34);
+
+            if(areaBool/* && pltFirst->GetValue() == 1*/){totProtons++;}
+        }
+
+        //float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
+        //float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
+
+        float ratio1 = ((float)IntPar1/totProtons)*100;
+        float ratio2 = ((float)TotalPar/totProtons)*100;
 
         intRatio1[j] = ratio1;
         intRatio2[j] = ratio2;
@@ -127,9 +133,11 @@ void IntRatio()
         err1X[j] = 0; err2X[j] = 0;
         
         err1Y[j] = ((1-ratio1)/IntPar1)*100;
+        //err1Y[j] = 0;
         err2Y[j] = ((1-ratio2)/TotalPar)*100;
+        //err2Y[j] = 0;
 
-        cout << "Int: " << IntPar1 << ", Total: " << linkedProton[j] << ", Ratio: " << ratio1 << endl;
+        cout << "Total Protons: " << totProtons << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
     }
 
     TGraphErrors *IntGrapEr1 = new TGraphErrors(7, dirArr, intRatio1, err1X, err1Y);
@@ -139,7 +147,7 @@ void IntRatio()
     Canvas = new TCanvas("Canvas","Graph Canvas",20,20,1920,1080);
     IntGrapEr1->SetMarkerColor(4);
     IntGrapEr1->SetMinimum(0.);
-    IntGrapEr1->SetMaximum(1.2);
+    IntGrapEr1->SetMaximum(2.0);
 
     IntGrapEr1->Draw();
     IntGrapEr1->SetTitle("Proton-Only Interaction Rate");
@@ -158,7 +166,7 @@ void IntRatio()
     Canvas = new TCanvas("Canvas","Graph Canvas",20,20,1920,1080);
     IntGrapEr2->SetMarkerColor(4);
     IntGrapEr2->SetMinimum(0.);
-    IntGrapEr2->SetMaximum(1.2);
+    IntGrapEr2->SetMaximum(2.0);
 
     IntGrapEr2->Draw();
     IntGrapEr2->SetTitle("All Interaction Rate");
@@ -185,4 +193,70 @@ void IntRatio()
     delete Canvas;
 
     Data->Close();
+
+}
+
+double* DataEndPoints(TTree *data)
+{
+    TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+    static double endPoints[2];
+
+    for (int i = 0; i < data->GetEntriesFast(); i++)
+    {
+        data->GetEntry(i);
+        
+        TLeaf *vz = data->GetLeaf("vz");
+        TLeaf *intMedium = data->GetLeaf("intMed");
+        TLeaf *area1 = data->GetLeaf("area1");
+        TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+        bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
+
+        if (parNum->GetValue() == 1 && areaBool)
+        {
+            if (intMedium->GetValue() == 1)
+            {
+                InterHist->Fill(vz->GetValue());
+            }
+        }
+    }
+
+    endPoints[0] = InterHist->FindFirstBinAbove(0);
+    endPoints[1] = InterHist->FindLastBinAbove(0);
+
+    delete InterHist;
+
+    return endPoints;
+}
+
+double DataMean(TTree *data)
+{
+  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+  static double mean;
+
+  for (int i = 0; i < data->GetEntriesFast(); i++)
+  {
+    data->GetEntry(i);
+    
+    TLeaf *vz = data->GetLeaf("vz");
+    TLeaf *w = data->GetLeaf("flagw");
+    TLeaf *area1 = data->GetLeaf("area1");
+    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+    if (parNum->GetValue() == 1)
+    {
+      if (w->GetValue() == 1)
+      {
+        InterHist->Fill(vz->GetValue());
+      }
+    }
+  }
+
+  mean = InterHist->GetMean();
+
+  delete InterHist;
+
+  return mean;
 }

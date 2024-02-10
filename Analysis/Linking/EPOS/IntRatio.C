@@ -8,34 +8,16 @@
 
 using namespace std;
 
+double* MCEndPoints(TTree *data);
+double DataMean(TTree *data);
+
+float migCut = 22.5;
+
 TCanvas *Canvas;
 
 TGraph *IntRatioGraph = new TGraph (7);
 
 TFile *Data;
-/*
-float linkedProton[8] = 
-{
-    59916, 
-    56496, 
-    53237, 
-    50136, 
-    46979, 
-    43710, 
-    40472, 
-    37044
-};
-*/
-float linkedProton[7] = 
-{
-    498769, 
-    475863, 
-    448967, 
-    396197, 
-    368911, 
-    341900, 
-    313485,
-};
 
 float dirArr[8];
 float intRatio1[8], intRatio2[8];
@@ -56,12 +38,15 @@ void IntRatio()
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
 
-    for (int j = 0; j < 7; j++)
+    for (int j = 0; j < 8; j++)
     {
         int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
-        sprintf(dir,"../../../EPOS_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
+
+        if (j < 7){sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);}
+        else {sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl071_105.root");}
+        
 
         cout << dir << endl;
 
@@ -71,6 +56,9 @@ void IntRatio()
         TTree *parData = (TTree*)Data->Get("PAR");
         TTree *vtxData = (TTree*)Data->Get("VTX");
         TTree *ptrkData = (TTree*)Data->Get("US_PTRK");
+
+        double *endArr = MCEndPoints(vtxData);
+        double mean = DataMean(vtxData);
         
         for (int i = 0; i < parData->GetEntriesFast(); i++)
         {
@@ -79,31 +67,36 @@ void IntRatio()
 
             TLeaf *vx = parData->GetLeaf("vx");
             TLeaf *vy = parData->GetLeaf("vy");
+            TLeaf *vz = parData->GetLeaf("vz");
             TLeaf *plt = parData->GetLeaf("plt_of_1seg");
             TLeaf *flagp = parData->GetLeaf("flagp");
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
 
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
+            TLeaf *flagw = vtxData->GetLeaf("flagw");
 
             int VX = vx->GetValue();
             int VY = vy->GetValue();
             int Plt = plt->GetValue();
             int fp = flagp->GetValue();
+            int fw = flagw->GetValue();
 
-            if (Plt >= 5 + j*10 && Plt < 10 + j*10)
-            {                    
-                IntPar2++;
-            }
-            if (fp == 1)
+            //if (fw == 1 && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
+            if (fw == 1 && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
             {
-                IntPar1++;
-            }
+                if (Plt >= 5 + j*10 && Plt < 10 + j*10)
+                {                    
+                    IntPar2++;
+                }
+                if (fp >= 1)
+                {
+                    IntPar1++;
+                }
 
-            TotalPar++;
+                TotalPar++;
+            }
         }
 
-        //float ratio1 = ((float)IntPar1/linkedProton[j])*100;
-        //float ratio2 = ((float)TotalPar/linkedProton[j])*100;
         float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
         float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
 
@@ -119,7 +112,8 @@ void IntRatio()
         err1Y[j] = ((1-ratio1)/IntPar1)*100;
         err2Y[j] = ((1-ratio2)/IntPar2)*100;
 
-        cout << "Int: " << IntPar1 << ", Total: " << linkedProton[j] << ", Ratio: " << ratio1 << endl;
+        //cout << "Int: " << IntPar1 << ", Total: " << ptrkData->GetEntriesFast() << ", Ratio: " << ratio1 << endl;
+        cout << "Total Protons: " << ptrkData->GetEntriesFast() << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
     }
 
     TGraphErrors *IntGrapEr1 = new TGraphErrors(7, dirArr, intRatio1, err1X, err1Y);
@@ -128,8 +122,8 @@ void IntRatio()
     
     Canvas = new TCanvas("Canvas","Graph Canvas",20,20,1920,1080);
     IntGrapEr1->SetMarkerColor(4);
-    //IntGrapEr1->SetMinimum(0.5);
-    IntGrapEr1->SetMaximum(1.2);
+    IntGrapEr1->SetMinimum(0);
+    IntGrapEr1->SetMaximum(1.5);
 
     IntGrapEr1->Draw();
     IntGrapEr1->SetTitle("Proton-Only Interaction Rate");
@@ -147,8 +141,8 @@ void IntRatio()
 
     Canvas = new TCanvas("Canvas","Graph Canvas",20,20,1920,1080);
     IntGrapEr2->SetMarkerColor(4);
-    //IntGrapEr2->SetMinimum(0.5);
-    IntGrapEr2->SetMaximum(1.2);
+    IntGrapEr2->SetMinimum(0.);
+    IntGrapEr2->SetMaximum(1.5);
 
     IntGrapEr2->Draw();
     IntGrapEr2->SetTitle("All Interaction Rate");
@@ -175,4 +169,67 @@ void IntRatio()
     delete Canvas;
 
     Data->Close();
+}
+
+double* MCEndPoints(TTree *data)
+{
+  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+  static double endPoints[2];
+
+  for (int i = 0; i < data->GetEntriesFast(); i++)
+  {
+    data->GetEntry(i);
+    
+    TLeaf *vz = data->GetLeaf("vz");
+    TLeaf *w = data->GetLeaf("flagw");
+    TLeaf *area1 = data->GetLeaf("area1");
+    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+    if (parNum->GetValue() == 1)
+    {
+      if (w->GetValue() == 1)
+      {
+        InterHist->Fill(vz->GetValue());
+      }
+    }
+  }
+
+  endPoints[0] = InterHist->FindFirstBinAbove(0);
+  endPoints[1] = InterHist->FindLastBinAbove(0);
+
+  delete InterHist;
+
+  return endPoints;
+}
+
+double DataMean(TTree *data)
+{
+  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+  static double mean;
+
+  for (int i = 0; i < data->GetEntriesFast(); i++)
+  {
+    data->GetEntry(i);
+    
+    TLeaf *vz = data->GetLeaf("vz");
+    TLeaf *w = data->GetLeaf("flagw");
+    TLeaf *area1 = data->GetLeaf("area1");
+    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+    if (parNum->GetValue() == 1)
+    {
+      if (w->GetValue() == 1)
+      {
+        InterHist->Fill(vz->GetValue());
+      }
+    }
+  }
+
+  mean = InterHist->GetMean();
+
+  delete InterHist;
+
+  return mean;
 }

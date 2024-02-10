@@ -54,7 +54,7 @@ void DataMCComp3()
 
   Data1 = TFile::Open("../Root/PD05_p006.root");
   //Data2 = TFile::Open("../Root/Pythia_p006.root");
-  Data2 = TFile::Open("../Root/EPOSSM_v2.0.root");
+  Data2 = TFile::Open("../Root/EPOSSM_v2.1.root");
   //Data2 = TFile::Open("../Root/Geant4_p006.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");

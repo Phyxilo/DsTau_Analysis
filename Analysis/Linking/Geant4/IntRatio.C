@@ -61,7 +61,8 @@ void IntRatio()
         int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
-        sprintf(dir,"../../../Geant4SM_v1.0/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
+        //sprintf(dir,"../../../Geant4SM_v1.0/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
+        sprintf(dir,"../../../Geant4SM_v2.1/RootOut/pl0%d1_%02d0.root", j, j+3);
 
         cout << dir << endl;
 

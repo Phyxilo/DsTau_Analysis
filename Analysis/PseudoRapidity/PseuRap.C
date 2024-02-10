@@ -19,8 +19,8 @@ void CanvasModifier(TH1F *hist);
 
 TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1920,1080);
 
-TH1F *Mult1 = new TH1F("Data","",100,0,10);
-TH1F *Mult2 = new TH1F("PD04","Pseudo-rapidity Distributions",100,0,20);
+TH1F *pseuRap = new TH1F("Data","",100,-2,2);
+TH1F *Mult2 = new TH1F("PD05","Pseudo-rapidity Distributions",100,0,20);
 
 TFile *Data1, *Data2;
 
@@ -37,7 +37,7 @@ void PseuRap()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/PD05.root");
+  Data1 = TFile::Open("/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut/p006.root");
   //Data2 = TFile::Open("Root/PD04.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -72,7 +72,7 @@ void PseuRap()
         double TY = slpTY->GetValue() - beamTY->GetValue();
         double T2 = sqrt(TX*TX+TY*TY)*1000;
 
-        Mult1->Fill(-log(tan(TX/2)));
+        pseuRap->Fill(-log(tan(TX/2)));
         //Mult2->Fill(-log(tan(TY/2)));
 
         Data1TrkIndex++;
@@ -93,29 +93,38 @@ void PseuRap()
 
       if(w->GetValue() == 1)
       {
-          treeDataVtx1->GetEntry(vtxIndex);
+        TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
+        TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
+        TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
+        TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
 
-          TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
-          TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
-          TLeaf *beamTX = treeDataTrk1->GetLeaf("txpeak");
-          TLeaf *beamTY = treeDataTrk1->GetLeaf("typeak");
+        double TX = slpTX->GetValue() - beamTX->GetValue();
+        double TY = slpTY->GetValue() - beamTY->GetValue();
 
-          TLeaf *mlt = treeDataTrk1->GetLeaf("n_1ry_trk");
+        double angleX = acos(TX);
+        double angleY = acos(TY);
+        
+        double T2 = sqrt(TX*TX+TY*TY);
+        double angle2 = sqrt(angleX*angleX+angleY*angleY);
 
-          double TX = slpTX->GetValue() - beamTX->GetValue();
-          double TY = slpTY->GetValue() - beamTY->GetValue();
-          double T2 = sqrt(TX*TX+TY*TY);
+        TLeaf *mlt = treeDataVtx1->GetLeaf("n_1ry_trk");
+        TLeaf *iType = treeDataVtx1->GetLeaf("intType");
 
-          Mult1->Fill(-log(tan(T2/2)));
+        treeDataVtx1->GetEntry(vtxIndex);
+
+        if (iType->GetValue() >= 1)
+        {
+          pseuRap->Fill(-log(tan(angle2/2)));
+        }
       }
   }
 
-  //float scale = Mult1->Integral()/40;
-  //Mult1->Scale(1/scale);
+  //float scale = pseuRap->Integral()/40;
+  //pseuRap->Scale(1/scale);
 
-  Mult1->Draw();
-  CanvasModifier(Mult1);
-  Mult1->SetXTitle("Pseudo-rapidity (#eta)");
+  pseuRap->Draw("E");
+  CanvasModifier(pseuRap);
+  pseuRap->SetXTitle("Pseudo-rapidity (#eta)");
   Canvas->Print( outName, "pdf");
   
   //Mult2->Draw("HIST");

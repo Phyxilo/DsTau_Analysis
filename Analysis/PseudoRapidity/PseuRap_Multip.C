@@ -39,7 +39,8 @@ void PseuRap_Multip()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../Root/PD05.root");
+  Data1 = TFile::Open("/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut/p006.root");
+  //Data1 = TFile::Open("../Root/PD05.root");
   //Data2 = TFile::Open("Root/PD04.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
@@ -57,11 +58,12 @@ void PseuRap_Multip()
     TLeaf *mult = treeDataVtx1->GetLeaf("n_1ry_trk");
     TLeaf *PN = treeDataVtx1->GetLeaf("n_1ry_parent_dmin_cut");
     TLeaf *w = treeDataVtx1->GetLeaf("flagw");
+    TLeaf *iType = treeDataVtx1->GetLeaf("intType");
 
     int mlt1 = 0, mlt2 = 0, mlt3 = 0, mlt4 = 0, mlt5 = 0, mlt6 = 0;
     int mlt = mult->GetValue();
 
-    if(PN->GetValue() == 1 && w->GetValue() == 1)
+    if(PN->GetValue() == 1 && w->GetValue() == 1 && iType->GetValue() >= 1)
     {
       mlt1 = 0;
       mlt2 = 0;

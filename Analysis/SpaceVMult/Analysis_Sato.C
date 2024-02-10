@@ -37,8 +37,9 @@ void Analysis_Sato()
   sprintf(outNameEnd,"%s)", outName);
 
   //Data1 = TFile::Open("../Root/p006.root");
-  //Data1 = TFile::Open("../Root/Geant4.root");
-  Data1 = TFile::Open("../Root/PD05.root");
+  //Data1 = TFile::Open("../Root/PD05.root");
+  Data1 = TFile::Open("../../Data_v20220912/PD05/Linked/RootOut/p006.root");
+  //Data1 = TFile::Open("../../EPOSSM_v2.1/Linked/RootOut/pl001_030.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   //TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -60,7 +61,7 @@ void Analysis_Sato()
 
     int vtxIndex = vID->GetValue();
 
-    if (w->GetValue() == 1)
+    if (/*w->GetValue() == 1*/ true)
     {
       TLeaf *slpTX = treeDataTrk1->GetLeaf("tx");
       TLeaf *slpTY = treeDataTrk1->GetLeaf("ty");
