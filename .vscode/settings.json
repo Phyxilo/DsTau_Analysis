@@ -92,7 +92,8 @@
         "Charm.C": "cpp",
         "EdgeMultComp.C": "cpp",
         "ToyMC.C": "cpp",
-        "MCDataComp4.C": "cpp"
+        "MCDataComp4.C": "cpp",
+        "ZDist2.C": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

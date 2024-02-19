@@ -8,8 +8,8 @@
 
 //EPOS Full Z < 18, Transverse < 1.8 Track Selection
 float MC1trueArr [8] = {12379, 12047, 11865, 11665, 11633, 11605, 11093, 10961};
-float MC1vtxArr [8] = {10231, 9820, 9728, 9500, 9392, 9345, 8843, 8704};
-float MC1pLinkArr1 [8] = {9541, 9037, 8915, 8538, 8366, 8235, 7687, 7358};
+float MC1vtxArr [8] = {10238, 9828, 9736, 9507, 9399, 9349, 8850, 8712};
+float MC1pLinkArr1 [8] = {9543, 9041, 8919, 8539, 8368, 8237, 7687, 7364};
 
 float MC1grVtxArrX[8], MC1grVtxArrY[8], MC1errVtxArrX[8], MC1errVtxArrY[8];
 float MC1grPLink1ArrX[8], MC1grPLink1ArrY[8], MC1errPLink1ArrX[8], MC1errPLink1ArrY[8];

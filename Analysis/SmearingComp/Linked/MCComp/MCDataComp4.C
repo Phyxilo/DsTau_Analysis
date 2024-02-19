@@ -85,7 +85,7 @@ void MCDataComp4()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  for (int dirIndex = 0; dirIndex < 8; dirIndex++)
+  for (int dirIndex = 0; dirIndex < 1; dirIndex++)
   {
     cout << "Processing subvolume " << dirIndex << endl;
 

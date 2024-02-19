@@ -57,8 +57,8 @@ void ZDist2()
 
         prevMean = mean;
 
-        TH1F *zDist = new TH1F("ZDist","",900/5,dataEndArr[0]-200,dataEndArr[1]+200);
-        TH1F *zDistCutted = new TH1F("ZDistCutted","",900/5,dataEndArr[0]-200,dataEndArr[1]+200);
+        TH1F *zDist = new TH1F("ZDist","",900/3,dataEndArr[0]-200,dataEndArr[1]+200);
+        TH1F *zDistCutted = new TH1F("ZDistCutted","",900/3,dataEndArr[0]-200,dataEndArr[1]+200);
 
         //cout << dataEndArr[1] - dataEndArr[0] << endl;
         
