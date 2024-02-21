@@ -18,7 +18,7 @@ using namespace std;
 // compType == 0 for all events
 // compType == 1 for multiplicity >= 10 events
 // compType == 2 for multiplicity < 10 events
-int compType = 0;
+int compType = 2;
 
 void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3, TH1F *hist4, TH1F *hist5, TH1F *hist6);
 void ShowChi2Test();
@@ -43,26 +43,26 @@ TH1F *SlpTYHistMC3 = new TH1F("Pythia","",50,-0.4,0.4);
 TH1F *SlpTYHistMC4 = new TH1F("DPMJET","",50,-0.4,0.4);
 TH1F *SlpTYHistMC5 = new TH1F("QGSJET","",50,-0.4,0.4);
 
-TH1F *SlpT2HistData = new TH1F("PD05","",50,0,0.35);
-TH1F *SlpT2HistMC1 = new TH1F("EPOS","",50,0,0.35);
-TH1F *SlpT2HistMC2 = new TH1F("Geant4","",50,0,0.35);
-TH1F *SlpT2HistMC3 = new TH1F("Pythia","",50,0,0.35);
-TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",50,0,0.35);
-TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",50,0,0.35);
+TH1F *SlpT2HistData = new TH1F("PD05","",50,0,0.34);
+TH1F *SlpT2HistMC1 = new TH1F("EPOS","",50,0,0.34);
+TH1F *SlpT2HistMC2 = new TH1F("Geant4","",50,0,0.34);
+TH1F *SlpT2HistMC3 = new TH1F("Pythia","",50,0,0.34);
+TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",50,0,0.34);
+TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",50,0,0.34);
 
-TH1F *IPDataData = new TH1F("PD05","",25,0,6);
-TH1F *IPDataMC1 = new TH1F("EPOS","",25,0,6);
-TH1F *IPDataMC2 = new TH1F("Geant4","",25,0,6);
-TH1F *IPDataMC3 = new TH1F("Pythia","",25,0,6);
-TH1F *IPDataMC4 = new TH1F("DPMJET","",25,0,6);
-TH1F *IPDataMC5 = new TH1F("QGSJET","",25,0,6);
+TH1F *IPDataData = new TH1F("PD05","",25,0,5.8);
+TH1F *IPDataMC1 = new TH1F("EPOS","",25,0,5.8);
+TH1F *IPDataMC2 = new TH1F("Geant4","",25,0,5.8);
+TH1F *IPDataMC3 = new TH1F("Pythia","",25,0,5.8);
+TH1F *IPDataMC4 = new TH1F("DPMJET","",25,0,5.8);
+TH1F *IPDataMC5 = new TH1F("QGSJET","",25,0,5.8);
 
-TH1F *MultData = new TH1F("PD05","",35,5,40);
-TH1F *MultMC1 = new TH1F("EPOS","",35,5,40);
-TH1F *MultMC2 = new TH1F("Geant4","",35,5,40);
-TH1F *MultMC3 = new TH1F("Pythia","",35,5,40);
-TH1F *MultMC4 = new TH1F("DPMJET","",35,5,40);
-TH1F *MultMC5 = new TH1F("QGSJET","",35,5,40);
+TH1F *MultData = new TH1F("PD05","",33,5,38);
+TH1F *MultMC1 = new TH1F("EPOS","",33,5,38);
+TH1F *MultMC2 = new TH1F("Geant4","",33,5,38);
+TH1F *MultMC3 = new TH1F("Pythia","",33,5,38);
+TH1F *MultMC4 = new TH1F("DPMJET","",33,5,38);
+TH1F *MultMC5 = new TH1F("QGSJET","",33,5,38);
 
 TFile *Data, *MC1, *MC2, *MC3, *MC4, *MC5;
 
@@ -85,7 +85,7 @@ void MCDataComp4()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  for (int dirIndex = 0; dirIndex < 1; dirIndex++)
+  for (int dirIndex = 0; dirIndex < 8; dirIndex++)
   {
     cout << "Processing subvolume " << dirIndex << endl;
 
