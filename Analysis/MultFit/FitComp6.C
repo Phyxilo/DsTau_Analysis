@@ -30,8 +30,8 @@ TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1920,1080);
 TH1F *Eff = new TH1F("","Efficiency",50,0,50);
 TH1F *Multip = new TH1F("","Multiplicity",50,0,50);
 TH1F *MultipEffCorrected = new TH1F("","Efficiency Corrected Multiplicity",50,0,50);
-TH1F *NormedMult = new TH1F("","",44,0.,3);
-TH1F *NormedMultEffCorrected = new TH1F("","Efficiency Corrected Normalized Multiplicity",44,0.,3);
+TH1F *NormedMult = new TH1F("","",42,0.,3);
+TH1F *NormedMultEffCorrected = new TH1F("","Efficiency Corrected Normalized Multiplicity",42,0.,3);
 
 TFile *Data1;
 
@@ -117,7 +117,7 @@ void FitComp6()
 
   double fitMean = MultipKNOGf->Mean(0, 50);
 
-  float correctedMean = MultipEffCorrected->GetMean();
+  float correctedMean = MultipEffCorrected->GetMean()/1.0536345;
 
   float multMean = Multip->GetMean();
   int bin = Multip->GetXaxis()->FindBin(multMean);

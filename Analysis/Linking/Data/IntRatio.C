@@ -87,7 +87,6 @@ void IntRatio()
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
             bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
-            //bool areaBool = (area1->GetValue() == 34);
             
             //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
             if (areaBool && (iMed->GetValue() == 1) && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
@@ -112,7 +111,6 @@ void IntRatio()
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
             bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
-            //bool areaBool = (area1->GetValue() == 34);
 
             if(areaBool/* && pltFirst->GetValue() == 1*/){totProtons++;}
         }

@@ -41,6 +41,8 @@ void EdgeMultComp()
 
   for (int j = 0; j < 8; j++)
   {
+    int inNum = 0, outNum = 0;
+
     char dir [128];
 
     sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
@@ -88,11 +90,15 @@ void EdgeMultComp()
             {
               vtx2DIn->Fill(vx->GetValue(), vy->GetValue());
               mult2DIn->Fill(mult->GetValue());
+
+              inNum++;
             }
             else
             {
               vtx2DOut->Fill(vx->GetValue(), vy->GetValue());
               mult2DOut->Fill(mult->GetValue());
+
+              outNum++;
             }
 
             inVtxNum++;
@@ -217,6 +223,7 @@ void EdgeMultComp()
       Canvas->Print(outVolMultName, "pdf");
     }
     
+    //cout << "Ratio: " << (float)inNum/(float)(inNum+outNum) << endl;
   }
 }
 

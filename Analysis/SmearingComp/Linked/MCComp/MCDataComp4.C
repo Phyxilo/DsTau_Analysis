@@ -550,49 +550,48 @@ void MCDataComp4()
   float dataVMC3 = DataVtxSize/MC3VtxSize;
   float dataVMC4 = DataVtxSize/MC4VtxSize;
   float dataVMC5 = DataVtxSize/MC5VtxSize;
-  */
 
   float dataVMC1 = MultData->Integral()/MultMC1->Integral();
   float dataVMC2 = MultData->Integral()/MultMC2->Integral();
   float dataVMC3 = MultData->Integral()/MultMC3->Integral();
   float dataVMC4 = MultData->Integral()/MultMC4->Integral();
   float dataVMC5 = MultData->Integral()/MultMC5->Integral();
+  */
 
   //cout << Data1VtxSize << ", " << Data2VtxSize << ", " << Data3VtxSize << ", " << Data4VtxSize << endl;
   //cout << r12 << ", " << r13 << ", " << r14 << endl;
 
-  SlpTXHistMC1->Scale(dataVMC1);
-  SlpTXHistMC2->Scale(dataVMC2);
-  SlpTXHistMC3->Scale(dataVMC3);
-  SlpTXHistMC4->Scale(dataVMC4);
-  SlpTXHistMC5->Scale(dataVMC5);
+  SlpTXHistMC1->Scale(SlpTXHistData->Integral()/SlpTXHistMC1->Integral());
+  SlpTXHistMC2->Scale(SlpTXHistData->Integral()/SlpTXHistMC2->Integral());
+  SlpTXHistMC3->Scale(SlpTXHistData->Integral()/SlpTXHistMC3->Integral());
+  SlpTXHistMC4->Scale(SlpTXHistData->Integral()/SlpTXHistMC4->Integral());
+  SlpTXHistMC5->Scale(SlpTXHistData->Integral()/SlpTXHistMC5->Integral());
 
-  SlpTYHistMC1->Scale(dataVMC1);
-  SlpTYHistMC2->Scale(dataVMC2);
-  SlpTYHistMC3->Scale(dataVMC3);
-  SlpTYHistMC4->Scale(dataVMC4);
-  SlpTYHistMC5->Scale(dataVMC5);
+  SlpTYHistMC1->Scale(SlpTYHistData->Integral()/SlpTYHistMC1->Integral());
+  SlpTYHistMC2->Scale(SlpTYHistData->Integral()/SlpTYHistMC2->Integral());
+  SlpTYHistMC3->Scale(SlpTYHistData->Integral()/SlpTYHistMC3->Integral());
+  SlpTYHistMC4->Scale(SlpTYHistData->Integral()/SlpTYHistMC4->Integral());
+  SlpTYHistMC5->Scale(SlpTYHistData->Integral()/SlpTYHistMC5->Integral());
 
-  SlpT2HistMC1->Scale(dataVMC1);
-  SlpT2HistMC2->Scale(dataVMC2);
-  SlpT2HistMC3->Scale(dataVMC3);
-  SlpT2HistMC4->Scale(dataVMC4);
-  SlpT2HistMC5->Scale(dataVMC5);
+  SlpT2HistMC1->Scale(SlpT2HistData->Integral()/SlpT2HistMC1->Integral());
+  SlpT2HistMC2->Scale(SlpT2HistData->Integral()/SlpT2HistMC2->Integral());
+  SlpT2HistMC3->Scale(SlpT2HistData->Integral()/SlpT2HistMC3->Integral());
+  SlpT2HistMC4->Scale(SlpT2HistData->Integral()/SlpT2HistMC4->Integral());
+  SlpT2HistMC5->Scale(SlpT2HistData->Integral()/SlpT2HistMC5->Integral());
 
-  IPDataMC1->Scale(dataVMC1);
-  IPDataMC2->Scale(dataVMC2);
-  IPDataMC3->Scale(dataVMC3);
-  IPDataMC4->Scale(dataVMC4);
-  IPDataMC5->Scale(dataVMC5);
+  IPDataMC1->Scale(IPDataData->Integral()/IPDataMC1->Integral());
+  IPDataMC2->Scale(IPDataData->Integral()/IPDataMC2->Integral());
+  IPDataMC3->Scale(IPDataData->Integral()/IPDataMC3->Integral());
+  IPDataMC4->Scale(IPDataData->Integral()/IPDataMC4->Integral());
+  IPDataMC5->Scale(IPDataData->Integral()/IPDataMC5->Integral());
 
-  MultMC1->Scale(dataVMC1);
-  MultMC2->Scale(dataVMC2);
-  MultMC3->Scale(dataVMC3);
-  MultMC4->Scale(dataVMC4);
-  MultMC5->Scale(dataVMC5);
+  MultMC1->Scale(MultData->Integral()/MultMC1->Integral());
+  MultMC2->Scale(MultData->Integral()/MultMC2->Integral());
+  MultMC3->Scale(MultData->Integral()/MultMC3->Integral());
+  MultMC4->Scale(MultData->Integral()/MultMC4->Integral());
+  MultMC5->Scale(MultData->Integral()/MultMC5->Integral());
 
 
-  
   TH1F *copyT2HistMC1 = (TH1F*) SlpT2HistMC1->Clone();
   copyT2HistMC1->SetName("T2Hist");
   copyT2HistMC1->Divide(SlpT2HistData);
@@ -662,18 +661,19 @@ void MCDataComp4()
   copyT2HistMC2->GetYaxis()->SetLabelSize(0.05);
   copyT2HistMC2->GetXaxis()->SetLabelSize(0.05);
 
-  copyT2HistMC2->Draw("HIST E1"); copyT2HistMC2->SetLineWidth(2); copyT2HistMC2->SetLineColor(kGreen); copyT2HistMC2->GetYaxis()->SetRangeUser(0, 2.05);
-  copyT2HistMC3->Draw("SAMES HIST E1"); copyT2HistMC3->SetLineWidth(2); copyT2HistMC3->SetLineColor(kBlue); copyT2HistMC3->GetYaxis()->SetRangeUser(0, 2.05); copyT2HistMC3->SetStats(0);
-  copyT2HistMC4->Draw("SAMES HIST E1"); copyT2HistMC4->SetLineWidth(2); copyT2HistMC4->SetLineColor(kMagenta); copyT2HistMC4->GetYaxis()->SetRangeUser(0, 2.05);  copyT2HistMC4->SetStats(0);
-  copyT2HistMC5->Draw("SAMES HIST E1"); copyT2HistMC5->SetLineWidth(2); copyT2HistMC5->SetLineColor(kOrange + 2); copyT2HistMC5->GetYaxis()->SetRangeUser(0, 2.05); copyT2HistMC5->SetStats(0);
-  copyT2HistMC1->Draw("SAMES HIST E1"); copyT2HistMC1->SetLineWidth(2); copyT2HistMC1->SetLineColor(kRed); copyT2HistMC1->GetYaxis()->SetRangeUser(0, 2.05); copyT2HistMC1->SetStats(0);
+  copyT2HistMC2->Draw("HIST E1"); copyT2HistMC2->SetLineWidth(2); copyT2HistMC2->SetLineColor(kGreen); copyT2HistMC2->GetYaxis()->SetRangeUser(0.6, 1.45);
+  copyT2HistMC3->Draw("SAMES HIST E1"); copyT2HistMC3->SetLineWidth(2); copyT2HistMC3->SetLineColor(kBlue); copyT2HistMC3->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC3->SetStats(0);
+  copyT2HistMC4->Draw("SAMES HIST E1"); copyT2HistMC4->SetLineWidth(2); copyT2HistMC4->SetLineColor(kMagenta); copyT2HistMC4->GetYaxis()->SetRangeUser(0.6, 1.45);  copyT2HistMC4->SetStats(0);
+  copyT2HistMC5->Draw("SAMES HIST E1"); copyT2HistMC5->SetLineWidth(2); copyT2HistMC5->SetLineColor(kOrange + 2); copyT2HistMC5->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC5->SetStats(0);
+  copyT2HistMC1->Draw("SAMES HIST E1"); copyT2HistMC1->SetLineWidth(2); copyT2HistMC1->SetLineColor(kRed); copyT2HistMC1->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC1->SetStats(0);
 
   gPad->Update();
   TPaveStats *statT2 = (TPaveStats*)copyT2HistMC2->GetListOfFunctions()->FindObject("stats"); 
   statT2->SetOptStat(0);
 
-  TF1 *fa1 = new TF1("fa1","1",0,100);
+  TF1 *fa1 = new TF1("fa1","1",0,1);
   fa1->Draw("SAME");
+  fa1->SetLineWidth(2);
   fa1->SetLineColor(kBlack);
 
   Canvas->Print( outNameStart, "pdf");
@@ -694,18 +694,20 @@ void MCDataComp4()
   copyIPHistMC2->GetYaxis()->SetLabelSize(0.05);
   copyIPHistMC2->GetXaxis()->SetLabelSize(0.05);
 
-  copyIPHistMC2->Draw("HIST E1"); copyIPHistMC2->SetLineWidth(2); copyIPHistMC2->SetLineColor(kGreen); copyIPHistMC2->GetYaxis()->SetRangeUser(0, 2.05);
-  copyIPHistMC3->Draw("SAME HIST E1"); copyIPHistMC3->SetLineWidth(2); copyIPHistMC3->SetLineColor(kBlue); copyIPHistMC3->GetYaxis()->SetRangeUser(0, 2.05); copyIPHistMC3->SetStats(0);
-  copyIPHistMC4->Draw("SAME HIST E1"); copyIPHistMC4->SetLineWidth(2); copyIPHistMC4->SetLineColor(kMagenta); copyIPHistMC4->GetYaxis()->SetRangeUser(0, 2.05); copyIPHistMC4->SetStats(0);
-  copyIPHistMC5->Draw("SAME HIST E1"); copyIPHistMC5->SetLineWidth(2); copyIPHistMC5->SetLineColor(kOrange + 2); copyIPHistMC5->GetYaxis()->SetRangeUser(0, 2.05); copyIPHistMC5->SetStats(0);
-  copyIPHistMC1->Draw("SAME HIST E1"); copyIPHistMC1->SetLineWidth(2); copyIPHistMC1->SetLineColor(kRed); copyIPHistMC1->GetYaxis()->SetRangeUser(0, 2.05); copyIPHistMC1->SetStats(0);
+  copyIPHistMC2->Draw("HIST E1"); copyIPHistMC2->SetLineWidth(2); copyIPHistMC2->SetLineColor(kGreen); copyIPHistMC2->GetYaxis()->SetRangeUser(0.6, 1.45);
+  copyIPHistMC3->Draw("SAME HIST E1"); copyIPHistMC3->SetLineWidth(2); copyIPHistMC3->SetLineColor(kBlue); copyIPHistMC3->GetYaxis()->SetRangeUser(0.6, 1.45); copyIPHistMC3->SetStats(0);
+  copyIPHistMC4->Draw("SAME HIST E1"); copyIPHistMC4->SetLineWidth(2); copyIPHistMC4->SetLineColor(kMagenta); copyIPHistMC4->GetYaxis()->SetRangeUser(0.6, 1.45); copyIPHistMC4->SetStats(0);
+  copyIPHistMC5->Draw("SAME HIST E1"); copyIPHistMC5->SetLineWidth(2); copyIPHistMC5->SetLineColor(kOrange + 2); copyIPHistMC5->GetYaxis()->SetRangeUser(0.6, 1.45); copyIPHistMC5->SetStats(0);
+  copyIPHistMC1->Draw("SAME HIST E1"); copyIPHistMC1->SetLineWidth(2); copyIPHistMC1->SetLineColor(kRed); copyIPHistMC1->GetYaxis()->SetRangeUser(0.6, 1.45); copyIPHistMC1->SetStats(0);
 
   gPad->Update();
   TPaveStats *statIP = (TPaveStats*)copyIPHistMC2->GetListOfFunctions()->FindObject("stats"); 
   statIP->SetOptStat(0);
 
-  fa1->Draw("SAME");
-  fa1->SetLineColor(kBlack);
+  TF1 *fa2 = new TF1("fa1","1",0,10);
+  fa2->Draw("SAME");
+  fa2->SetLineWidth(2);
+  fa2->SetLineColor(kBlack);
 
   Canvas->Print( outName, "pdf");
 
@@ -725,18 +727,20 @@ void MCDataComp4()
   copyMultHistMC2->GetYaxis()->SetLabelSize(0.05);
   copyMultHistMC2->GetXaxis()->SetLabelSize(0.05);
 
-  copyMultHistMC2->Draw("HIST E1"); copyMultHistMC2->SetLineWidth(2); copyMultHistMC2->SetLineColor(kGreen); copyMultHistMC2->GetYaxis()->SetRangeUser(0, 3.1);
-  copyMultHistMC3->Draw("SAME HIST E1"); copyMultHistMC3->SetLineWidth(2); copyMultHistMC3->SetLineColor(kBlue); copyMultHistMC3->GetYaxis()->SetRangeUser(0, 3.1); copyMultHistMC3->SetStats(0);
-  copyMultHistMC4->Draw("SAME HIST E1"); copyMultHistMC4->SetLineWidth(2); copyMultHistMC4->SetLineColor(kMagenta); copyMultHistMC4->GetYaxis()->SetRangeUser(0, 3.1); copyMultHistMC4->SetStats(0);
-  copyMultHistMC5->Draw("SAME HIST E1"); copyMultHistMC5->SetLineWidth(2); copyMultHistMC5->SetLineColor(kOrange + 2); copyMultHistMC5->GetYaxis()->SetRangeUser(0, 3.1); copyMultHistMC5->SetStats(0);
-  copyMultHistMC1->Draw("SAME HIST E1"); copyMultHistMC1->SetLineWidth(2); copyMultHistMC1->SetLineColor(kRed); copyMultHistMC1->GetYaxis()->SetRangeUser(0, 3.1); copyMultHistMC1->SetStats(0);
+  copyMultHistMC2->Draw("HIST E1"); copyMultHistMC2->SetLineWidth(2); copyMultHistMC2->SetLineColor(kGreen); copyMultHistMC2->GetYaxis()->SetRangeUser(0, 2.6);
+  copyMultHistMC3->Draw("SAME HIST E1"); copyMultHistMC3->SetLineWidth(2); copyMultHistMC3->SetLineColor(kBlue); copyMultHistMC3->GetYaxis()->SetRangeUser(0, 2.6); copyMultHistMC3->SetStats(0);
+  copyMultHistMC4->Draw("SAME HIST E1"); copyMultHistMC4->SetLineWidth(2); copyMultHistMC4->SetLineColor(kMagenta); copyMultHistMC4->GetYaxis()->SetRangeUser(0, 2.6); copyMultHistMC4->SetStats(0);
+  copyMultHistMC5->Draw("SAME HIST E1"); copyMultHistMC5->SetLineWidth(2); copyMultHistMC5->SetLineColor(kOrange + 2); copyMultHistMC5->GetYaxis()->SetRangeUser(0, 2.6); copyMultHistMC5->SetStats(0);
+  copyMultHistMC1->Draw("SAME HIST E1"); copyMultHistMC1->SetLineWidth(2); copyMultHistMC1->SetLineColor(kRed); copyMultHistMC1->GetYaxis()->SetRangeUser(0, 2.6); copyMultHistMC1->SetStats(0);
 
   gPad->Update();
   TPaveStats *statMult = (TPaveStats*)copyMultHistMC2->GetListOfFunctions()->FindObject("stats"); 
   statMult->SetOptStat(0);
 
-  fa1->Draw("SAME");
-  fa1->SetLineColor(kBlack);
+  TF1 *fa3 = new TF1("fa1","1",0,50);
+  fa3->Draw("SAME");
+  fa3->SetLineWidth(2);
+  fa3->SetLineColor(kBlack);
 
   Canvas->Print( outNameEnd, "pdf");
 

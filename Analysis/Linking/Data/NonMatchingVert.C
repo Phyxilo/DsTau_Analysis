@@ -39,11 +39,13 @@ void NonMatchingVert()
 
     float dataSize = 0;
 
-    noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
+    //noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
 
     for (int j = 0; j < 7; j++)
     {
-        //noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
+        int nonMatchNum = 0, matchNum = 0;
+
+        noMatch = new TH2F("NonMatched","Position Distribution",200,10000,120000,200,10000,90000);
         //noMatch = new TH2F("NonMatched","Position Distribution",80,56000,74000,80,56000,74000);
         
         sprintf(outName,"NonMatched/NonMatched_%d.png", j);
@@ -83,24 +85,24 @@ void NonMatchingVert()
             int Mlt = mlt->GetValue();
             int fp = flagp->GetValue();
 
-            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));
-            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29) || (area1->GetValue() <= 26 && area1->GetValue() >= 20) || (area1->GetValue() <= 17 && area1->GetValue() >= 11)); //New Method
-            //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            //bool areaBool = area1->GetValue() == 42;
-            //bool areaBool = area1->GetValue() == 31;
+            bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
 
-            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) &&*/ areaBool && plmax->GetValue() == 5+j*10 /*&& plmin->GetValue() == j*10+2 && pNum->GetValue() == 0*/)
+            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) &&*/ areaBool && plmax->GetValue() == 5+j*10)
             {
                 if (fp == 0)
                 {
                     //cout << fixed << trk->GetValue() << endl;
 
                     noMatch->Fill(VX, VY);
+                    nonMatchNum++;
                 }
+                matchNum++;
                 //Mult1->Fill(Mlt);
             }
             dataSize++;
         }
+
+        cout << "Ratio: " << ((float)nonMatchNum/(float)matchNum)*100 << endl;
 
         gStyle->SetOptStat(0);
         gStyle->SetPalette(kRainBow);
