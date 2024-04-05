@@ -370,7 +370,9 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                &vtx_n_1ry_parent_cut0,&vtx_n_1ry_parent_dmin_cut,&vtx_n_1ry_parent_dmin_cut_dt_cut,&vtx_dt);
 
             chldNum = 0;
-            
+
+            vtx_area1 = recoNum-1; 
+
             if (vtx_n_1ry_parent_dmin_cut > 0)
             {
                parC_id = parid;
@@ -424,8 +426,6 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                &parid,&parC_plt_of_1seg,&parC_seg_id_of_1seg,&parC_tx05pos,&parC_ty05pos,&parC_nseg,&ipChar05[8],&parC_ip_pos05,&ipChar04[8],&parC_ip_pos04,&ntrk_smallChar[10],&parC_ntrk_small,&dtChar[2],&parC_dt,
                &dt_posChar[6],&parC_dt_pos,&parC_pl_up1ry_plmin,&parC_pl_up1ry_plmax,&parC_pl_dwn1ry_plmin,&parC_pl_dwn1ry_plmax);
 
-            parC_area1 = recoNum-1;
-
             if (parC_area2 != prevSubArea && parC_area2 == 1)
             {
                //cout << parC_area1 << endl;
@@ -441,6 +441,8 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             */
             if(parC_pl_up1ry_plmin == dirIndex*10+segNum+1){paridVec.push_back(parid);}
 
+            parC_area1 = recoNum-1;
+
             prevSubArea = parC_area2;
          }
          else if(strcmp(type,"1ry_trk") == 0)
@@ -448,8 +450,10 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             sscanf(&line[8],"%d %d %f %f %d %f %f %f %d %d %d %d %f %d %d %d %f %f %f %f %d %f %f %f %f",&trk_area1,&trk_area2,&trk_txpeak,&trk_typeak,&trk_i,&trk_vx,&trk_vy,&trk_vz,&trk_flagw,&trk_multip,
                &trk_n_1ry_parent_cut0,&trk_n_1ry_parent_dmin_cut,&trk_dz,&trk_id,&trk_plt_of_1seg,&trk_seg_id_of_1seg,&trk_seg_x,&trk_seg_y,&trk_tx,&trk_ty,&trk_nseg,&trk_ip_to_1ry_using_1stseg,
                &trk_ip_to_1ry_using_2ndseg,&trk_ph_mean,&trk_dtrms1_trk);
+
+               trk_area1 = recoNum-1;
             
-            if (trk_n_1ry_parent_dmin_cut == 1)
+            if (trk_n_1ry_parent_dmin_cut > 0)
             {
 
                if (/*parC_id != trk_id*/ true)

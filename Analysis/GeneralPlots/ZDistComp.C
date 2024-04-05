@@ -40,8 +40,11 @@ void ZDistComp()
 
         //sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
 
-        if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
-        else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+        //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
+        //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+
+        if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
+        else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl071_105.root"); }
 
         Data = TFile::Open(dir);
         
@@ -53,14 +56,14 @@ void ZDistComp()
         double mean = DataMean(vtxData);
         //double mean = DataMedian(vtxData);
 
-        cout << "Mean: " << mean << ", Dif: " << mean-prevMean << endl;
+        //cout << "Mean: " << mean << ", Dif: " << mean-prevMean << endl;
 
         prevMean = mean;
 
         TH1F *zDist = new TH1F("ZDist","Z Distribution",540/2,dataEndArr[0]-20,dataEndArr[1]+20);
         TH1F *zDistCutted = new TH1F("ZDistCutted","Z Distribution with Cutted",540/2,dataEndArr[0]-20,dataEndArr[1]+20);
 
-        //cout << dataEndArr[1] - dataEndArr[0] << endl;
+        cout << dataEndArr[1] - dataEndArr[0] << endl;
         
         for (int i = 0; i < vtxData->GetEntriesFast(); i++)
         {

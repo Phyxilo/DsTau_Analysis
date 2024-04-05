@@ -21,7 +21,7 @@ float dirArr[8];
 float intRatio1[8], intRatio2[8];
 float err1X[8], err1Y[8], err2X[8], err2Y[8];
 
-float migCut = 22.5;
+float migCut = 0;
 
 //int posXMin = 56000, posXMax = 74000;
 //int posYMin = 56000, posYMax = 74000;

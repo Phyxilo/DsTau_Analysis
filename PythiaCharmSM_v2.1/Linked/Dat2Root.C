@@ -133,6 +133,396 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    Float_t         ptrk_DS_TX;
    Float_t         ptrk_DS_TY;
 
+   // DecaySearch_all
+   Int_t    ds_all_area1;
+   Int_t    ds_all_area2;
+   Float_t  ds_all_txpeak;
+   Float_t  ds_all_typeak;
+   Int_t    ds_all_i; 
+   Float_t  ds_all_xc;
+   Float_t  ds_all_yc;
+   Float_t  ds_all_1ry_vx;
+   Float_t  ds_all_1ry_vy;
+   Float_t  ds_all_1ry_vz;
+   Int_t    ds_all_1ry_plt;
+   Int_t    ds_all_flagw;
+   Int_t    ds_all_n_1ry_trk;
+   Float_t  ds_all_2ry_vx;
+   Float_t  ds_all_2ry_vy;
+   Float_t  ds_all_2ry_vz;
+   Int_t    ds_all_2ry_plt;
+   Int_t    ds_all_parent_plt_1st;
+   Int_t    ds_all_parent_trkID;
+   Int_t    ds_all_parent_MCEvt;
+   Int_t    ds_all_parent_pdgID;
+   Float_t  ds_all_parent_MCp;
+   Int_t    ds_all_nparent_1ry;
+   Int_t    ds_all_nparent_1ry_penet;
+   Int_t    ds_all_nparent_non1ry;
+   Float_t  ds_all_parent_tx;
+   Float_t  ds_all_parent_ty;
+   Int_t    ds_all_ndau;
+   Int_t    ds_all_default1;
+   Int_t    ds_all_default2;
+   Int_t    ds_all_plt_dau1;
+   Int_t    ds_all_segid_dau1;
+   Int_t    ds_all_dau1_MCEvt;
+   Int_t    ds_all_dau1_pdgID;
+   Float_t  ds_all_dau1_MCp;
+   Float_t  ds_all_ip_to1ry_dau1;
+   Float_t  ds_all_ip_to2ry_dau1;
+   Float_t  ds_all_tx_dau1;
+   Float_t  ds_all_ty_dau1;
+   Float_t  ds_all_dt_dau1;
+   Float_t  ds_all_dtrms_dau1;
+   Float_t  ds_all_dtrmst_dau1;
+   Float_t  ds_all_dt_w_dau1;
+
+   Int_t    ds_all_plt_dau2;
+   Int_t    ds_all_segid_dau2;
+   Int_t    ds_all_dau2_MCEvt;
+   Int_t    ds_all_dau2_pdgID;
+   Float_t  ds_all_dau2_MCp;
+   Float_t  ds_all_ip_to1ry_dau2;
+   Float_t  ds_all_ip_to2ry_dau2;
+   Float_t  ds_all_tx_dau2;
+   Float_t  ds_all_ty_dau2;
+   Float_t  ds_all_dt_dau2;
+   Float_t  ds_all_dtrms_dau2;
+   Float_t  ds_all_dtrmst_dau2;
+   Float_t  ds_all_dt_w_dau2;
+
+   Int_t    ds_all_plt_dau3;
+   Int_t    ds_all_segid_dau3;
+   Int_t    ds_all_dau3_MCEvt;
+   Int_t    ds_all_dau3_pdgID;
+   Float_t  ds_all_dau3_MCp;
+   Float_t  ds_all_ip_to1ry_dau3;
+   Float_t  ds_all_ip_to2ry_dau3;
+   Float_t  ds_all_tx_dau3;
+   Float_t  ds_all_ty_dau3;
+   Float_t  ds_all_dt_dau3;
+   Float_t  ds_all_dtrms_dau3;
+   Float_t  ds_all_dtrmst_dau3;
+   Float_t  ds_all_dt_w_dau3;
+
+   Int_t    ds_all_plt_dau4;
+   Int_t    ds_all_segid_dau4;
+   Int_t    ds_all_dau4_MCEvt;
+   Int_t    ds_all_dau4_pdgID;
+   Float_t  ds_all_dau4_MCp;
+   Float_t  ds_all_ip_to1ry_dau4;
+   Float_t  ds_all_ip_to2ry_dau4;
+   Float_t  ds_all_tx_dau4;
+   Float_t  ds_all_ty_dau4;
+   Float_t  ds_all_dt_dau4;
+   Float_t  ds_all_dtrms_dau4;
+   Float_t  ds_all_dtrmst_dau4;
+   Float_t  ds_all_dt_w_dau4;
+
+   Float_t  ds_all_dmin_org_vee;
+   Float_t  ds_all_dmin_fine_vee;
+   Float_t  ds_all_topen_vee;
+   Float_t  ds_all_dt1dt2_vee;
+   Float_t  ds_all_dt012_vee;
+   Int_t    ds_all_ntrk_around_2ry;
+   Int_t    ds_all_ntrk_other_vtx_max;
+   Int_t    ds_all_flag_final;
+   
+   //DecaySearch_intrk
+   Int_t    ds_intrk_area1;
+   Int_t    ds_intrk_area2;
+   Float_t  ds_intrk_txpeak;
+   Float_t  ds_intrk_typeak;
+   Int_t    ds_intrk_i; 
+   Float_t  ds_intrk_xc;
+   Float_t  ds_intrk_yc;
+   Float_t  ds_intrk_1ry_vx;
+   Float_t  ds_intrk_1ry_vy;
+   Float_t  ds_intrk_1ry_vz;
+   Int_t    ds_intrk_1ry_plt;
+   Int_t    ds_intrk_flagw;
+   Int_t    ds_intrk_n_1ry_trk;
+   Float_t  ds_intrk_2ry_vx;
+   Float_t  ds_intrk_2ry_vy;
+   Float_t  ds_intrk_2ry_vz;
+   Int_t    ds_intrk_2ry_plt;
+   Int_t    ds_intrk_parent_plt_1st;
+   Int_t    ds_intrk_parent_trkID;
+   Int_t    ds_intrk_parent_MCEvt;
+   Int_t    ds_intrk_parent_pdgID;
+   Float_t  ds_intrk_parent_MCp;
+   Int_t    ds_intrk_nparent_1ry;
+   Int_t    ds_intrk_nparent_1ry_penet;
+   Int_t    ds_intrk_nparent_non1ry;
+   Float_t  ds_intrk_parent_tx;
+   Float_t  ds_intrk_parent_ty;
+   Int_t    ds_intrk_ndau_all;
+   Int_t    ds_intrk_ndau_ip700;
+   Int_t    ds_intrk_ndau_ip500;
+   Int_t    ds_intrk_plt_dau1;
+   Int_t    ds_intrk_segid_dau1;
+   Int_t    ds_intrk_dau1_MCEvt;
+   Int_t    ds_intrk_dau1_pdgID;
+   Float_t  ds_intrk_dau1_MCp;
+   Float_t  ds_intrk_ip_to1ry_dau1;
+   Float_t  ds_intrk_ip_to2ry_dau1;
+   Float_t  ds_intrk_tx_dau1;
+   Float_t  ds_intrk_ty_dau1;
+   Float_t  ds_intrk_dt_dau1;
+   Float_t  ds_intrk_dtrms_dau1;
+   Float_t  ds_intrk_dtrmst_dau1;
+   Float_t  ds_intrk_dt_w_dau1;
+
+   Int_t    ds_intrk_plt_dau2;
+   Int_t    ds_intrk_segid_dau2;
+   Int_t    ds_intrk_dau2_MCEvt;
+   Int_t    ds_intrk_dau2_pdgID;
+   Float_t  ds_intrk_dau2_MCp;
+   Float_t  ds_intrk_ip_to1ry_dau2;
+   Float_t  ds_intrk_ip_to2ry_dau2;
+   Float_t  ds_intrk_tx_dau2;
+   Float_t  ds_intrk_ty_dau2;
+   Float_t  ds_intrk_dt_dau2;
+   Float_t  ds_intrk_dtrms_dau2;
+   Float_t  ds_intrk_dtrmst_dau2;
+   Float_t  ds_intrk_dt_w_dau2;
+
+   Int_t    ds_intrk_plt_dau3;
+   Int_t    ds_intrk_segid_dau3;
+   Int_t    ds_intrk_dau3_MCEvt;
+   Int_t    ds_intrk_dau3_pdgID;
+   Float_t  ds_intrk_dau3_MCp;
+   Float_t  ds_intrk_ip_to1ry_dau3;
+   Float_t  ds_intrk_ip_to2ry_dau3;
+   Float_t  ds_intrk_tx_dau3;
+   Float_t  ds_intrk_ty_dau3;
+   Float_t  ds_intrk_dt_dau3;
+   Float_t  ds_intrk_dtrms_dau3;
+   Float_t  ds_intrk_dtrmst_dau3;
+   Float_t  ds_intrk_dt_w_dau3;
+
+   //DecaySearch_intrk_wt
+   Int_t    ds_intrk_wt_area1;
+   Int_t    ds_intrk_wt_area2;
+   Float_t  ds_intrk_wt_txpeak;
+   Float_t  ds_intrk_wt_typeak;
+   Int_t    ds_intrk_wt_i; 
+   Float_t  ds_intrk_wt_xc;
+   Float_t  ds_intrk_wt_yc;
+   Float_t  ds_intrk_wt_1ry_vx;
+   Float_t  ds_intrk_wt_1ry_vy;
+   Float_t  ds_intrk_wt_1ry_vz;
+   Int_t    ds_intrk_wt_1ry_plt;
+   Int_t    ds_intrk_wt_flagw;
+   Int_t    ds_intrk_wt_n_1ry_trk;
+   Float_t  ds_intrk_wt_2ry_vx;
+   Float_t  ds_intrk_wt_2ry_vy;
+   Float_t  ds_intrk_wt_2ry_vz;
+   Int_t    ds_intrk_wt_2ry_plt;
+   Int_t    ds_intrk_wt_parent_plt_1st;
+   Int_t    ds_intrk_wt_parent_trkID;
+   Int_t    ds_intrk_wt_parent_MCEvt;
+   Int_t    ds_intrk_wt_parent_pdgID;
+   Float_t  ds_intrk_wt_parent_MCp;
+   Int_t    ds_intrk_wt_nparent_1ry;
+   Int_t    ds_intrk_wt_nparent_1ry_penet;
+   Int_t    ds_intrk_wt_nparent_non1ry;
+   Float_t  ds_intrk_wt_parent_tx;
+   Float_t  ds_intrk_wt_parent_ty;
+   Int_t    ds_intrk_wt_ndau_all;
+   Int_t    ds_intrk_wt_ndau_ip700;
+   Int_t    ds_intrk_wt_ndau_ip500;
+   Int_t    ds_intrk_wt_plt_dau1;
+   Int_t    ds_intrk_wt_segid_dau1;
+   Int_t    ds_intrk_wt_dau1_MCEvt;
+   Int_t    ds_intrk_wt_dau1_pdgID;
+   Float_t  ds_intrk_wt_dau1_MCp;
+   Float_t  ds_intrk_wt_ip_to1ry_dau1;
+   Float_t  ds_intrk_wt_ip_to2ry_dau1;
+   Float_t  ds_intrk_wt_tx_dau1;
+   Float_t  ds_intrk_wt_ty_dau1;
+   Float_t  ds_intrk_wt_dt_dau1;
+   Float_t  ds_intrk_wt_dtrms_dau1;
+   Float_t  ds_intrk_wt_dtrmst_dau1;
+   Float_t  ds_intrk_wt_dt_w_dau1;
+
+   Int_t    ds_intrk_wt_plt_dau2;
+   Int_t    ds_intrk_wt_segid_dau2;
+   Int_t    ds_intrk_wt_dau2_MCEvt;
+   Int_t    ds_intrk_wt_dau2_pdgID;
+   Float_t  ds_intrk_wt_dau2_MCp;
+   Float_t  ds_intrk_wt_ip_to1ry_dau2;
+   Float_t  ds_intrk_wt_ip_to2ry_dau2;
+   Float_t  ds_intrk_wt_tx_dau2;
+   Float_t  ds_intrk_wt_ty_dau2;
+   Float_t  ds_intrk_wt_dt_dau2;
+   Float_t  ds_intrk_wt_dtrms_dau2;
+   Float_t  ds_intrk_wt_dtrmst_dau2;
+   Float_t  ds_intrk_wt_dt_w_dau2;
+
+   Int_t    ds_intrk_wt_plt_dau3;
+   Int_t    ds_intrk_wt_segid_dau3;
+   Int_t    ds_intrk_wt_dau3_MCEvt;
+   Int_t    ds_intrk_wt_dau3_pdgID;
+   Float_t  ds_intrk_wt_dau3_MCp;
+   Float_t  ds_intrk_wt_ip_to1ry_dau3;
+   Float_t  ds_intrk_wt_ip_to2ry_dau3;
+   Float_t  ds_intrk_wt_tx_dau3;
+   Float_t  ds_intrk_wt_ty_dau3;
+   Float_t  ds_intrk_wt_dt_dau3;
+   Float_t  ds_intrk_wt_dtrms_dau3;
+   Float_t  ds_intrk_wt_dtrmst_dau3;
+   Float_t  ds_intrk_wt_dt_w_dau3;
+
+   //DecaySearch_intrk_for_pa
+   Int_t    ds_intrk_for_pa_area1;
+   Int_t    ds_intrk_for_pa_area2;
+   Float_t  ds_intrk_for_pa_txpeak;
+   Float_t  ds_intrk_for_pa_typeak;
+   Int_t    ds_intrk_for_pa_i; 
+   Float_t  ds_intrk_for_pa_xc;
+   Float_t  ds_intrk_for_pa_yc;
+   Float_t  ds_intrk_for_pa_1ry_vx;
+   Float_t  ds_intrk_for_pa_1ry_vy;
+   Float_t  ds_intrk_for_pa_1ry_vz;
+   Int_t    ds_intrk_for_pa_1ry_plt;
+   Int_t    ds_intrk_for_pa_flagw;
+   Int_t    ds_intrk_for_pa_n_1ry_trk;
+   Float_t  ds_intrk_for_pa_2ry_vx;
+   Float_t  ds_intrk_for_pa_2ry_vy;
+   Float_t  ds_intrk_for_pa_2ry_vz;
+   Int_t    ds_intrk_for_pa_2ry_plt;
+   Int_t    ds_intrk_for_pa_parent_plt_1st;
+   Int_t    ds_intrk_for_pa_parent_trkID;
+   Int_t    ds_intrk_for_pa_parent_MCEvt;
+   Int_t    ds_intrk_for_pa_parent_pdgID;
+   Float_t  ds_intrk_for_pa_parent_MCp;
+   Int_t    ds_intrk_for_pa_nparent_1ry;
+   Int_t    ds_intrk_for_pa_nparent_1ry_penet;
+   Int_t    ds_intrk_for_pa_nparent_non1ry;
+   Float_t  ds_intrk_for_pa_parent_tx;
+   Float_t  ds_intrk_for_pa_parent_ty;
+   Int_t    ds_intrk_for_pa_ndau_all;
+   Int_t    ds_intrk_for_pa_ndau_ip700;
+   Int_t    ds_intrk_for_pa_ndau_ip500;
+   Int_t    ds_intrk_for_pa_plt_dau1;
+   Int_t    ds_intrk_for_pa_segid_dau1;
+   Int_t    ds_intrk_for_pa_dau1_MCEvt;
+   Int_t    ds_intrk_for_pa_dau1_pdgID;
+   Float_t  ds_intrk_for_pa_dau1_MCp;
+   Float_t  ds_intrk_for_pa_ip_to1ry_dau1;
+   Float_t  ds_intrk_for_pa_ip_to2ry_dau1;
+   Float_t  ds_intrk_for_pa_tx_dau1;
+   Float_t  ds_intrk_for_pa_ty_dau1;
+   Float_t  ds_intrk_for_pa_dt_dau1;
+   Float_t  ds_intrk_for_pa_dtrms_dau1;
+   Float_t  ds_intrk_for_pa_dtrmst_dau1;
+   Float_t  ds_intrk_for_pa_dt_w_dau1;
+
+   Int_t    ds_intrk_for_pa_plt_dau2;
+   Int_t    ds_intrk_for_pa_segid_dau2;
+   Int_t    ds_intrk_for_pa_dau2_MCEvt;
+   Int_t    ds_intrk_for_pa_dau2_pdgID;
+   Float_t  ds_intrk_for_pa_dau2_MCp;
+   Float_t  ds_intrk_for_pa_ip_to1ry_dau2;
+   Float_t  ds_intrk_for_pa_ip_to2ry_dau2;
+   Float_t  ds_intrk_for_pa_tx_dau2;
+   Float_t  ds_intrk_for_pa_ty_dau2;
+   Float_t  ds_intrk_for_pa_dt_dau2;
+   Float_t  ds_intrk_for_pa_dtrms_dau2;
+   Float_t  ds_intrk_for_pa_dtrmst_dau2;
+   Float_t  ds_intrk_for_pa_dt_w_dau2;
+
+   Int_t    ds_intrk_for_pa_plt_dau3;
+   Int_t    ds_intrk_for_pa_segid_dau3;
+   Int_t    ds_intrk_for_pa_dau3_MCEvt;
+   Int_t    ds_intrk_for_pa_dau3_pdgID;
+   Float_t  ds_intrk_for_pa_dau3_MCp;
+   Float_t  ds_intrk_for_pa_ip_to1ry_dau3;
+   Float_t  ds_intrk_for_pa_ip_to2ry_dau3;
+   Float_t  ds_intrk_for_pa_tx_dau3;
+   Float_t  ds_intrk_for_pa_ty_dau3;
+   Float_t  ds_intrk_for_pa_dt_dau3;
+   Float_t  ds_intrk_for_pa_dtrms_dau3;
+   Float_t  ds_intrk_for_pa_dtrmst_dau3;
+   Float_t  ds_intrk_for_pa_dt_w_dau3;
+
+   //DecaySearch_intrk_for_pa_wt
+   Int_t    ds_intrk_for_pa_wt_area1;
+   Int_t    ds_intrk_for_pa_wt_area2;
+   Float_t  ds_intrk_for_pa_wt_txpeak;
+   Float_t  ds_intrk_for_pa_wt_typeak;
+   Int_t    ds_intrk_for_pa_wt_i; 
+   Float_t  ds_intrk_for_pa_wt_xc;
+   Float_t  ds_intrk_for_pa_wt_yc;
+   Float_t  ds_intrk_for_pa_wt_1ry_vx;
+   Float_t  ds_intrk_for_pa_wt_1ry_vy;
+   Float_t  ds_intrk_for_pa_wt_1ry_vz;
+   Int_t    ds_intrk_for_pa_wt_1ry_plt;
+   Int_t    ds_intrk_for_pa_wt_flagw;
+   Int_t    ds_intrk_for_pa_wt_n_1ry_trk;
+   Float_t  ds_intrk_for_pa_wt_2ry_vx;
+   Float_t  ds_intrk_for_pa_wt_2ry_vy;
+   Float_t  ds_intrk_for_pa_wt_2ry_vz;
+   Int_t    ds_intrk_for_pa_wt_2ry_plt;
+   Int_t    ds_intrk_for_pa_wt_parent_plt_1st;
+   Int_t    ds_intrk_for_pa_wt_parent_trkID;
+   Int_t    ds_intrk_for_pa_wt_parent_MCEvt;
+   Int_t    ds_intrk_for_pa_wt_parent_pdgID;
+   Float_t  ds_intrk_for_pa_wt_parent_MCp;
+   Int_t    ds_intrk_for_pa_wt_nparent_1ry;
+   Int_t    ds_intrk_for_pa_wt_nparent_1ry_penet;
+   Int_t    ds_intrk_for_pa_wt_nparent_non1ry;
+   Float_t  ds_intrk_for_pa_wt_parent_tx;
+   Float_t  ds_intrk_for_pa_wt_parent_ty;
+   Int_t    ds_intrk_for_pa_wt_ndau_all;
+   Int_t    ds_intrk_for_pa_wt_ndau_ip700;
+   Int_t    ds_intrk_for_pa_wt_ndau_ip500;
+   Int_t    ds_intrk_for_pa_wt_plt_dau1;
+   Int_t    ds_intrk_for_pa_wt_segid_dau1;
+   Int_t    ds_intrk_for_pa_wt_dau1_MCEvt;
+   Int_t    ds_intrk_for_pa_wt_dau1_pdgID;
+   Float_t  ds_intrk_for_pa_wt_dau1_MCp;
+   Float_t  ds_intrk_for_pa_wt_ip_to1ry_dau1;
+   Float_t  ds_intrk_for_pa_wt_ip_to2ry_dau1;
+   Float_t  ds_intrk_for_pa_wt_tx_dau1;
+   Float_t  ds_intrk_for_pa_wt_ty_dau1;
+   Float_t  ds_intrk_for_pa_wt_dt_dau1;
+   Float_t  ds_intrk_for_pa_wt_dtrms_dau1;
+   Float_t  ds_intrk_for_pa_wt_dtrmst_dau1;
+   Float_t  ds_intrk_for_pa_wt_dt_w_dau1;
+
+   Int_t    ds_intrk_for_pa_wt_plt_dau2;
+   Int_t    ds_intrk_for_pa_wt_segid_dau2;
+   Int_t    ds_intrk_for_pa_wt_dau2_MCEvt;
+   Int_t    ds_intrk_for_pa_wt_dau2_pdgID;
+   Float_t  ds_intrk_for_pa_wt_dau2_MCp;
+   Float_t  ds_intrk_for_pa_wt_ip_to1ry_dau2;
+   Float_t  ds_intrk_for_pa_wt_ip_to2ry_dau2;
+   Float_t  ds_intrk_for_pa_wt_tx_dau2;
+   Float_t  ds_intrk_for_pa_wt_ty_dau2;
+   Float_t  ds_intrk_for_pa_wt_dt_dau2;
+   Float_t  ds_intrk_for_pa_wt_dtrms_dau2;
+   Float_t  ds_intrk_for_pa_wt_dtrmst_dau2;
+   Float_t  ds_intrk_for_pa_wt_dt_w_dau2;
+
+   Int_t    ds_intrk_for_pa_wt_plt_dau3;
+   Int_t    ds_intrk_for_pa_wt_segid_dau3;
+   Int_t    ds_intrk_for_pa_wt_dau3_MCEvt;
+   Int_t    ds_intrk_for_pa_wt_dau3_pdgID;
+   Float_t  ds_intrk_for_pa_wt_dau3_MCp;
+   Float_t  ds_intrk_for_pa_wt_ip_to1ry_dau3;
+   Float_t  ds_intrk_for_pa_wt_ip_to2ry_dau3;
+   Float_t  ds_intrk_for_pa_wt_tx_dau3;
+   Float_t  ds_intrk_for_pa_wt_ty_dau3;
+   Float_t  ds_intrk_for_pa_wt_dt_dau3;
+   Float_t  ds_intrk_for_pa_wt_dtrms_dau3;
+   Float_t  ds_intrk_for_pa_wt_dtrmst_dau3;
+   Float_t  ds_intrk_for_pa_wt_dt_w_dau3;
+
+
+
    Char_t ipChar05[16],ipChar04[16],ntrk_smallChar[16],dtChar[16],dt_posChar[16];
 
    Int_t trk_multip = 0, vtx_multip = 0;
@@ -288,6 +678,399 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    ds_ptrk->Branch("DS_TX",&ptrk_DS_TX,"DS_TX/F");
    ds_ptrk->Branch("DS_TY",&ptrk_DS_TY,"DS_TY/F");
 
+   TTree *ds_all = new TTree("DsAll","DsAllinfo");
+
+   ds_all->Branch("area1",&ds_all_area1,"area1/I");
+   ds_all->Branch("area2",&ds_all_area2,"area2/I");
+   ds_all->Branch("txpeak",&ds_all_txpeak,"txpeak/F");
+   ds_all->Branch("typeak",&ds_all_typeak,"typeak/F");
+   ds_all->Branch("i",&ds_all_i,"i/I");
+   ds_all->Branch("xc",&ds_all_xc,"xc/F");
+   ds_all->Branch("yc",&ds_all_yc,"yc/F");
+   ds_all->Branch("1ry_vx",&ds_all_1ry_vx,"1ry_vx/F");
+   ds_all->Branch("1ry_vy",&ds_all_1ry_vy,"1ry_vy/F");
+   ds_all->Branch("1ry_vz",&ds_all_1ry_vz,"1ry_vz/F");
+   ds_all->Branch("1ry_plt",&ds_all_1ry_plt,"1ry_plt/I");
+   ds_all->Branch("flagw",&ds_all_flagw,"flagw/I");
+   ds_all->Branch("n_1ry_trk",&ds_all_n_1ry_trk,"n_1ry_trk/I");
+   ds_all->Branch("2ry_vx",&ds_all_2ry_vx,"2ry_vx/F");
+   ds_all->Branch("2ry_vy",&ds_all_2ry_vy,"2ry_vy/F");
+   ds_all->Branch("2ry_vz",&ds_all_2ry_vz,"2ry_vz/F");
+   ds_all->Branch("2ry_plt",&ds_all_2ry_plt,"2ry_plt/I");
+   ds_all->Branch("parent_plt_1st",&ds_all_parent_plt_1st,"parent_plt_1st/I");
+   ds_all->Branch("parent_trkID",&ds_all_parent_trkID,"parent_trkID/I");
+   ds_all->Branch("parent_MCEvt",&ds_all_parent_MCEvt,"parent_MCEvt/I");
+   ds_all->Branch("parent_pdgID",&ds_all_parent_pdgID,"parent_pdgID/I");
+   ds_all->Branch("parent_MCp",&ds_all_parent_MCp,"parent_MCp/F");
+   ds_all->Branch("nparent_1ry",&ds_all_nparent_1ry,"nparent_1ry/I");
+   ds_all->Branch("nparent_1ry_penet",&ds_all_nparent_1ry_penet,"nparent_1ry/I");
+   ds_all->Branch("nparent_non1ry",&ds_all_nparent_non1ry,"nparent_non1ry/I");
+   ds_all->Branch("parent_tx",&ds_all_parent_tx,"parent_tx/F");
+   ds_all->Branch("parent_ty",&ds_all_parent_ty,"parent_ty/F");
+   ds_all->Branch("ndau",&ds_all_ndau,"ndau/I");
+   ds_all->Branch("default1",&ds_all_default1,"default1/I");
+   ds_all->Branch("default2",&ds_all_default2,"default2/I");
+
+   ds_all->Branch("plt_dau1",&ds_all_plt_dau1,"plt_dau1/I");
+   ds_all->Branch("segid_dau1",&ds_all_segid_dau1,"segid_dau1/I");
+   ds_all->Branch("dau1_MCEvt",&ds_all_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_all->Branch("dau1_pdgID",&ds_all_dau1_pdgID,"dau1_pdgID/I");
+   ds_all->Branch("dau1_MCp",&ds_all_dau1_MCp,"dau1_MCp/F");
+   ds_all->Branch("ip_to1ry_dau1",&ds_all_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_all->Branch("ip_to2ry_dau1",&ds_all_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_all->Branch("tx_dau1",&ds_all_tx_dau1,"tx_dau1/F");
+   ds_all->Branch("ty_dau1",&ds_all_ty_dau1,"ty_dau1/F");
+   ds_all->Branch("dt_dau1",&ds_all_dt_dau1,"dt_dau1/F");
+   ds_all->Branch("dtrms_dau1",&ds_all_dtrms_dau1,"dtrms_dau1/F");
+   ds_all->Branch("dtrmst_dau1",&ds_all_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_all->Branch("dt_w_dau1",&ds_all_dt_w_dau1,"dt_w_dau1/F");
+   ds_all->Branch("plt_dau2",&ds_all_plt_dau2,"plt_dau2/I");
+   ds_all->Branch("segid_dau2",&ds_all_segid_dau2,"segid_dau2/I");
+   ds_all->Branch("dau2_MCEvt",&ds_all_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_all->Branch("dau2_pdgID",&ds_all_dau2_pdgID,"dau2_pdgID/I");
+   ds_all->Branch("dau2_MCp",&ds_all_dau2_MCp,"dau2_MCp/F");
+   ds_all->Branch("ip_to1ry_dau2",&ds_all_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_all->Branch("ip_to2ry_dau2",&ds_all_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_all->Branch("tx_dau2",&ds_all_tx_dau2,"tx_dau2/F");
+   ds_all->Branch("ty_dau2",&ds_all_ty_dau2,"ty_dau2/F");
+   ds_all->Branch("dt_dau2",&ds_all_dt_dau2,"dt_dau2/F");
+   ds_all->Branch("dtrms_dau2",&ds_all_dtrms_dau2,"dtrms_dau2/F");
+   ds_all->Branch("dtrmst_dau2",&ds_all_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_all->Branch("dt_w_dau2",&ds_all_dt_w_dau2,"dt_w_dau2/F");
+   ds_all->Branch("plt_dau3",&ds_all_plt_dau3,"plt_dau3/I");
+   ds_all->Branch("segid_dau3",&ds_all_segid_dau3,"segid_dau3/I");
+   ds_all->Branch("dau3_MCEvt",&ds_all_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_all->Branch("dau3_pdgID",&ds_all_dau3_pdgID,"dau3_pdgID/I");
+   ds_all->Branch("dau3_MCp",&ds_all_dau3_MCp,"dau3_MCp/F");
+   ds_all->Branch("ip_to1ry_dau3",&ds_all_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_all->Branch("ip_to2ry_dau3",&ds_all_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_all->Branch("tx_dau3",&ds_all_tx_dau3,"tx_dau3/F");
+   ds_all->Branch("ty_dau3",&ds_all_ty_dau3,"ty_dau3/F");
+   ds_all->Branch("dt_dau3",&ds_all_dt_dau3,"dt_dau3/F");
+   ds_all->Branch("dtrms_dau3",&ds_all_dtrms_dau3,"dtrms_dau3/F");
+   ds_all->Branch("dtrmst_dau3",&ds_all_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_all->Branch("dt_w_dau3",&ds_all_dt_w_dau3,"dt_w_dau3/F"); 
+   ds_all->Branch("plt_dau4",&ds_all_plt_dau4,"plt_dau4/I");
+   ds_all->Branch("segid_dau4",&ds_all_segid_dau4,"segid_dau4/I");
+   ds_all->Branch("dau4_MCEvt",&ds_all_dau4_MCEvt,"dau4_MCEvt/I");
+   ds_all->Branch("dau4_pdgID",&ds_all_dau4_pdgID,"dau4_pdgID/I");
+   ds_all->Branch("dau4_MCp",&ds_all_dau4_MCp,"dau4_MCp/F");
+   ds_all->Branch("ip_to1ry_dau4",&ds_all_ip_to1ry_dau4,"ip_to1ry_dau4/F");
+   ds_all->Branch("ip_to2ry_dau4",&ds_all_ip_to2ry_dau4,"ip_to2ry_dau4/F");
+   ds_all->Branch("tx_dau4",&ds_all_tx_dau4,"tx_dau4/F");
+   ds_all->Branch("ty_dau4",&ds_all_ty_dau4,"ty_dau4/F");
+   ds_all->Branch("dt_dau4",&ds_all_dt_dau4,"dt_dau4/F");
+   ds_all->Branch("dtrms_dau4",&ds_all_dtrms_dau4,"dtrms_dau4/F");
+   ds_all->Branch("dtrmst_dau4",&ds_all_dtrmst_dau4,"dtrmst_dau4/F");
+   ds_all->Branch("dt_w_dau4",&ds_all_dt_w_dau4,"dt_w_dau4/F"); 
+
+   ds_all->Branch("dmin_org_vee",&ds_all_dmin_org_vee,"dmin_org_vee/F");
+   ds_all->Branch("dmin_fine_vee",&ds_all_dmin_fine_vee,"dmin_fine_vee/F");
+   ds_all->Branch("topen_vee",&ds_all_topen_vee,"topen_vee/F");
+   ds_all->Branch("dt1dt2_vee",&ds_all_dt1dt2_vee,"dt1dt2_vee/F");
+   ds_all->Branch("dt012_vee",&ds_all_dt012_vee,"dt012_vee/F");
+   ds_all->Branch("ntrk_around_2ry",&ds_all_ntrk_around_2ry,"ntrk_around_2ry/I");
+   ds_all->Branch("ntrk_other_vtx_max",&ds_all_ntrk_other_vtx_max,"ntrk_other_vtx_max");
+   ds_all->Branch("flag_final",&ds_all_flag_final,"flag_final");
+
+   TTree *ds_intrk = new TTree("DsInTrk","DsInTrkinfo");
+
+   ds_intrk->Branch("area1",&ds_intrk_area1,"area1/I");
+   ds_intrk->Branch("area2",&ds_intrk_area2,"area2/I");
+   ds_intrk->Branch("txpeak",&ds_intrk_txpeak,"txpeak/F");
+   ds_intrk->Branch("typeak",&ds_intrk_typeak,"typeak/F");
+   ds_intrk->Branch("i",&ds_intrk_i,"i/I");
+   ds_intrk->Branch("xc",&ds_intrk_xc,"xc/F");
+   ds_intrk->Branch("yc",&ds_intrk_yc,"yc/F");
+   ds_intrk->Branch("1ry_vx",&ds_intrk_1ry_vx,"1ry_vx/F");
+   ds_intrk->Branch("1ry_vy",&ds_intrk_1ry_vy,"1ry_vy/F");
+   ds_intrk->Branch("1ry_vz",&ds_intrk_1ry_vz,"1ry_vz/F");
+   ds_intrk->Branch("1ry_plt",&ds_intrk_1ry_plt,"1ry_plt/I");
+   ds_intrk->Branch("flagw",&ds_intrk_flagw,"flagw/I");
+   ds_intrk->Branch("n_1ry_trk",&ds_intrk_n_1ry_trk,"n_1ry_trk/I");
+   ds_intrk->Branch("2ry_vx",&ds_intrk_2ry_vx,"2ry_vx/F");
+   ds_intrk->Branch("2ry_vy",&ds_intrk_2ry_vy,"2ry_vy/F");
+   ds_intrk->Branch("2ry_vz",&ds_intrk_2ry_vz,"2ry_vz/F");
+   ds_intrk->Branch("2ry_plt",&ds_intrk_2ry_plt,"2ry_plt/I");
+   ds_intrk->Branch("parent_plt_1st",&ds_intrk_parent_plt_1st,"parent_plt_1st/I");
+   ds_intrk->Branch("parent_trkID",&ds_intrk_parent_trkID,"parent_trkID/I");
+   ds_intrk->Branch("parent_MCEvt",&ds_intrk_parent_MCEvt,"parent_MCEvt/I");
+   ds_intrk->Branch("parent_pdgID",&ds_intrk_parent_pdgID,"parent_pdgID/I");
+   ds_intrk->Branch("parent_MCp",&ds_intrk_parent_MCp,"parent_MCp/F");
+   ds_intrk->Branch("nparent_1ry",&ds_intrk_nparent_1ry,"nparent_1ry/I");
+   ds_intrk->Branch("nparent_1ry_penet",&ds_intrk_nparent_1ry_penet,"nparent_1ry/I");
+   ds_intrk->Branch("nparent_non1ry",&ds_intrk_nparent_non1ry,"nparent_non1ry/I");
+   ds_intrk->Branch("parent_tx",&ds_intrk_parent_tx,"parent_tx/F");
+   ds_intrk->Branch("parent_ty",&ds_intrk_parent_ty,"parent_ty/F");
+   ds_intrk->Branch("ndau",&ds_intrk_ndau_all,"ndau_all/I");
+   ds_intrk->Branch("ndau_ip700",&ds_intrk_ndau_ip700,"ndau_ip700/I");
+   ds_intrk->Branch("ndau_ip500",&ds_intrk_ndau_ip500,"ndau_ip500/I");
+
+   ds_intrk->Branch("plt_dau1",&ds_intrk_plt_dau1,"plt_dau1/I");
+   ds_intrk->Branch("segid_dau1",&ds_intrk_segid_dau1,"segid_dau1/I");
+   ds_intrk->Branch("dau1_MCEvt",&ds_intrk_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_intrk->Branch("dau1_pdgID",&ds_intrk_dau1_pdgID,"dau1_pdgID/I");
+   ds_intrk->Branch("dau1_MCp",&ds_intrk_dau1_MCp,"dau1_MCp/F");
+   ds_intrk->Branch("ip_to1ry_dau1",&ds_intrk_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_intrk->Branch("ip_to2ry_dau1",&ds_intrk_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_intrk->Branch("tx_dau1",&ds_intrk_tx_dau1,"tx_dau1/F");
+   ds_intrk->Branch("ty_dau1",&ds_intrk_ty_dau1,"ty_dau1/F");
+   ds_intrk->Branch("dt_dau1",&ds_intrk_dt_dau1,"dt_dau1/F");
+   ds_intrk->Branch("dtrms_dau1",&ds_intrk_dtrms_dau1,"dtrms_dau1/F");
+   ds_intrk->Branch("dtrmst_dau1",&ds_intrk_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_intrk->Branch("dt_w_dau1",&ds_intrk_dt_w_dau1,"dt_w_dau1/F");
+   ds_intrk->Branch("plt_dau2",&ds_intrk_plt_dau2,"plt_dau2/I");
+   ds_intrk->Branch("segid_dau2",&ds_intrk_segid_dau2,"segid_dau2/I");
+   ds_intrk->Branch("dau2_MCEvt",&ds_intrk_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_intrk->Branch("dau2_pdgID",&ds_intrk_dau2_pdgID,"dau2_pdgID/I");
+   ds_intrk->Branch("dau2_MCp",&ds_intrk_dau2_MCp,"dau2_MCp/F");
+   ds_intrk->Branch("ip_to1ry_dau2",&ds_intrk_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_intrk->Branch("ip_to2ry_dau2",&ds_intrk_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_intrk->Branch("tx_dau2",&ds_intrk_tx_dau2,"tx_dau2/F");
+   ds_intrk->Branch("ty_dau2",&ds_intrk_ty_dau2,"ty_dau2/F");
+   ds_intrk->Branch("dt_dau2",&ds_intrk_dt_dau2,"dt_dau2/F");
+   ds_intrk->Branch("dtrms_dau2",&ds_intrk_dtrms_dau2,"dtrms_dau2/F");
+   ds_intrk->Branch("dtrmst_dau2",&ds_intrk_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_intrk->Branch("dt_w_dau2",&ds_intrk_dt_w_dau2,"dt_w_dau2/F");
+   ds_intrk->Branch("plt_dau3",&ds_intrk_plt_dau3,"plt_dau3/I");
+   ds_intrk->Branch("segid_dau3",&ds_intrk_segid_dau3,"segid_dau3/I");
+   ds_intrk->Branch("dau3_MCEvt",&ds_intrk_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_intrk->Branch("dau3_pdgID",&ds_intrk_dau3_pdgID,"dau3_pdgID/I");
+   ds_intrk->Branch("dau3_MCp",&ds_intrk_dau3_MCp,"dau3_MCp/F");
+   ds_intrk->Branch("ip_to1ry_dau3",&ds_intrk_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_intrk->Branch("ip_to2ry_dau3",&ds_intrk_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_intrk->Branch("tx_dau3",&ds_intrk_tx_dau3,"tx_dau3/F");
+   ds_intrk->Branch("ty_dau3",&ds_intrk_ty_dau3,"ty_dau3/F");
+   ds_intrk->Branch("dt_dau3",&ds_intrk_dt_dau3,"dt_dau3/F");
+   ds_intrk->Branch("dtrms_dau3",&ds_intrk_dtrms_dau3,"dtrms_dau3/F");
+   ds_intrk->Branch("dtrmst_dau3",&ds_intrk_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_intrk->Branch("dt_w_dau3",&ds_intrk_dt_w_dau3,"dt_w_dau3/F");
+
+
+   TTree *ds_intrk_wt = new TTree("DsInTrkWt","DsInTrkWtinfo");
+
+   ds_intrk_wt->Branch("area1",&ds_intrk_wt_area1,"area1/I");
+   ds_intrk_wt->Branch("area2",&ds_intrk_wt_area2,"area2/I");
+   ds_intrk_wt->Branch("txpeak",&ds_intrk_wt_txpeak,"txpeak/F");
+   ds_intrk_wt->Branch("typeak",&ds_intrk_wt_typeak,"typeak/F");
+   ds_intrk_wt->Branch("i",&ds_intrk_wt_i,"i/I");
+   ds_intrk_wt->Branch("xc",&ds_intrk_wt_xc,"xc/F");
+   ds_intrk_wt->Branch("yc",&ds_intrk_wt_yc,"yc/F");
+   ds_intrk_wt->Branch("1ry_vx",&ds_intrk_wt_1ry_vx,"1ry_vx/F");
+   ds_intrk_wt->Branch("1ry_vy",&ds_intrk_wt_1ry_vy,"1ry_vy/F");
+   ds_intrk_wt->Branch("1ry_vz",&ds_intrk_wt_1ry_vz,"1ry_vz/F");
+   ds_intrk_wt->Branch("1ry_plt",&ds_intrk_wt_1ry_plt,"1ry_plt/I");
+   ds_intrk_wt->Branch("flagw",&ds_intrk_wt_flagw,"flagw/I");
+   ds_intrk_wt->Branch("n_1ry_trk",&ds_intrk_wt_n_1ry_trk,"n_1ry_trk/I");
+   ds_intrk_wt->Branch("2ry_vx",&ds_intrk_wt_2ry_vx,"2ry_vx/F");
+   ds_intrk_wt->Branch("2ry_vy",&ds_intrk_wt_2ry_vy,"2ry_vy/F");
+   ds_intrk_wt->Branch("2ry_vz",&ds_intrk_wt_2ry_vz,"2ry_vz/F");
+   ds_intrk_wt->Branch("2ry_plt",&ds_intrk_wt_2ry_plt,"2ry_plt/I");
+   ds_intrk_wt->Branch("parent_plt_1st",&ds_intrk_wt_parent_plt_1st,"parent_plt_1st/I");
+   ds_intrk_wt->Branch("parent_trkID",&ds_intrk_wt_parent_trkID,"parent_trkID/I");
+   ds_intrk_wt->Branch("parent_MCEvt",&ds_intrk_wt_parent_MCEvt,"parent_MCEvt/I");
+   ds_intrk_wt->Branch("parent_pdgID",&ds_intrk_wt_parent_pdgID,"parent_pdgID/I");
+   ds_intrk_wt->Branch("parent_MCp",&ds_intrk_wt_parent_MCp,"parent_MCp/F");
+   ds_intrk_wt->Branch("nparent_1ry",&ds_intrk_wt_nparent_1ry,"nparent_1ry/I");
+   ds_intrk_wt->Branch("nparent_1ry_penet",&ds_intrk_wt_nparent_1ry_penet,"nparent_1ry/I");
+   ds_intrk_wt->Branch("nparent_non1ry",&ds_intrk_wt_nparent_non1ry,"nparent_non1ry/I");
+   ds_intrk_wt->Branch("parent_tx",&ds_intrk_wt_parent_tx,"parent_tx/F");
+   ds_intrk_wt->Branch("parent_ty",&ds_intrk_wt_parent_ty,"parent_ty/F");
+   ds_intrk_wt->Branch("ndau",&ds_intrk_wt_ndau_all,"ndau_all/I");
+   ds_intrk_wt->Branch("ndau_ip700",&ds_intrk_wt_ndau_ip700,"ndau_ip700/I");
+   ds_intrk_wt->Branch("ndau_ip500",&ds_intrk_wt_ndau_ip500,"ndau_ip500/I");
+
+   ds_intrk_wt->Branch("plt_dau1",&ds_intrk_wt_plt_dau1,"plt_dau1/I");
+   ds_intrk_wt->Branch("segid_dau1",&ds_intrk_wt_segid_dau1,"segid_dau1/I");
+   ds_intrk_wt->Branch("dau1_MCEvt",&ds_intrk_wt_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_intrk_wt->Branch("dau1_pdgID",&ds_intrk_wt_dau1_pdgID,"dau1_pdgID/I");
+   ds_intrk_wt->Branch("dau1_MCp",&ds_intrk_wt_dau1_MCp,"dau1_MCp/F");
+   ds_intrk_wt->Branch("ip_to1ry_dau1",&ds_intrk_wt_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_intrk_wt->Branch("ip_to2ry_dau1",&ds_intrk_wt_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_intrk_wt->Branch("tx_dau1",&ds_intrk_wt_tx_dau1,"tx_dau1/F");
+   ds_intrk_wt->Branch("ty_dau1",&ds_intrk_wt_ty_dau1,"ty_dau1/F");
+   ds_intrk_wt->Branch("dt_dau1",&ds_intrk_wt_dt_dau1,"dt_dau1/F");
+   ds_intrk_wt->Branch("dtrms_dau1",&ds_intrk_wt_dtrms_dau1,"dtrms_dau1/F");
+   ds_intrk_wt->Branch("dtrmst_dau1",&ds_intrk_wt_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_intrk_wt->Branch("dt_w_dau1",&ds_intrk_wt_dt_w_dau1,"dt_w_dau1/F");
+   ds_intrk_wt->Branch("plt_dau2",&ds_intrk_wt_plt_dau2,"plt_dau2/I");
+   ds_intrk_wt->Branch("segid_dau2",&ds_intrk_wt_segid_dau2,"segid_dau2/I");
+   ds_intrk_wt->Branch("dau2_MCEvt",&ds_intrk_wt_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_intrk_wt->Branch("dau2_pdgID",&ds_intrk_wt_dau2_pdgID,"dau2_pdgID/I");
+   ds_intrk_wt->Branch("dau2_MCp",&ds_intrk_wt_dau2_MCp,"dau2_MCp/F");
+   ds_intrk_wt->Branch("ip_to1ry_dau2",&ds_intrk_wt_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_intrk_wt->Branch("ip_to2ry_dau2",&ds_intrk_wt_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_intrk_wt->Branch("tx_dau2",&ds_intrk_wt_tx_dau2,"tx_dau2/F");
+   ds_intrk_wt->Branch("ty_dau2",&ds_intrk_wt_ty_dau2,"ty_dau2/F");
+   ds_intrk_wt->Branch("dt_dau2",&ds_intrk_wt_dt_dau2,"dt_dau2/F");
+   ds_intrk_wt->Branch("dtrms_dau2",&ds_intrk_wt_dtrms_dau2,"dtrms_dau2/F");
+   ds_intrk_wt->Branch("dtrmst_dau2",&ds_intrk_wt_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_intrk_wt->Branch("dt_w_dau2",&ds_intrk_wt_dt_w_dau2,"dt_w_dau2/F");
+   ds_intrk_wt->Branch("plt_dau3",&ds_intrk_wt_plt_dau3,"plt_dau3/I");
+   ds_intrk_wt->Branch("segid_dau3",&ds_intrk_wt_segid_dau3,"segid_dau3/I");
+   ds_intrk_wt->Branch("dau3_MCEvt",&ds_intrk_wt_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_intrk_wt->Branch("dau3_pdgID",&ds_intrk_wt_dau3_pdgID,"dau3_pdgID/I");
+   ds_intrk_wt->Branch("dau3_MCp",&ds_intrk_wt_dau3_MCp,"dau3_MCp/F");
+   ds_intrk_wt->Branch("ip_to1ry_dau3",&ds_intrk_wt_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_intrk_wt->Branch("ip_to2ry_dau3",&ds_intrk_wt_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_intrk_wt->Branch("tx_dau3",&ds_intrk_wt_tx_dau3,"tx_dau3/F");
+   ds_intrk_wt->Branch("ty_dau3",&ds_intrk_wt_ty_dau3,"ty_dau3/F");
+   ds_intrk_wt->Branch("dt_dau3",&ds_intrk_wt_dt_dau3,"dt_dau3/F");
+   ds_intrk_wt->Branch("dtrms_dau3",&ds_intrk_wt_dtrms_dau3,"dtrms_dau3/F");
+   ds_intrk_wt->Branch("dtrmst_dau3",&ds_intrk_wt_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_intrk_wt->Branch("dt_w_dau3",&ds_intrk_wt_dt_w_dau3,"dt_w_dau3/F"); 
+
+
+
+   TTree *ds_intrk_for_pa = new TTree("DsInTrkForPa","DsInTrkForPainfo");
+
+   ds_intrk_for_pa->Branch("area1",&ds_intrk_for_pa_area1,"area1/I");
+   ds_intrk_for_pa->Branch("area2",&ds_intrk_for_pa_area2,"area2/I");
+   ds_intrk_for_pa->Branch("txpeak",&ds_intrk_for_pa_txpeak,"txpeak/F");
+   ds_intrk_for_pa->Branch("typeak",&ds_intrk_for_pa_typeak,"typeak/F");
+   ds_intrk_for_pa->Branch("i",&ds_intrk_for_pa_i,"i/I");
+   ds_intrk_for_pa->Branch("xc",&ds_intrk_for_pa_xc,"xc/F");
+   ds_intrk_for_pa->Branch("yc",&ds_intrk_for_pa_yc,"yc/F");
+   ds_intrk_for_pa->Branch("1ry_vx",&ds_intrk_for_pa_1ry_vx,"1ry_vx/F");
+   ds_intrk_for_pa->Branch("1ry_vy",&ds_intrk_for_pa_1ry_vy,"1ry_vy/F");
+   ds_intrk_for_pa->Branch("1ry_vz",&ds_intrk_for_pa_1ry_vz,"1ry_vz/F");
+   ds_intrk_for_pa->Branch("1ry_plt",&ds_intrk_for_pa_1ry_plt,"1ry_plt/I");
+   ds_intrk_for_pa->Branch("flagw",&ds_intrk_for_pa_flagw,"flagw/I");
+   ds_intrk_for_pa->Branch("n_1ry_trk",&ds_intrk_for_pa_n_1ry_trk,"n_1ry_trk/I");
+   ds_intrk_for_pa->Branch("2ry_vx",&ds_intrk_for_pa_2ry_vx,"2ry_vx/F");
+   ds_intrk_for_pa->Branch("2ry_vy",&ds_intrk_for_pa_2ry_vy,"2ry_vy/F");
+   ds_intrk_for_pa->Branch("2ry_vz",&ds_intrk_for_pa_2ry_vz,"2ry_vz/F");
+   ds_intrk_for_pa->Branch("2ry_plt",&ds_intrk_for_pa_2ry_plt,"2ry_plt/I");
+   ds_intrk_for_pa->Branch("parent_plt_1st",&ds_intrk_for_pa_parent_plt_1st,"parent_plt_1st/I");
+   ds_intrk_for_pa->Branch("parent_trkID",&ds_intrk_for_pa_parent_trkID,"parent_trkID/I");
+   ds_intrk_for_pa->Branch("parent_MCEvt",&ds_intrk_for_pa_parent_MCEvt,"parent_MCEvt/I");
+   ds_intrk_for_pa->Branch("parent_pdgID",&ds_intrk_for_pa_parent_pdgID,"parent_pdgID/I");
+   ds_intrk_for_pa->Branch("parent_MCp",&ds_intrk_for_pa_parent_MCp,"parent_MCp/F");
+   ds_intrk_for_pa->Branch("nparent_1ry",&ds_intrk_for_pa_nparent_1ry,"nparent_1ry/I");
+   ds_intrk_for_pa->Branch("nparent_1ry_penet",&ds_intrk_for_pa_nparent_1ry_penet,"nparent_1ry/I");
+   ds_intrk_for_pa->Branch("nparent_non1ry",&ds_intrk_for_pa_nparent_non1ry,"nparent_non1ry/I");
+   ds_intrk_for_pa->Branch("parent_tx",&ds_intrk_for_pa_parent_tx,"parent_tx/F");
+   ds_intrk_for_pa->Branch("parent_ty",&ds_intrk_for_pa_parent_ty,"parent_ty/F");
+   ds_intrk_for_pa->Branch("ndau",&ds_intrk_for_pa_ndau_all,"ndau_all/I");
+   ds_intrk_for_pa->Branch("ndau_ip700",&ds_intrk_for_pa_ndau_ip700,"ndau_ip700/I");
+   ds_intrk_for_pa->Branch("ndau_ip500",&ds_intrk_for_pa_ndau_ip500,"ndau_ip500/I");
+
+   ds_intrk_for_pa->Branch("plt_dau1",&ds_intrk_for_pa_plt_dau1,"plt_dau1/I");
+   ds_intrk_for_pa->Branch("segid_dau1",&ds_intrk_for_pa_segid_dau1,"segid_dau1/I");
+   ds_intrk_for_pa->Branch("dau1_MCEvt",&ds_intrk_for_pa_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_intrk_for_pa->Branch("dau1_pdgID",&ds_intrk_for_pa_dau1_pdgID,"dau1_pdgID/I");
+   ds_intrk_for_pa->Branch("dau1_MCp",&ds_intrk_for_pa_dau1_MCp,"dau1_MCp/F");
+   ds_intrk_for_pa->Branch("ip_to1ry_dau1",&ds_intrk_for_pa_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_intrk_for_pa->Branch("ip_to2ry_dau1",&ds_intrk_for_pa_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_intrk_for_pa->Branch("tx_dau1",&ds_intrk_for_pa_tx_dau1,"tx_dau1/F");
+   ds_intrk_for_pa->Branch("ty_dau1",&ds_intrk_for_pa_ty_dau1,"ty_dau1/F");
+   ds_intrk_for_pa->Branch("dt_dau1",&ds_intrk_for_pa_dt_dau1,"dt_dau1/F");
+   ds_intrk_for_pa->Branch("dtrms_dau1",&ds_intrk_for_pa_dtrms_dau1,"dtrms_dau1/F");
+   ds_intrk_for_pa->Branch("dtrmst_dau1",&ds_intrk_for_pa_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_intrk_for_pa->Branch("dt_w_dau1",&ds_intrk_for_pa_dt_w_dau1,"dt_w_dau1/F");
+   ds_intrk_for_pa->Branch("plt_dau2",&ds_intrk_for_pa_plt_dau2,"plt_dau2/I");
+   ds_intrk_for_pa->Branch("segid_dau2",&ds_intrk_for_pa_segid_dau2,"segid_dau2/I");
+   ds_intrk_for_pa->Branch("dau2_MCEvt",&ds_intrk_for_pa_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_intrk_for_pa->Branch("dau2_pdgID",&ds_intrk_for_pa_dau2_pdgID,"dau2_pdgID/I");
+   ds_intrk_for_pa->Branch("dau2_MCp",&ds_intrk_for_pa_dau2_MCp,"dau2_MCp/F");
+   ds_intrk_for_pa->Branch("ip_to1ry_dau2",&ds_intrk_for_pa_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_intrk_for_pa->Branch("ip_to2ry_dau2",&ds_intrk_for_pa_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_intrk_for_pa->Branch("tx_dau2",&ds_intrk_for_pa_tx_dau2,"tx_dau2/F");
+   ds_intrk_for_pa->Branch("ty_dau2",&ds_intrk_for_pa_ty_dau2,"ty_dau2/F");
+   ds_intrk_for_pa->Branch("dt_dau2",&ds_intrk_for_pa_dt_dau2,"dt_dau2/F");
+   ds_intrk_for_pa->Branch("dtrms_dau2",&ds_intrk_for_pa_dtrms_dau2,"dtrms_dau2/F");
+   ds_intrk_for_pa->Branch("dtrmst_dau2",&ds_intrk_for_pa_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_intrk_for_pa->Branch("dt_w_dau2",&ds_intrk_for_pa_dt_w_dau2,"dt_w_dau2/F");
+   ds_intrk_for_pa->Branch("plt_dau3",&ds_intrk_for_pa_plt_dau3,"plt_dau3/I");
+   ds_intrk_for_pa->Branch("segid_dau3",&ds_intrk_for_pa_segid_dau3,"segid_dau3/I");
+   ds_intrk_for_pa->Branch("dau3_MCEvt",&ds_intrk_for_pa_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_intrk_for_pa->Branch("dau3_pdgID",&ds_intrk_for_pa_dau3_pdgID,"dau3_pdgID/I");
+   ds_intrk_for_pa->Branch("dau3_MCp",&ds_intrk_for_pa_dau3_MCp,"dau3_MCp/F");
+   ds_intrk_for_pa->Branch("ip_to1ry_dau3",&ds_intrk_for_pa_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_intrk_for_pa->Branch("ip_to2ry_dau3",&ds_intrk_for_pa_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_intrk_for_pa->Branch("tx_dau3",&ds_intrk_for_pa_tx_dau3,"tx_dau3/F");
+   ds_intrk_for_pa->Branch("ty_dau3",&ds_intrk_for_pa_ty_dau3,"ty_dau3/F");
+   ds_intrk_for_pa->Branch("dt_dau3",&ds_intrk_for_pa_dt_dau3,"dt_dau3/F");
+   ds_intrk_for_pa->Branch("dtrms_dau3",&ds_intrk_for_pa_dtrms_dau3,"dtrms_dau3/F");
+   ds_intrk_for_pa->Branch("dtrmst_dau3",&ds_intrk_for_pa_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_intrk_for_pa->Branch("dt_w_dau3",&ds_intrk_for_pa_dt_w_dau3,"dt_w_dau3/F");
+
+
+   TTree *ds_intrk_for_pa_wt = new TTree("DsInTrkForPaWt","DsInTrkForPaWtinfo");
+
+   ds_intrk_for_pa_wt->Branch("area1",&ds_intrk_for_pa_wt_area1,"area1/I");
+   ds_intrk_for_pa_wt->Branch("area2",&ds_intrk_for_pa_wt_area2,"area2/I");
+   ds_intrk_for_pa_wt->Branch("txpeak",&ds_intrk_for_pa_wt_txpeak,"txpeak/F");
+   ds_intrk_for_pa_wt->Branch("typeak",&ds_intrk_for_pa_wt_typeak,"typeak/F");
+   ds_intrk_for_pa_wt->Branch("i",&ds_intrk_for_pa_wt_i,"i/I");
+   ds_intrk_for_pa_wt->Branch("xc",&ds_intrk_for_pa_wt_xc,"xc/F");
+   ds_intrk_for_pa_wt->Branch("yc",&ds_intrk_for_pa_wt_yc,"yc/F");
+   ds_intrk_for_pa_wt->Branch("1ry_vx",&ds_intrk_for_pa_wt_1ry_vx,"1ry_vx/F");
+   ds_intrk_for_pa_wt->Branch("1ry_vy",&ds_intrk_for_pa_wt_1ry_vy,"1ry_vy/F");
+   ds_intrk_for_pa_wt->Branch("1ry_vz",&ds_intrk_for_pa_wt_1ry_vz,"1ry_vz/F");
+   ds_intrk_for_pa_wt->Branch("1ry_plt",&ds_intrk_for_pa_wt_1ry_plt,"1ry_plt/I");
+   ds_intrk_for_pa_wt->Branch("flagw",&ds_intrk_for_pa_wt_flagw,"flagw/I");
+   ds_intrk_for_pa_wt->Branch("n_1ry_trk",&ds_intrk_for_pa_wt_n_1ry_trk,"n_1ry_trk/I");
+   ds_intrk_for_pa_wt->Branch("2ry_vx",&ds_intrk_for_pa_wt_2ry_vx,"2ry_vx/F");
+   ds_intrk_for_pa_wt->Branch("2ry_vy",&ds_intrk_for_pa_wt_2ry_vy,"2ry_vy/F");
+   ds_intrk_for_pa_wt->Branch("2ry_vz",&ds_intrk_for_pa_wt_2ry_vz,"2ry_vz/F");
+   ds_intrk_for_pa_wt->Branch("2ry_plt",&ds_intrk_for_pa_wt_2ry_plt,"2ry_plt/I");
+   ds_intrk_for_pa_wt->Branch("parent_plt_1st",&ds_intrk_for_pa_wt_parent_plt_1st,"parent_plt_1st/I");
+   ds_intrk_for_pa_wt->Branch("parent_trkID",&ds_intrk_for_pa_wt_parent_trkID,"parent_trkID/I");
+   ds_intrk_for_pa_wt->Branch("parent_MCEvt",&ds_intrk_for_pa_wt_parent_MCEvt,"parent_MCEvt/I");
+   ds_intrk_for_pa_wt->Branch("parent_pdgID",&ds_intrk_for_pa_wt_parent_pdgID,"parent_pdgID/I");
+   ds_intrk_for_pa_wt->Branch("parent_MCp",&ds_intrk_for_pa_wt_parent_MCp,"parent_MCp/F");
+   ds_intrk_for_pa_wt->Branch("nparent_1ry",&ds_intrk_for_pa_wt_nparent_1ry,"nparent_1ry/I");
+   ds_intrk_for_pa_wt->Branch("nparent_1ry_penet",&ds_intrk_for_pa_wt_nparent_1ry_penet,"nparent_1ry/I");
+   ds_intrk_for_pa_wt->Branch("nparent_non1ry",&ds_intrk_for_pa_wt_nparent_non1ry,"nparent_non1ry/I");
+   ds_intrk_for_pa_wt->Branch("parent_tx",&ds_intrk_for_pa_wt_parent_tx,"parent_tx/F");
+   ds_intrk_for_pa_wt->Branch("parent_ty",&ds_intrk_for_pa_wt_parent_ty,"parent_ty/F");
+   ds_intrk_for_pa_wt->Branch("ndau",&ds_intrk_for_pa_wt_ndau_all,"ndau_all/I");
+   ds_intrk_for_pa_wt->Branch("ndau_ip700",&ds_intrk_for_pa_wt_ndau_ip700,"ndau_ip700/I");
+   ds_intrk_for_pa_wt->Branch("ndau_ip500",&ds_intrk_for_pa_wt_ndau_ip500,"ndau_ip500/I");
+
+   ds_intrk_for_pa_wt->Branch("plt_dau1",&ds_intrk_for_pa_wt_plt_dau1,"plt_dau1/I");
+   ds_intrk_for_pa_wt->Branch("segid_dau1",&ds_intrk_for_pa_wt_segid_dau1,"segid_dau1/I");
+   ds_intrk_for_pa_wt->Branch("dau1_MCEvt",&ds_intrk_for_pa_wt_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_intrk_for_pa_wt->Branch("dau1_pdgID",&ds_intrk_for_pa_wt_dau1_pdgID,"dau1_pdgID/I");
+   ds_intrk_for_pa_wt->Branch("dau1_MCp",&ds_intrk_for_pa_wt_dau1_MCp,"dau1_MCp/F");
+   ds_intrk_for_pa_wt->Branch("ip_to1ry_dau1",&ds_intrk_for_pa_wt_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_intrk_for_pa_wt->Branch("ip_to2ry_dau1",&ds_intrk_for_pa_wt_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_intrk_for_pa_wt->Branch("tx_dau1",&ds_intrk_for_pa_wt_tx_dau1,"tx_dau1/F");
+   ds_intrk_for_pa_wt->Branch("ty_dau1",&ds_intrk_for_pa_wt_ty_dau1,"ty_dau1/F");
+   ds_intrk_for_pa_wt->Branch("dt_dau1",&ds_intrk_for_pa_wt_dt_dau1,"dt_dau1/F");
+   ds_intrk_for_pa_wt->Branch("dtrms_dau1",&ds_intrk_for_pa_wt_dtrms_dau1,"dtrms_dau1/F");
+   ds_intrk_for_pa_wt->Branch("dtrmst_dau1",&ds_intrk_for_pa_wt_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_intrk_for_pa_wt->Branch("dt_w_dau1",&ds_intrk_for_pa_wt_dt_w_dau1,"dt_w_dau1/F");
+   ds_intrk_for_pa_wt->Branch("plt_dau2",&ds_intrk_for_pa_wt_plt_dau2,"plt_dau2/I");
+   ds_intrk_for_pa_wt->Branch("segid_dau2",&ds_intrk_for_pa_wt_segid_dau2,"segid_dau2/I");
+   ds_intrk_for_pa_wt->Branch("dau2_MCEvt",&ds_intrk_for_pa_wt_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_intrk_for_pa_wt->Branch("dau2_pdgID",&ds_intrk_for_pa_wt_dau2_pdgID,"dau2_pdgID/I");
+   ds_intrk_for_pa_wt->Branch("dau2_MCp",&ds_intrk_for_pa_wt_dau2_MCp,"dau2_MCp/F");
+   ds_intrk_for_pa_wt->Branch("ip_to1ry_dau2",&ds_intrk_for_pa_wt_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_intrk_for_pa_wt->Branch("ip_to2ry_dau2",&ds_intrk_for_pa_wt_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_intrk_for_pa_wt->Branch("tx_dau2",&ds_intrk_for_pa_wt_tx_dau2,"tx_dau2/F");
+   ds_intrk_for_pa_wt->Branch("ty_dau2",&ds_intrk_for_pa_wt_ty_dau2,"ty_dau2/F");
+   ds_intrk_for_pa_wt->Branch("dt_dau2",&ds_intrk_for_pa_wt_dt_dau2,"dt_dau2/F");
+   ds_intrk_for_pa_wt->Branch("dtrms_dau2",&ds_intrk_for_pa_wt_dtrms_dau2,"dtrms_dau2/F");
+   ds_intrk_for_pa_wt->Branch("dtrmst_dau2",&ds_intrk_for_pa_wt_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_intrk_for_pa_wt->Branch("dt_w_dau2",&ds_intrk_for_pa_wt_dt_w_dau2,"dt_w_dau2/F");
+   ds_intrk_for_pa_wt->Branch("plt_dau3",&ds_intrk_for_pa_wt_plt_dau3,"plt_dau3/I");
+   ds_intrk_for_pa_wt->Branch("segid_dau3",&ds_intrk_for_pa_wt_segid_dau3,"segid_dau3/I");
+   ds_intrk_for_pa_wt->Branch("dau3_MCEvt",&ds_intrk_for_pa_wt_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_intrk_for_pa_wt->Branch("dau3_pdgID",&ds_intrk_for_pa_wt_dau3_pdgID,"dau3_pdgID/I");
+   ds_intrk_for_pa_wt->Branch("dau3_MCp",&ds_intrk_for_pa_wt_dau3_MCp,"dau3_MCp/F");
+   ds_intrk_for_pa_wt->Branch("ip_to1ry_dau3",&ds_intrk_for_pa_wt_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_intrk_for_pa_wt->Branch("ip_to2ry_dau3",&ds_intrk_for_pa_wt_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_intrk_for_pa_wt->Branch("tx_dau3",&ds_intrk_for_pa_wt_tx_dau3,"tx_dau3/F");
+   ds_intrk_for_pa_wt->Branch("ty_dau3",&ds_intrk_for_pa_wt_ty_dau3,"ty_dau3/F");
+   ds_intrk_for_pa_wt->Branch("dt_dau3",&ds_intrk_for_pa_wt_dt_dau3,"dt_dau3/F");
+   ds_intrk_for_pa_wt->Branch("dtrms_dau3",&ds_intrk_for_pa_wt_dtrms_dau3,"dtrms_dau3/F");
+   ds_intrk_for_pa_wt->Branch("dtrmst_dau3",&ds_intrk_for_pa_wt_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_intrk_for_pa_wt->Branch("dt_w_dau3",&ds_intrk_for_pa_wt_dt_w_dau3,"dt_w_dau3/F");               
+
+
+
    int VtxId = -1, chldNum = 0;
    char line[1024];
 
@@ -295,7 +1078,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
    int prevSubArea = 1, recoNum = 1;
 
-   for (int segNum = 0; segNum <= 2; segNum++)
+   for (int segNum = 0; segNum <= 1; segNum++)
    {
       int parid = 0;
       vector<int> paridVec;
@@ -419,7 +1202,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
          }
 
          cout << "Area " << areaInd << " - Done" << endl;
-            cout << "Number of Protons Inside Acceptance: " << pInAcc << ", Number of Protons Outside Acceptance: " << pOutAcc << endl;
+         cout << "Number of Protons Inside Acceptance: " << pInAcc << ", Number of Protons Outside Acceptance: " << pOutAcc << endl;
       }
 
       while (fgets(line,1024,fp))
@@ -539,6 +1322,93 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                }
             }
          }
+
+         else if(strcmp(type,"ds_all") == 0)
+         {
+            sscanf(&line[8], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d ",
+            &ds_all_area1,&ds_all_area2,&ds_all_txpeak,&ds_all_typeak,&ds_all_i,&ds_all_xc,&ds_all_yc,&ds_all_1ry_vx,&ds_all_1ry_vy,&ds_all_1ry_vz,
+            &ds_all_1ry_plt,&ds_all_flagw,&ds_all_n_1ry_trk,&ds_all_2ry_vx,&ds_all_2ry_vy,&ds_all_2ry_vz,&ds_all_2ry_plt,&ds_all_parent_plt_1st,
+            &ds_all_parent_trkID,&ds_all_parent_MCEvt,&ds_all_parent_pdgID,&ds_all_parent_MCp,&ds_all_nparent_1ry,&ds_all_nparent_1ry_penet,
+            &ds_all_nparent_non1ry,&ds_all_parent_tx,&ds_all_parent_ty,&ds_all_ndau,&ds_all_default1,&ds_all_default2,
+            &ds_all_plt_dau1,&ds_all_segid_dau1,&ds_all_dau1_MCEvt,&ds_all_dau1_pdgID,&ds_all_dau1_MCp,&ds_all_ip_to1ry_dau1,&ds_all_ip_to2ry_dau1,&ds_all_tx_dau1,&ds_all_ty_dau1,&ds_all_dt_dau1,&ds_all_dtrms_dau1,&ds_all_dtrmst_dau1,&ds_all_dt_w_dau1,
+            &ds_all_plt_dau2,&ds_all_segid_dau2,&ds_all_dau2_MCEvt,&ds_all_dau2_pdgID,&ds_all_dau2_MCp,&ds_all_ip_to1ry_dau2,&ds_all_ip_to2ry_dau2,&ds_all_tx_dau2,&ds_all_ty_dau2,&ds_all_dt_dau2,&ds_all_dtrms_dau2,&ds_all_dtrmst_dau2,&ds_all_dt_w_dau2,
+            &ds_all_plt_dau3,&ds_all_segid_dau3,&ds_all_dau3_MCEvt,&ds_all_dau3_pdgID,&ds_all_dau3_MCp,&ds_all_ip_to1ry_dau3,&ds_all_ip_to2ry_dau3,&ds_all_tx_dau3,&ds_all_ty_dau3,&ds_all_dt_dau3,&ds_all_dtrms_dau3,&ds_all_dtrmst_dau3,&ds_all_dt_w_dau3,
+            &ds_all_plt_dau4,&ds_all_segid_dau4,&ds_all_dau4_MCEvt,&ds_all_dau4_pdgID,&ds_all_dau4_MCp,&ds_all_ip_to1ry_dau4,&ds_all_ip_to2ry_dau4,&ds_all_tx_dau4,&ds_all_ty_dau4,&ds_all_dt_dau4,&ds_all_dtrms_dau4,&ds_all_dtrmst_dau4,&ds_all_dt_w_dau4,
+            &ds_all_dmin_org_vee,&ds_all_dmin_fine_vee,&ds_all_topen_vee,&ds_all_dt1dt2_vee,&ds_all_dt012_vee,&ds_all_ntrk_around_2ry,&ds_all_ntrk_other_vtx_max,&ds_all_flag_final);
+
+            ds_all_area1 = recoNum-1 ;
+            ds_all->Fill();
+         }
+
+         else if(strcmp(type,"ds_intrk") == 0)
+         {
+            sscanf(&line[8], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f",
+            &ds_intrk_area1,&ds_intrk_area2,&ds_intrk_txpeak,&ds_intrk_typeak,&ds_intrk_i,&ds_intrk_xc,&ds_intrk_yc,&ds_intrk_1ry_vx,&ds_intrk_1ry_vy,&ds_intrk_1ry_vz,
+            &ds_intrk_1ry_plt,&ds_intrk_flagw,&ds_intrk_n_1ry_trk,&ds_intrk_2ry_vx,&ds_intrk_2ry_vy,&ds_intrk_2ry_vz,&ds_intrk_2ry_plt,&ds_intrk_parent_plt_1st,
+            &ds_intrk_parent_trkID,&ds_intrk_parent_MCEvt,&ds_intrk_parent_pdgID,&ds_intrk_parent_MCp,&ds_intrk_nparent_1ry,&ds_intrk_nparent_1ry_penet,
+            &ds_intrk_nparent_non1ry,&ds_intrk_parent_tx,&ds_intrk_parent_ty,&ds_intrk_ndau_all,&ds_intrk_ndau_ip700,&ds_intrk_ndau_ip500,
+            &ds_intrk_plt_dau1,&ds_intrk_segid_dau1,&ds_intrk_dau1_MCEvt,&ds_intrk_dau1_pdgID,&ds_intrk_dau1_MCp,&ds_intrk_ip_to1ry_dau1,&ds_intrk_ip_to2ry_dau1,&ds_intrk_tx_dau1,&ds_intrk_ty_dau1,&ds_intrk_dt_dau1,&ds_intrk_dtrms_dau1,&ds_intrk_dtrmst_dau1,&ds_intrk_dt_w_dau1,
+            &ds_intrk_plt_dau2,&ds_intrk_segid_dau2,&ds_intrk_dau2_MCEvt,&ds_intrk_dau2_pdgID,&ds_intrk_dau2_MCp,&ds_intrk_ip_to1ry_dau2,&ds_intrk_ip_to2ry_dau2,&ds_intrk_tx_dau2,&ds_intrk_ty_dau2,&ds_intrk_dt_dau2,&ds_intrk_dtrms_dau2,&ds_intrk_dtrmst_dau2,&ds_intrk_dt_w_dau2,
+            &ds_intrk_plt_dau3,&ds_intrk_segid_dau3,&ds_intrk_dau3_MCEvt,&ds_intrk_dau3_pdgID,&ds_intrk_dau3_MCp,&ds_intrk_ip_to1ry_dau3,&ds_intrk_ip_to2ry_dau3,&ds_intrk_tx_dau3,&ds_intrk_ty_dau3,&ds_intrk_dt_dau3,&ds_intrk_dtrms_dau3,&ds_intrk_dtrmst_dau3,&ds_intrk_dt_w_dau3 );         
+
+            ds_intrk_area1 = recoNum-1 ;
+            ds_intrk->Fill();               
+         }
+
+
+         else if(strcmp(type,"ds_intrk_wt") == 0)
+         {
+            sscanf(&line[12], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f",
+            &ds_intrk_wt_area1,&ds_intrk_wt_area2,&ds_intrk_wt_txpeak,&ds_intrk_wt_typeak,&ds_intrk_wt_i,&ds_intrk_wt_xc,&ds_intrk_wt_yc,&ds_intrk_wt_1ry_vx,&ds_intrk_wt_1ry_vy,&ds_intrk_wt_1ry_vz,
+            &ds_intrk_wt_1ry_plt,&ds_intrk_wt_flagw,&ds_intrk_wt_n_1ry_trk,&ds_intrk_wt_2ry_vx,&ds_intrk_wt_2ry_vy,&ds_intrk_wt_2ry_vz,&ds_intrk_wt_2ry_plt,&ds_intrk_wt_parent_plt_1st,
+            &ds_intrk_wt_parent_trkID,&ds_intrk_wt_parent_MCEvt,&ds_intrk_wt_parent_pdgID,&ds_intrk_wt_parent_MCp,&ds_intrk_wt_nparent_1ry,&ds_intrk_wt_nparent_1ry_penet,
+            &ds_intrk_wt_nparent_non1ry,&ds_intrk_wt_parent_tx,&ds_intrk_wt_parent_ty,&ds_intrk_wt_ndau_all,&ds_intrk_wt_ndau_ip700,&ds_intrk_wt_ndau_ip500,
+            &ds_intrk_wt_plt_dau1,&ds_intrk_wt_segid_dau1,&ds_intrk_wt_dau1_MCEvt,&ds_intrk_wt_dau1_pdgID,&ds_intrk_wt_dau1_MCp,&ds_intrk_wt_ip_to1ry_dau1,&ds_intrk_wt_ip_to2ry_dau1,&ds_intrk_wt_tx_dau1,&ds_intrk_wt_ty_dau1,&ds_intrk_wt_dt_dau1,&ds_intrk_wt_dtrms_dau1,&ds_intrk_wt_dtrmst_dau1,&ds_intrk_wt_dt_w_dau1,
+            &ds_intrk_wt_plt_dau2,&ds_intrk_wt_segid_dau2,&ds_intrk_wt_dau2_MCEvt,&ds_intrk_wt_dau2_pdgID,&ds_intrk_wt_dau2_MCp,&ds_intrk_wt_ip_to1ry_dau2,&ds_intrk_wt_ip_to2ry_dau2,&ds_intrk_wt_tx_dau2,&ds_intrk_wt_ty_dau2,&ds_intrk_wt_dt_dau2,&ds_intrk_wt_dtrms_dau2,&ds_intrk_wt_dtrmst_dau2,&ds_intrk_wt_dt_w_dau2,
+            &ds_intrk_wt_plt_dau3,&ds_intrk_wt_segid_dau3,&ds_intrk_wt_dau3_MCEvt,&ds_intrk_wt_dau3_pdgID,&ds_intrk_wt_dau3_MCp,&ds_intrk_wt_ip_to1ry_dau3,&ds_intrk_wt_ip_to2ry_dau3,&ds_intrk_wt_tx_dau3,&ds_intrk_wt_ty_dau3,&ds_intrk_wt_dt_dau3,&ds_intrk_wt_dtrms_dau3,&ds_intrk_wt_dtrmst_dau3,&ds_intrk_wt_dt_w_dau3 );         
+
+            //cout << ds_intrk_wt_area2 << " , " << ds_intrk_wt_parent_trkID << " , " << ds_intrk_wt_plt_dau3 << endl;
+         
+            ds_intrk_wt_area1 = recoNum-1 ;
+            ds_intrk_wt->Fill(); 
+         }
+
+
+         else if(strcmp(type,"ds_intrk_for_pa") == 0)
+         {
+            sscanf(&line[16], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f",
+            &ds_intrk_for_pa_area1,&ds_intrk_for_pa_area2,&ds_intrk_for_pa_txpeak,&ds_intrk_for_pa_typeak,&ds_intrk_for_pa_i,&ds_intrk_for_pa_xc,&ds_intrk_for_pa_yc,&ds_intrk_for_pa_1ry_vx,&ds_intrk_for_pa_1ry_vy,&ds_intrk_for_pa_1ry_vz,
+            &ds_intrk_for_pa_1ry_plt,&ds_intrk_for_pa_flagw,&ds_intrk_for_pa_n_1ry_trk,&ds_intrk_for_pa_2ry_vx,&ds_intrk_for_pa_2ry_vy,&ds_intrk_for_pa_2ry_vz,&ds_intrk_for_pa_2ry_plt,&ds_intrk_for_pa_parent_plt_1st,
+            &ds_intrk_for_pa_parent_trkID,&ds_intrk_for_pa_parent_MCEvt,&ds_intrk_for_pa_parent_pdgID,&ds_intrk_for_pa_parent_MCp,&ds_intrk_for_pa_nparent_1ry,&ds_intrk_for_pa_nparent_1ry_penet,
+            &ds_intrk_for_pa_nparent_non1ry,&ds_intrk_for_pa_parent_tx,&ds_intrk_for_pa_parent_ty,&ds_intrk_for_pa_ndau_all,&ds_intrk_for_pa_ndau_ip700,&ds_intrk_for_pa_ndau_ip500,
+            &ds_intrk_for_pa_plt_dau1,&ds_intrk_for_pa_segid_dau1,&ds_intrk_for_pa_dau1_MCEvt,&ds_intrk_for_pa_dau1_pdgID,&ds_intrk_for_pa_dau1_MCp,&ds_intrk_for_pa_ip_to1ry_dau1,&ds_intrk_for_pa_ip_to2ry_dau1,&ds_intrk_for_pa_tx_dau1,&ds_intrk_for_pa_ty_dau1,&ds_intrk_for_pa_dt_dau1,&ds_intrk_for_pa_dtrms_dau1,&ds_intrk_for_pa_dtrmst_dau1,&ds_intrk_for_pa_dt_w_dau1,
+            &ds_intrk_for_pa_plt_dau2,&ds_intrk_for_pa_segid_dau2,&ds_intrk_for_pa_dau2_MCEvt,&ds_intrk_for_pa_dau2_pdgID,&ds_intrk_for_pa_dau2_MCp,&ds_intrk_for_pa_ip_to1ry_dau2,&ds_intrk_for_pa_ip_to2ry_dau2,&ds_intrk_for_pa_tx_dau2,&ds_intrk_for_pa_ty_dau2,&ds_intrk_for_pa_dt_dau2,&ds_intrk_for_pa_dtrms_dau2,&ds_intrk_for_pa_dtrmst_dau2,&ds_intrk_for_pa_dt_w_dau2,
+            &ds_intrk_for_pa_plt_dau3,&ds_intrk_for_pa_segid_dau3,&ds_intrk_for_pa_dau3_MCEvt,&ds_intrk_for_pa_dau3_pdgID,&ds_intrk_for_pa_dau3_MCp,&ds_intrk_for_pa_ip_to1ry_dau3,&ds_intrk_for_pa_ip_to2ry_dau3,&ds_intrk_for_pa_tx_dau3,&ds_intrk_for_pa_ty_dau3,&ds_intrk_for_pa_dt_dau3,&ds_intrk_for_pa_dtrms_dau3,&ds_intrk_for_pa_dtrmst_dau3,&ds_intrk_for_pa_dt_w_dau3 );         
+         
+            //cout << ds_intrk_for_pa_area2 << " , " << ds_intrk_for_pa_parent_trkID << " , " << ds_intrk_for_pa_plt_dau3 << endl;
+            
+            ds_intrk_for_pa_area1 = recoNum-1 ;
+            ds_intrk_for_pa->Fill();
+         }
+
+         else if(strcmp(type,"ds_intrk_for_pa_wt") == 0)
+         {
+            sscanf(&line[18], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f",
+            &ds_intrk_for_pa_wt_area1,&ds_intrk_for_pa_wt_area2,&ds_intrk_for_pa_wt_txpeak,&ds_intrk_for_pa_wt_typeak,&ds_intrk_for_pa_wt_i,&ds_intrk_for_pa_wt_xc,&ds_intrk_for_pa_wt_yc,&ds_intrk_for_pa_wt_1ry_vx,&ds_intrk_for_pa_wt_1ry_vy,&ds_intrk_for_pa_wt_1ry_vz,
+            &ds_intrk_for_pa_wt_1ry_plt,&ds_intrk_for_pa_wt_flagw,&ds_intrk_for_pa_wt_n_1ry_trk,&ds_intrk_for_pa_wt_2ry_vx,&ds_intrk_for_pa_wt_2ry_vy,&ds_intrk_for_pa_wt_2ry_vz,&ds_intrk_for_pa_wt_2ry_plt,&ds_intrk_for_pa_wt_parent_plt_1st,
+            &ds_intrk_for_pa_wt_parent_trkID,&ds_intrk_for_pa_wt_parent_MCEvt,&ds_intrk_for_pa_wt_parent_pdgID,&ds_intrk_for_pa_wt_parent_MCp,&ds_intrk_for_pa_wt_nparent_1ry,&ds_intrk_for_pa_wt_nparent_1ry_penet,
+            &ds_intrk_for_pa_wt_nparent_non1ry,&ds_intrk_for_pa_wt_parent_tx,&ds_intrk_for_pa_wt_parent_ty,&ds_intrk_for_pa_wt_ndau_all,&ds_intrk_for_pa_wt_ndau_ip700,&ds_intrk_for_pa_wt_ndau_ip500,
+            &ds_intrk_for_pa_wt_plt_dau1,&ds_intrk_for_pa_wt_segid_dau1,&ds_intrk_for_pa_wt_dau1_MCEvt,&ds_intrk_for_pa_wt_dau1_pdgID,&ds_intrk_for_pa_wt_dau1_MCp,&ds_intrk_for_pa_wt_ip_to1ry_dau1,&ds_intrk_for_pa_wt_ip_to2ry_dau1,&ds_intrk_for_pa_wt_tx_dau1,&ds_intrk_for_pa_wt_ty_dau1,&ds_intrk_for_pa_wt_dt_dau1,&ds_intrk_for_pa_wt_dtrms_dau1,&ds_intrk_for_pa_wt_dtrmst_dau1,&ds_intrk_for_pa_wt_dt_w_dau1,
+            &ds_intrk_for_pa_wt_plt_dau2,&ds_intrk_for_pa_wt_segid_dau2,&ds_intrk_for_pa_wt_dau2_MCEvt,&ds_intrk_for_pa_wt_dau2_pdgID,&ds_intrk_for_pa_wt_dau2_MCp,&ds_intrk_for_pa_wt_ip_to1ry_dau2,&ds_intrk_for_pa_wt_ip_to2ry_dau2,&ds_intrk_for_pa_wt_tx_dau2,&ds_intrk_for_pa_wt_ty_dau2,&ds_intrk_for_pa_wt_dt_dau2,&ds_intrk_for_pa_wt_dtrms_dau2,&ds_intrk_for_pa_wt_dtrmst_dau2,&ds_intrk_for_pa_wt_dt_w_dau2,
+            &ds_intrk_for_pa_wt_plt_dau3,&ds_intrk_for_pa_wt_segid_dau3,&ds_intrk_for_pa_wt_dau3_MCEvt,&ds_intrk_for_pa_wt_dau3_pdgID,&ds_intrk_for_pa_wt_dau3_MCp,&ds_intrk_for_pa_wt_ip_to1ry_dau3,&ds_intrk_for_pa_wt_ip_to2ry_dau3,&ds_intrk_for_pa_wt_tx_dau3,&ds_intrk_for_pa_wt_ty_dau3,&ds_intrk_for_pa_wt_dt_dau3,&ds_intrk_for_pa_wt_dtrms_dau3,&ds_intrk_for_pa_wt_dtrmst_dau3,&ds_intrk_for_pa_wt_dt_w_dau3 );         
+         
+            //cout << ds_intrk_for_pa_wt_area2 << " , " << ds_intrk_for_pa_wt_parent_trkID << " , " << ds_intrk_for_pa_wt_plt_dau3 << endl;
+
+            ds_intrk_for_pa_wt_area1 = recoNum-1 ;
+            ds_intrk_for_pa_wt->Fill();
+         }
+
+
       }
    }
 
@@ -554,6 +1424,12 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
    us_ptrk->Write();
    ds_ptrk->Write();
+
+   ds_all->Write();
+   ds_intrk->Write();
+   ds_intrk_wt->Write();
+   ds_intrk_for_pa->Write();
+   ds_intrk_for_pa_wt->Write();
 
    fclose(fp);
    delete hfile;

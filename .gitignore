@@ -2,4 +2,6 @@
 *.txt
 *.dat
 *.old
+*.tar.gz
+*.tar
 /Test
