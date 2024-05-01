@@ -17,7 +17,7 @@ void All_limits();
 void FineAllign();
 
 bool isInAcceptance(int index);
-bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY, int sIndex);
+bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY);
 bool isInSubArea(int index, int posX, int posY);
 
 ofstream out("DataAccOut.log", ios::out | ios::app);
@@ -373,8 +373,8 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
             char USIn[128], DSIn[128];
 
-            sprintf(USIn, "PD05_FullArea_Links/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
-            sprintf(DSIn, "PD05_FullArea_Links/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
+            snprintf(USIn, 128, "PD05_FullArea_Links/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
+            snprintf(DSIn, 128, "PD05_FullArea_Links/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
 
             cout << USIn << endl;
 
@@ -398,7 +398,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
                float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
 
-               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY, dirIndex) /*&& isInSubArea(areaInd+1, posX, posY)*/)
+               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY) /*&& isInSubArea(areaInd+1, posX, posY)*/)
                {
                   UStrID[areaInd].push_back(trid);
                   USgtrID[areaInd].push_back(gtrid);
@@ -437,7 +437,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
                //cout << areaInd+1 << ", " << posX << ", " << posY << endl;
 
-               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY, dirIndex) /*&& isInSubArea(areaInd+1, posX, posY)*/)
+               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY) /*&& isInSubArea(areaInd+1, posX, posY)*/)
                {
                   DStrID[areaInd].push_back(trid);
                   DSgtrID[areaInd].push_back(gtrid);
@@ -758,20 +758,18 @@ vector<tuple<int, int, int, int, int, int, int>> ReadFile(char *inFile, int segN
    }
    fclose(fUS);
 
-   const int numL = numLines;
-
-   int initSegPlt[numLines];
-   int trID[numLines];
-   int globalTrID[numLines];
-   int initPosX[numLines];
-   int initPosY[numLines];
-   int initPosZ[numLines];
+   int* initSegPlt = new int[numLines];
+   int* trID = new int[numLines];
+   int* globalTrID = new int[numLines];
+   int* initPosX = new int[numLines];
+   int* initPosY = new int[numLines];
+   int* initPosZ = new int[numLines];
    
-   int pltID[numLines];
-   int segID[numLines];
+   int* pltID = new int[numLines];
+   int* segID = new int[numLines];
 
-   int initTX[numLines];
-   int initTY[numLines];
+   int* initTX = new int[numLines];
+   int* initTY = new int[numLines];
    
    fUS = fopen(inFile, "r");
    
@@ -784,6 +782,17 @@ vector<tuple<int, int, int, int, int, int, int>> ReadFile(char *inFile, int segN
       if (segNum == initSegPlt[i]) {trIDVec.push_back(make_tuple(trID[i], globalTrID[i], initPosX[i], initPosY[i], initPosZ[i], initTX[i], initTY[i]));}
    }
    fclose(fUS);
+
+   delete[] initSegPlt;
+   delete[] trID;
+   delete[] globalTrID;
+   delete[] initPosX;
+   delete[] initPosY;
+   delete[] initPosZ;
+   delete[] pltID;
+   delete[] segID;
+   delete[] initTX;
+   delete[] initTY;
 
    return trIDVec;
 }
@@ -1097,75 +1106,7 @@ bool isInAcceptance(int index)
    return false;
 }
 
-/*
-bool isTranslatedOut(int index, int posX, int posY, int posZ, int sIndex)
-{
-   int acceptanceCut[21] = 
-   {
-      29, 30, 31, 32, 33, 34, 35,
-      38, 39, 40, 41, 42, 43, 44,
-      47, 48, 49, 50, 51, 52, 53
-   };
-
-   map <int, pair <float, float>> avgBeamSlope;
-
-   avgBeamSlope[29] = make_pair(-0.02092, -0.00565);
-   avgBeamSlope[30] = make_pair(-0.01845, -0.00509);
-   avgBeamSlope[31] = make_pair(-0.01853, -0.00466);
-   avgBeamSlope[32] = make_pair(-0.01998, -0.00515);
-   avgBeamSlope[33] = make_pair(-0.02065, -0.00554);
-   avgBeamSlope[34] = make_pair(-0.02110, -0.00516);
-   avgBeamSlope[35] = make_pair(-0.02168, -0.00446);
-   avgBeamSlope[38] = make_pair(-0.02183, -0.00757);
-   avgBeamSlope[39] = make_pair(-0.01875, -0.00699);
-   avgBeamSlope[40] = make_pair(-0.01822, -0.00652);
-   avgBeamSlope[41] = make_pair(-0.02027, -0.00674);
-   avgBeamSlope[42] = make_pair(-0.02028, -0.00662);
-   avgBeamSlope[43] = make_pair(-0.02106, -0.00663);
-   avgBeamSlope[44] = make_pair(-0.02151, -0.00587);
-   avgBeamSlope[47] = make_pair(-0.02293, -0.00924);
-   avgBeamSlope[48] = make_pair(-0.01879, -0.00924);
-   avgBeamSlope[49] = make_pair(-0.01821, -0.00968);
-   avgBeamSlope[50] = make_pair(-0.02011, -0.01000);
-   avgBeamSlope[51] = make_pair(-0.02019, -0.00998);
-   avgBeamSlope[52] = make_pair(-0.02013, -0.00909);
-   avgBeamSlope[53] = make_pair(-0.02120, -0.00814);
-
-   float stepX = 15000;
-   float stepY = 15000;
-
-   float intX = 5000;
-   float intY = 5000;
-   
-   int posXMin = intX + ((index-1)%9)*stepX - stepX/2;
-   int posYMin = intY + ((index-1)/9)*stepY - stepY/2;
-   int posXMax = posXMin + stepX;
-   int posYMax = posYMin + stepY;
-
-   //cout << "Area: " << index << ", " << posXMin << ", " << posXMax << ", " << posYMin << ", " << posYMax << endl;
-
-   int endPosZ = 5885;
-
-   //int zDif = endPosZ - posZ;
-   //int zDif = 810;
-   int zDif = 5885;
-
-   //cout << "Area: " << index << ", " << posX << ", " << posY << endl;
-
-   float endPosX = posX + get<0>(avgBeamSlope[index]) * zDif;
-   float endPosY = posY + get<1>(avgBeamSlope[index]) * zDif;
-
-   if (endPosX > posXMin && endPosX < posXMax && endPosY > posYMin && endPosY < posYMax)
-   {
-      return false;
-   }
-   //else{cout << posX << ", " << posY << endl;}
-
-   return true;
-}
-*/
-
-bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY, int sIndex)
+bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY)
 {
    int acceptanceCut[21] = 
    {
@@ -1194,17 +1135,8 @@ bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY, 
 
    //cout << "Area: " << index << ", " << posXMin << ", " << posXMax << ", " << posYMin << ", " << posYMax << endl;
 
-   int zDif = 5300;
-
-   if (sIndex == 0){zDif = 2125;}
-   else if (sIndex == 1){zDif = 5236;}
-   else if (sIndex == 2){zDif = 5417;}
-   else if (sIndex == 3){zDif = 5461;}
-   else if (sIndex == 4){zDif = 5342;}
-   else if (sIndex == 5){zDif = 5169;}
-   else if (sIndex == 6){zDif = 5236;}
-   else if (sIndex == 7){zDif = 5240;}
-   else if (sIndex == 8){zDif = 5329;}
+   //int zDif = 5300;
+   int zDif = 7925;
 
    //cout << "Area: " << index << ", " << posX << ", " << posY << endl;
 

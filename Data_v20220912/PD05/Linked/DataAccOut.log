@@ -62,3 +62,195 @@ Sub-volume: 7, InitSeg: 0
 Number of Protons Inside Acceptance: 2730001 - Ratio: 0.837432, Number of Protons Outside Acceptance: 529965 - Ratio: 0.162568
 Sub-volume: 7, InitSeg: 1
 Number of Protons Inside Acceptance: 107071 - Ratio: 0.825573, Number of Protons Outside Acceptance: 22622 - Ratio: 0.174427
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 3244967 - Ratio: 0.789009, Number of Protons Outside Acceptance: 867746 - Ratio: 0.210991
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 33214 - Ratio: 0.680587, Number of Protons Outside Acceptance: 15588 - Ratio: 0.319413
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 3227623 - Ratio: 0.79696, Number of Protons Outside Acceptance: 822298 - Ratio: 0.203041
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 46528 - Ratio: 0.788143, Number of Protons Outside Acceptance: 12507 - Ratio: 0.211857
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 3194954 - Ratio: 0.803751, Number of Protons Outside Acceptance: 780101 - Ratio: 0.196249
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 44677 - Ratio: 0.778983, Number of Protons Outside Acceptance: 12676 - Ratio: 0.221017
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 3148346 - Ratio: 0.810833, Number of Protons Outside Acceptance: 734508 - Ratio: 0.189167
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 49587 - Ratio: 0.807369, Number of Protons Outside Acceptance: 11831 - Ratio: 0.192631
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 3076603 - Ratio: 0.817688, Number of Protons Outside Acceptance: 685959 - Ratio: 0.182312
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 64405 - Ratio: 0.809718, Number of Protons Outside Acceptance: 15135 - Ratio: 0.190282
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 2988572 - Ratio: 0.823581, Number of Protons Outside Acceptance: 640181 - Ratio: 0.176419
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 77332 - Ratio: 0.81243, Number of Protons Outside Acceptance: 17854 - Ratio: 0.18757
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 2887818 - Ratio: 0.83011, Number of Protons Outside Acceptance: 591020 - Ratio: 0.16989
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 93353 - Ratio: 0.819368, Number of Protons Outside Acceptance: 20580 - Ratio: 0.180632
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2769515 - Ratio: 0.836755, Number of Protons Outside Acceptance: 540312 - Ratio: 0.163245
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 108638 - Ratio: 0.823939, Number of Protons Outside Acceptance: 23214 - Ratio: 0.176061
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 2864319 - Ratio: 0.79831, Number of Protons Outside Acceptance: 723659 - Ratio: 0.20169
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 22891 - Ratio: 0.706621, Number of Protons Outside Acceptance: 9504 - Ratio: 0.293379
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 2847097 - Ratio: 0.806816, Number of Protons Outside Acceptance: 681711 - Ratio: 0.193184
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 40452 - Ratio: 0.799352, Number of Protons Outside Acceptance: 10154 - Ratio: 0.200648
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 2821198 - Ratio: 0.813464, Number of Protons Outside Acceptance: 646932 - Ratio: 0.186536
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 39123 - Ratio: 0.791259, Number of Protons Outside Acceptance: 10321 - Ratio: 0.208741
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 2782454 - Ratio: 0.820334, Number of Protons Outside Acceptance: 609401 - Ratio: 0.179666
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 43541 - Ratio: 0.816338, Number of Protons Outside Acceptance: 9796 - Ratio: 0.183662
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 2721242 - Ratio: 0.826857, Number of Protons Outside Acceptance: 569826 - Ratio: 0.173143
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 56518 - Ratio: 0.819386, Number of Protons Outside Acceptance: 12458 - Ratio: 0.180614
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 2645247 - Ratio: 0.83247, Number of Protons Outside Acceptance: 532343 - Ratio: 0.16753
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 68207 - Ratio: 0.821009, Number of Protons Outside Acceptance: 14870 - Ratio: 0.178991
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 2558066 - Ratio: 0.838618, Number of Protons Outside Acceptance: 492270 - Ratio: 0.161382
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 82282 - Ratio: 0.827587, Number of Protons Outside Acceptance: 17142 - Ratio: 0.172413
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2454773 - Ratio: 0.844745, Number of Protons Outside Acceptance: 451162 - Ratio: 0.155255
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 96307 - Ratio: 0.833682, Number of Protons Outside Acceptance: 19213 - Ratio: 0.166318
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 3587978 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 32395 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 3528808 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 50606 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 3468130 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 49444 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 3391855 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 53337 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 3291068 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 68976 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 3177590 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 83077 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 3050336 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 99424 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2905935 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 115520 - Ratio: 1, Number of Protons Outside Acceptance: 0 - Ratio: 0
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 2876920 - Ratio: 0.801822, Number of Protons Outside Acceptance: 711058 - Ratio: 0.198178
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 22994 - Ratio: 0.709801, Number of Protons Outside Acceptance: 9401 - Ratio: 0.290199
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 2847372 - Ratio: 0.806893, Number of Protons Outside Acceptance: 681436 - Ratio: 0.193107
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 40454 - Ratio: 0.799391, Number of Protons Outside Acceptance: 10152 - Ratio: 0.200609
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 2820758 - Ratio: 0.813337, Number of Protons Outside Acceptance: 647372 - Ratio: 0.186663
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 39115 - Ratio: 0.791097, Number of Protons Outside Acceptance: 10329 - Ratio: 0.208903
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 2781862 - Ratio: 0.820159, Number of Protons Outside Acceptance: 609993 - Ratio: 0.179841
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 43533 - Ratio: 0.816188, Number of Protons Outside Acceptance: 9804 - Ratio: 0.183812
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 2721075 - Ratio: 0.826806, Number of Protons Outside Acceptance: 569993 - Ratio: 0.173194
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 56517 - Ratio: 0.819372, Number of Protons Outside Acceptance: 12459 - Ratio: 0.180628
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 2645681 - Ratio: 0.832606, Number of Protons Outside Acceptance: 531909 - Ratio: 0.167394
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 68215 - Ratio: 0.821106, Number of Protons Outside Acceptance: 14862 - Ratio: 0.178894
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 2558286 - Ratio: 0.83869, Number of Protons Outside Acceptance: 492050 - Ratio: 0.16131
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 82287 - Ratio: 0.827637, Number of Protons Outside Acceptance: 17137 - Ratio: 0.172363
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2454960 - Ratio: 0.844809, Number of Protons Outside Acceptance: 450975 - Ratio: 0.155191
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 96316 - Ratio: 0.83376, Number of Protons Outside Acceptance: 19204 - Ratio: 0.16624
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 2864319 - Ratio: 0.79831, Number of Protons Outside Acceptance: 723659 - Ratio: 0.20169
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 22891 - Ratio: 0.706621, Number of Protons Outside Acceptance: 9504 - Ratio: 0.293379
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 2847372 - Ratio: 0.806893, Number of Protons Outside Acceptance: 681436 - Ratio: 0.193107
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 40454 - Ratio: 0.799391, Number of Protons Outside Acceptance: 10152 - Ratio: 0.200609
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 2820758 - Ratio: 0.813337, Number of Protons Outside Acceptance: 647372 - Ratio: 0.186663
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 39115 - Ratio: 0.791097, Number of Protons Outside Acceptance: 10329 - Ratio: 0.208903
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 2781862 - Ratio: 0.820159, Number of Protons Outside Acceptance: 609993 - Ratio: 0.179841
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 43533 - Ratio: 0.816188, Number of Protons Outside Acceptance: 9804 - Ratio: 0.183812
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 2721075 - Ratio: 0.826806, Number of Protons Outside Acceptance: 569993 - Ratio: 0.173194
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 56517 - Ratio: 0.819372, Number of Protons Outside Acceptance: 12459 - Ratio: 0.180628
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 2645681 - Ratio: 0.832606, Number of Protons Outside Acceptance: 531909 - Ratio: 0.167394
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 68215 - Ratio: 0.821106, Number of Protons Outside Acceptance: 14862 - Ratio: 0.178894
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 2558286 - Ratio: 0.83869, Number of Protons Outside Acceptance: 492050 - Ratio: 0.16131
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 82287 - Ratio: 0.827637, Number of Protons Outside Acceptance: 17137 - Ratio: 0.172363
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2454960 - Ratio: 0.844809, Number of Protons Outside Acceptance: 450975 - Ratio: 0.155191
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 96316 - Ratio: 0.83376, Number of Protons Outside Acceptance: 19204 - Ratio: 0.16624
+Sub-volume: 0, InitSeg: 0
+Number of Protons Inside Acceptance: 3221773 - Ratio: 0.796541, Number of Protons Outside Acceptance: 822933 - Ratio: 0.203459
+Sub-volume: 0, InitSeg: 1
+Number of Protons Inside Acceptance: 30472 - Ratio: 0.693712, Number of Protons Outside Acceptance: 13454 - Ratio: 0.306288
+Sub-volume: 1, InitSeg: 0
+Number of Protons Inside Acceptance: 3190138 - Ratio: 0.80141, Number of Protons Outside Acceptance: 790519 - Ratio: 0.19859
+Sub-volume: 1, InitSeg: 1
+Number of Protons Inside Acceptance: 45743 - Ratio: 0.792512, Number of Protons Outside Acceptance: 11976 - Ratio: 0.207488
+Sub-volume: 2, InitSeg: 0
+Number of Protons Inside Acceptance: 3157654 - Ratio: 0.807925, Number of Protons Outside Acceptance: 750697 - Ratio: 0.192075
+Sub-volume: 2, InitSeg: 1
+Number of Protons Inside Acceptance: 44013 - Ratio: 0.783735, Number of Protons Outside Acceptance: 12145 - Ratio: 0.216265
+Sub-volume: 3, InitSeg: 0
+Number of Protons Inside Acceptance: 3111834 - Ratio: 0.81485, Number of Protons Outside Acceptance: 707069 - Ratio: 0.18515
+Sub-volume: 3, InitSeg: 1
+Number of Protons Inside Acceptance: 48904 - Ratio: 0.810716, Number of Protons Outside Acceptance: 11418 - Ratio: 0.189284
+Sub-volume: 4, InitSeg: 0
+Number of Protons Inside Acceptance: 3041935 - Ratio: 0.821697, Number of Protons Outside Acceptance: 660080 - Ratio: 0.178303
+Sub-volume: 4, InitSeg: 1
+Number of Protons Inside Acceptance: 63506 - Ratio: 0.813627, Number of Protons Outside Acceptance: 14547 - Ratio: 0.186373
+Sub-volume: 5, InitSeg: 0
+Number of Protons Inside Acceptance: 2956070 - Ratio: 0.827705, Number of Protons Outside Acceptance: 615336 - Ratio: 0.172295
+Sub-volume: 5, InitSeg: 1
+Number of Protons Inside Acceptance: 76359 - Ratio: 0.815958, Number of Protons Outside Acceptance: 17223 - Ratio: 0.184042
+Sub-volume: 6, InitSeg: 0
+Number of Protons Inside Acceptance: 2856273 - Ratio: 0.833928, Number of Protons Outside Acceptance: 568811 - Ratio: 0.166072
+Sub-volume: 6, InitSeg: 1
+Number of Protons Inside Acceptance: 92231 - Ratio: 0.822778, Number of Protons Outside Acceptance: 19866 - Ratio: 0.177222
+Sub-volume: 7, InitSeg: 0
+Number of Protons Inside Acceptance: 2739572 - Ratio: 0.840368, Number of Protons Outside Acceptance: 520394 - Ratio: 0.159632
+Sub-volume: 7, InitSeg: 1
+Number of Protons Inside Acceptance: 107430 - Ratio: 0.828341, Number of Protons Outside Acceptance: 22263 - Ratio: 0.171659

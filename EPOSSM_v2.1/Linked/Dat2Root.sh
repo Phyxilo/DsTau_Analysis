@@ -1,14 +1,14 @@
 #!/bin/bash
 
 dataDirs=(
-	../pl001_030.dat
-	../pl011_040.dat
-	../pl021_050.dat
-	../pl031_060.dat
-	../pl041_070.dat
-	../pl051_080.dat
-	../pl061_090.dat
-	../pl071_105.dat
+	../Old/pl001_030.dat
+	../Old/pl011_040.dat
+	../Old/pl021_050.dat
+	../Old/pl031_060.dat
+	../Old/pl041_070.dat
+	../Old/pl051_080.dat
+	../Old/pl061_090.dat
+	../Old/pl071_105.dat
 	)
 
 OutName=(

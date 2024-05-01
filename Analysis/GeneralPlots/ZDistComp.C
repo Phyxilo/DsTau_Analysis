@@ -13,6 +13,7 @@ TFile *Data;
 
 double *dataEndArr;
 float migCut = 18;
+double dataCorrection = 1.052;
 
 float totVtxNum = 0, inVtxNum = 0;
 
@@ -38,20 +39,20 @@ void ZDistComp()
         int zWMin = 2520+(5700*j);
         int zWMax = zWMin+500;
 
-        //sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
+        sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
 
         //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
         //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
 
-        if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
-        else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl071_105.root"); }
+        //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
+        //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl071_105.root"); }
 
         Data = TFile::Open(dir);
         
         TTree *vtxData = (TTree*)Data->Get("VTX");
 
-        //dataEndArr = DataEndPoints(vtxData);
-        dataEndArr = MCEndPoints(vtxData);
+        dataEndArr = DataEndPoints(vtxData);
+        //dataEndArr = MCEndPoints(vtxData);
 
         double mean = DataMean(vtxData);
         //double mean = DataMedian(vtxData);
@@ -73,20 +74,22 @@ void ZDistComp()
           TLeaf *w = vtxData->GetLeaf("flagw");
           TLeaf *iMed = vtxData->GetLeaf("intMed");
 
+          float VZ = vz->GetValue() * dataCorrection;
+
           //if (iMed->GetValue() == 1)
           //if (w->GetValue() == 1)
           {
-            zDist->Fill(vz->GetValue());
-            zDistFull->Fill(vz->GetValue());
+            zDist->Fill(VZ);
+            zDistFull->Fill(VZ);
 
             totVtxNum++;
 
             //if (vz->GetValue() - dataEndArr[0] > migCut && vz->GetValue() - dataEndArr[1] < -migCut)
             //if (vz->GetValue() > zWMin+migCut && vz->GetValue() < zWMax-migCut)
-            if (vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
+            if (VZ > mean - (250-migCut)*dataCorrection && VZ < mean + (250-migCut)*dataCorrection)
             {
-              zDistCutted->Fill(vz->GetValue());
-              zDistFullCutted->Fill(vz->GetValue());
+              zDistCutted->Fill(VZ);
+              zDistFullCutted->Fill(VZ);
               
               inVtxNum++;
             }
@@ -145,13 +148,15 @@ double* DataEndPoints(TTree *data)
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
+    float VZ = vz->GetValue() * dataCorrection;
+
     bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
 
     if (parNum->GetValue() == 1 && areaBool)
     {
       if (intMedium->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(VZ);
       }
     }
   }
@@ -179,11 +184,13 @@ double* MCEndPoints(TTree *data)
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
+    float VZ = vz->GetValue() * dataCorrection;
+
     if (parNum->GetValue() == 1)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(VZ);
       }
     }
   }
@@ -211,11 +218,13 @@ double DataMean(TTree *data)
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
+    float VZ = vz->GetValue() * dataCorrection;
+
     if (parNum->GetValue() == 1)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(VZ);
       }
     }
   }
@@ -243,11 +252,13 @@ double DataMedian(TTree *data)
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
+    float VZ = vz->GetValue() * dataCorrection;
+
     if (parNum->GetValue() == 1)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(VZ);
       }
     }
   }

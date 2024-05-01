@@ -73,7 +73,7 @@ void DropSubArea()
             {
                 int IntPar = 0, TotalPar = 0;
 
-                sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut/p0%d6.root", j);
+                sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p0%d6.root", j);
                 //sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_TrackSel+Res5/p0%d6.root", j);
 
                 //cout << dir << endl;

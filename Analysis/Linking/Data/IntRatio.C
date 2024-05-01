@@ -31,6 +31,8 @@ float posYMin = 57000, posYMax = 73000;
 
 char dir [128];
 
+int areaTest = 50;
+
 void IntRatio()
 {
     //Canvas->SetWindowSize(1920, 1080);
@@ -38,9 +40,9 @@ void IntRatio()
 
     char  outName[64], outNameStart[64], outNameEnd[64];
 
-    sprintf(outName,"IntRatio.pdf");
-    sprintf(outNameStart,"%s(", outName);
-    sprintf(outNameEnd,"%s)", outName);
+    snprintf(outName, 64, "IntRatio.pdf");
+    snprintf(outNameStart, 64, "%s(", outName);
+    snprintf(outNameEnd, 64, "%s)", outName);
 
     for (int j = 0; j < 8; j++)
     {
@@ -48,7 +50,7 @@ void IntRatio()
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
         //sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_TrackSel+Res5/p0%d6.root", j);
-        sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut/p0%d6.root", j);
+        snprintf(dir, 128, "../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p0%d6.root", j);
 
         cout << dir << endl;
 
@@ -86,8 +88,10 @@ void IntRatio()
             int fp = flagp->GetValue();
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
-            
+            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
+            //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
+            bool areaBool = area1->GetValue() == areaTest;
+
             //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
             if (areaBool && (iMed->GetValue() == 1) && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
             {
@@ -110,7 +114,9 @@ void IntRatio()
             TLeaf *pltFirst = ptrkData->GetLeaf("US_plt_of_1seg");
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
+            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
+            //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
+            bool areaBool = area1->GetValue() == areaTest;
 
             if(areaBool/* && pltFirst->GetValue() == 1*/){totProtons++;}
         }
@@ -209,7 +215,9 @@ double* DataEndPoints(TTree *data)
         TLeaf *area1 = data->GetLeaf("area1");
         TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
-        bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
+        //bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
+        //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
+        bool areaBool = area1->GetValue() == areaTest;
 
         if (parNum->GetValue() == 1 && areaBool)
         {

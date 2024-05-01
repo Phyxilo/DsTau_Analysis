@@ -29,39 +29,38 @@ char dir [128];
 
 void IntRatio()
 {
-    //Canvas->SetWindowSize(1920, 1080);
-    //Canvas->SetCanvasSize(192*6, 108*6);
+	//Canvas->SetWindowSize(1920, 1080);
+	//Canvas->SetCanvasSize(192*6, 108*6);
 
-    char  outName[64], outNameStart[64], outNameEnd[64];
+	char  outName[64], outNameStart[64], outNameEnd[64];
 
-    sprintf(outName,"IntRatio.pdf");
-    sprintf(outNameStart,"%s(", outName);
-    sprintf(outNameEnd,"%s)", outName);
+	snprintf(outName, 64, "IntRatio.pdf");
+	snprintf(outNameStart, 64, "%s(", outName);
+	snprintf(outNameEnd, 64, "%s)", outName);
 
-    for (int j = 0; j < 8; j++)
-    {
-        int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
+	for (int j = 0; j < 8; j++)
+	{
+		int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
 
-        //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
+		//sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
 
-        if (j < 7){sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);}
-        else {sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl071_105.root");}
-        
+		if (j < 7){snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl0%d1_%02d0.root", j, j+3);}
+		else {snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root");}
 
-        cout << dir << endl;
+		cout << dir << endl;
 
-        //Data = TFile::Open("../Root/Geant4_p006.root");
-        Data = TFile::Open(dir);
-        
-        TTree *parData = (TTree*)Data->Get("PAR");
-        TTree *vtxData = (TTree*)Data->Get("VTX");
-        TTree *ptrkData = (TTree*)Data->Get("US_PTRK");
+		//Data = TFile::Open("../Root/Geant4_p006.root");
+		Data = TFile::Open(dir);
+		
+		TTree *parData = (TTree*)Data->Get("PAR");
+		TTree *vtxData = (TTree*)Data->Get("VTX");
+		TTree *ptrkData = (TTree*)Data->Get("US_PTRK");
 
-        double *endArr = MCEndPoints(vtxData);
-        double mean = DataMean(vtxData);
-        
-        for (int i = 0; i < parData->GetEntriesFast(); i++)
-        {
+		double *endArr = MCEndPoints(vtxData);
+		double mean = DataMean(vtxData);
+		
+		for (int i = 0; i < parData->GetEntriesFast(); i++)
+		{
             parData->GetEntry(i);
             vtxData->GetEntry(i);
 
@@ -95,25 +94,25 @@ void IntRatio()
 
                 TotalPar++;
             }
-        }
+		}
 
-        float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
-        float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
+		float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
+		float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
 
-        intRatio1[j] = ratio1;
-        intRatio2[j] = ratio2;
+		intRatio1[j] = ratio1;
+		intRatio2[j] = ratio2;
 
-        IntRatioGraph->SetPoint(j, j, ratio1/ratio2);
+		IntRatioGraph->SetPoint(j, j, ratio1/ratio2);
 
-        dirArr[j] = j;
+		dirArr[j] = j;
 
-        err1X[j] = 0; err2X[j] = 0;
-        
-        err1Y[j] = ((1-ratio1)/IntPar1)*100;
-        err2Y[j] = ((1-ratio2)/IntPar2)*100;
+		err1X[j] = 0; err2X[j] = 0;
+		
+		err1Y[j] = ((1-ratio1)/IntPar1)*100;
+		err2Y[j] = ((1-ratio2)/IntPar2)*100;
 
-        //cout << "Int: " << IntPar1 << ", Total: " << ptrkData->GetEntriesFast() << ", Ratio: " << ratio1 << endl;
-        cout << "Total Protons: " << ptrkData->GetEntriesFast() << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
+		//cout << "Int: " << IntPar1 << ", Total: " << ptrkData->GetEntriesFast() << ", Ratio: " << ratio1 << endl;
+		cout << "Total Protons: " << ptrkData->GetEntriesFast() << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
     }
 
     TGraphErrors *IntGrapEr1 = new TGraphErrors(7, dirArr, intRatio1, err1X, err1Y);
@@ -173,63 +172,63 @@ void IntRatio()
 
 double* MCEndPoints(TTree *data)
 {
-  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+    TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
 
-  static double endPoints[2];
+    static double endPoints[2];
 
-  for (int i = 0; i < data->GetEntriesFast(); i++)
-  {
-    data->GetEntry(i);
-    
-    TLeaf *vz = data->GetLeaf("vz");
-    TLeaf *w = data->GetLeaf("flagw");
-    TLeaf *area1 = data->GetLeaf("area1");
-    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
-
-    if (parNum->GetValue() == 1)
+    for (int i = 0; i < data->GetEntriesFast(); i++)
     {
-      if (w->GetValue() == 1)
-      {
-        InterHist->Fill(vz->GetValue());
-      }
+        data->GetEntry(i);
+        
+        TLeaf *vz = data->GetLeaf("vz");
+        TLeaf *w = data->GetLeaf("flagw");
+        TLeaf *area1 = data->GetLeaf("area1");
+        TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+        if (parNum->GetValue() == 1)
+        {
+            if (w->GetValue() == 1)
+            {
+                InterHist->Fill(vz->GetValue());
+            }
+        }
     }
-  }
 
-  endPoints[0] = InterHist->FindFirstBinAbove(0);
-  endPoints[1] = InterHist->FindLastBinAbove(0);
+    endPoints[0] = InterHist->FindFirstBinAbove(0);
+    endPoints[1] = InterHist->FindLastBinAbove(0);
 
-  delete InterHist;
+    delete InterHist;
 
-  return endPoints;
+    return endPoints;
 }
 
 double DataMean(TTree *data)
 {
-  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+    TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
 
-  static double mean;
+    static double mean;
 
-  for (int i = 0; i < data->GetEntriesFast(); i++)
-  {
-    data->GetEntry(i);
-    
-    TLeaf *vz = data->GetLeaf("vz");
-    TLeaf *w = data->GetLeaf("flagw");
-    TLeaf *area1 = data->GetLeaf("area1");
-    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
-
-    if (parNum->GetValue() == 1)
+    for (int i = 0; i < data->GetEntriesFast(); i++)
     {
-      if (w->GetValue() == 1)
-      {
-        InterHist->Fill(vz->GetValue());
-      }
+        data->GetEntry(i);
+        
+        TLeaf *vz = data->GetLeaf("vz");
+        TLeaf *w = data->GetLeaf("flagw");
+        TLeaf *area1 = data->GetLeaf("area1");
+        TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+        if (parNum->GetValue() == 1)
+        {
+            if (w->GetValue() == 1)
+            {
+                InterHist->Fill(vz->GetValue());
+            }
+        }
     }
-  }
 
-  mean = InterHist->GetMean();
+    mean = InterHist->GetMean();
 
-  delete InterHist;
+    delete InterHist;
 
-  return mean;
+    return mean;
 }

@@ -79,10 +79,12 @@ void Purity()
         }
     }
 
+    /*
     for (int x = 0; x < 8; x++)
     {
         cout << totalSeg[x] << endl;
     }
+    */
 
     float dataSize = 0;
 

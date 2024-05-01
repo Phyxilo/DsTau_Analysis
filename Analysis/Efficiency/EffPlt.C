@@ -62,7 +62,8 @@ void EffPlt()
         MC1grVtxArrY[i] = MC1vtxArr[i]/MC1trueArr[i];
         MC1errVtxArrX[i] = 0;
         //MC1errVtxArrY[i] = errCalc(MC1trueArr[i], MC1grVtxArrY[i]);
-        MC1errVtxArrY[i] = errCalc(MC1trueArr[i], MC1vtxArr[i]);
+        //MC1errVtxArrY[i] = errCalc(MC1trueArr[i], MC1vtxArr[i]);
+        MC1errVtxArrY[i] = 0.025;
         //cout << errVtxArrY[i] << endl;
 
         MC1grPLink1ArrX[i] = i+1;
@@ -151,28 +152,31 @@ void EffPlt()
     MC1GraphErVtx->SetMarkerColor(kRed);
     //MC1GraphErVtx->SetMarkerStyle(107);
     MC1GraphErVtx->SetTitle("; Sub-volume; #varepsilon;");
-    MC1GraphErVtx->SetMarkerSize(2.0);
+    MC1GraphErVtx->SetMarkerSize(4.0);
     MC1GraphErVtx->SetMarkerStyle(kFullCircle);
     MC1GraphErVtx->SetMinimum(0.7);
     MC1GraphErVtx->SetMaximum(1.0);
+    MC1GraphErVtx->SetLineWidth(4);
     MC1GraphErVtx->Draw("AP");
 
     MC2GraphErVtx->SetMarkerColor(kGreen);
     //MC2GraphErVtx->SetMarkerStyle(108);
     MC2GraphErVtx->SetTitle("; Sub-volume; #varepsilon;");
-    MC2GraphErVtx->SetMarkerSize(2.0);
+    MC2GraphErVtx->SetMarkerSize(4.0);
     MC2GraphErVtx->SetMarkerStyle(kFullCircle);
     MC2GraphErVtx->SetMinimum(0.7);
     MC2GraphErVtx->SetMaximum(1.0);
+    MC2GraphErVtx->SetLineWidth(4);
     //MC2GraphErVtx->Draw("p same");
 
     MC3GraphErVtx->SetMarkerColor(kBlue);
     //MC3GraphErVtx->SetMarkerStyle(109);
     MC3GraphErVtx->SetTitle("; Sub-volume; #varepsilon;");
-    MC3GraphErVtx->SetMarkerSize(2.0);
+    MC3GraphErVtx->SetMarkerSize(4.0);
     MC3GraphErVtx->SetMarkerStyle(kFullCircle);
     MC3GraphErVtx->SetMinimum(0.7);
     MC3GraphErVtx->SetMaximum(1.0);
+    MC3GraphErVtx->SetLineWidth(4);
     //MC3GraphErVtx->Draw("p same");
 
     /*
@@ -199,28 +203,31 @@ void EffPlt()
     MC1GraphErPLink1->SetMarkerColor(kRed);
     //MC1GraphErPLink1->SetMarkerStyle(107);
     MC1GraphErPLink1->SetTitle("; Sub-volume; #varepsilon;");
-    MC1GraphErPLink1->SetMarkerSize(2.0);
+    MC1GraphErPLink1->SetMarkerSize(4.0);
     MC1GraphErPLink1->SetMarkerStyle(kFullCircle);
     MC1GraphErPLink1->SetMinimum(0.7);
     MC1GraphErPLink1->SetMaximum(1.0);
+    MC1GraphErPLink1->SetLineWidth(4);
     MC1GraphErPLink1->Draw("AP");
 
     MC2GraphErPLink1->SetMarkerColor(kGreen);
     //MC2GraphErPLink1->SetMarkerStyle(108);
     MC2GraphErPLink1->SetTitle("; Sub-volume; #varepsilon;");
-    MC2GraphErPLink1->SetMarkerSize(2.0);
+    MC2GraphErPLink1->SetMarkerSize(4.0);
     MC2GraphErPLink1->SetMarkerStyle(kFullCircle);
     MC2GraphErPLink1->SetMinimum(0.7);
     MC2GraphErPLink1->SetMaximum(1.0);
+    MC2GraphErPLink1->SetLineWidth(4);
     //MC2GraphErPLink1->Draw("p same");
 
     MC3GraphErPLink1->SetMarkerColor(kBlue);
     //MC3GraphErPLink1->SetMarkerStyle(109);
     MC3GraphErPLink1->SetTitle("; Sub-volume; #varepsilon;");
-    MC3GraphErPLink1->SetMarkerSize(2.0);
+    MC3GraphErPLink1->SetMarkerSize(4.0);
     MC3GraphErPLink1->SetMarkerStyle(kFullCircle);
     MC3GraphErPLink1->SetMinimum(0.7);
     MC3GraphErPLink1->SetMaximum(1.0);
+    MC3GraphErPLink1->SetLineWidth(4);
     //MC3GraphErPLink1->Draw("p same");
     /*
     TLegend *legend2 = new TLegend(0.75, 0.85, 0.95, 0.95);
@@ -246,28 +253,31 @@ void EffPlt()
     MC1GraphErPLink2->SetMarkerColor(kRed);
     //MC1GraphErPLink2->SetMarkerStyle(107);
     MC1GraphErPLink2->SetTitle("; Sub-volume; #varepsilon;");
-    MC1GraphErPLink2->SetMarkerSize(2.0);
+    MC1GraphErPLink2->SetMarkerSize(4.0);
     MC1GraphErPLink2->SetMarkerStyle(kFullCircle);
     MC1GraphErPLink2->SetMinimum(0.7);
     MC1GraphErPLink2->SetMaximum(1.0);
+    MC1GraphErPLink2->SetLineWidth(4);
     MC1GraphErPLink2->Draw("ap");
 
     MC2GraphErPLink2->SetMarkerColor(kGreen);
     //MC2GraphErPLink2->SetMarkerStyle(108);
     MC2GraphErPLink2->SetTitle("; Sub-volume; #varepsilon;");
-    MC2GraphErPLink2->SetMarkerSize(2.0);
+    MC2GraphErPLink2->SetMarkerSize(4.0);
     MC2GraphErPLink2->SetMarkerStyle(kFullCircle);
     MC2GraphErPLink2->SetMinimum(0.7);
     MC2GraphErPLink2->SetMaximum(1.0);
+    MC2GraphErPLink2->SetLineWidth(4);
     //MC2GraphErPLink2->Draw("p same");
 
     MC3GraphErPLink2->SetMarkerColor(kBlue);
     //MC3GraphErPLink2->SetMarkerStyle(109);
     MC3GraphErPLink2->SetTitle("; Sub-volume; #varepsilon;");
-    MC3GraphErPLink2->SetMarkerSize(2.0);
+    MC3GraphErPLink2->SetMarkerSize(4.0);
     MC3GraphErPLink2->SetMarkerStyle(kFullCircle);
     MC3GraphErPLink2->SetMinimum(0.7);
     MC3GraphErPLink2->SetMaximum(1.0);
+    MC3GraphErPLink2->SetLineWidth(4);
     ///MC3GraphErPLink2->Draw("p same");
 
     /*

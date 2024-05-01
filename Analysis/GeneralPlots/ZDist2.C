@@ -13,6 +13,7 @@ TFile *Data;
 
 double *dataEndArr;
 float migCut = 18;
+double dataCorrection = 1.052;
 
 float totVtxNum = 0, inVtxNum = 0;
 
@@ -73,17 +74,17 @@ void ZDist2()
           //if (iMed->GetValue() == 1)
           //if (w->GetValue() == 1)
           {
-            zDist->Fill(vz->GetValue());
-            zDistFull->Fill(vz->GetValue());
+            zDist->Fill(vz->GetValue() * dataCorrection);
+            zDistFull->Fill(vz->GetValue() * dataCorrection);
 
             totVtxNum++;
 
             //if (vz->GetValue() - dataEndArr[0] > migCut && vz->GetValue() - dataEndArr[1] < -migCut)
             //if (vz->GetValue() > zWMin+migCut && vz->GetValue() < zWMax-migCut)
-            if (vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
+            if (vz->GetValue() * dataCorrection > mean - (250-migCut) * dataCorrection && vz->GetValue() * dataCorrection < mean + (250-migCut))
             {
-              zDistCutted->Fill(vz->GetValue());
-              zDistFullCutted->Fill(vz->GetValue());
+              zDistCutted->Fill(vz->GetValue() * dataCorrection);
+              zDistFullCutted->Fill(vz->GetValue() * dataCorrection);
               
               inVtxNum++;
             }
@@ -150,7 +151,7 @@ double* DataEndPoints(TTree *data)
     {
       if (intMedium->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(vz->GetValue() * dataCorrection);
       }
     }
   }
@@ -182,7 +183,7 @@ double* MCEndPoints(TTree *data)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(vz->GetValue() * dataCorrection);
       }
     }
   }
@@ -214,7 +215,7 @@ double DataMean(TTree *data)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(vz->GetValue() * dataCorrection);
       }
     }
   }
@@ -246,7 +247,7 @@ double DataMedian(TTree *data)
     {
       if (w->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(vz->GetValue() * dataCorrection);
       }
     }
   }

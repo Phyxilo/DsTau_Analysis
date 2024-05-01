@@ -322,10 +322,10 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
          strcpy(USChr, inputUS.c_str());
          strcpy(DSChr, inputDS.c_str());
 
-         char USIn[64], DSIn[64];
+         char USIn[128], DSIn[128];
 
-         sprintf(USIn, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
-         sprintf(DSIn, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
+         snprintf(USIn, 128, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
+         snprintf(DSIn, 128, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
 
          cout << USIn << endl;
 
@@ -340,39 +340,39 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
          for (int i = 0; i < USPair[areaInd].size(); i++)
          {
-               int trid = get<0>(USPair[areaInd][i]);
-               int gtrid = get<1>(USPair[areaInd][i]);
-               int posX = get<2>(USPair[areaInd][i]);
-               int posY = get<3>(USPair[areaInd][i]);
-               int posZ = get<4>(USPair[areaInd][i]);
+            int trid = get<0>(USPair[areaInd][i]);
+            int gtrid = get<1>(USPair[areaInd][i]);
+            int posX = get<2>(USPair[areaInd][i]);
+            int posY = get<3>(USPair[areaInd][i]);
+            int posZ = get<4>(USPair[areaInd][i]);
 
-               float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
-               float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
+            float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
+            float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
 
-               if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
-               {
-                  UStrID[areaInd].push_back(trid);
-                  USgtrID[areaInd].push_back(gtrid);
+            if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY))
+            {
+               UStrID[areaInd].push_back(trid);
+               USgtrID[areaInd].push_back(gtrid);
 
-                  ptrk_US_area1 = areaInd;
-                  ptrk_US_trID = trid;
-                  ptrk_US_gtrID = gtrid;
-                  ptrk_US_plt_of_1seg = segNum+1;
-                  ptrk_US_PosX_of_1seg = posX;
-                  ptrk_US_PosY_of_1seg = posY;
-                  ptrk_US_PosZ_of_1seg = posZ;
-                  ptrk_US_TX = tX;
-                  ptrk_US_TY = tY;
+               ptrk_US_area1 = areaInd;
+               ptrk_US_trID = trid;
+               ptrk_US_gtrID = gtrid;
+               ptrk_US_plt_of_1seg = segNum+1;
+               ptrk_US_PosX_of_1seg = posX;
+               ptrk_US_PosY_of_1seg = posY;
+               ptrk_US_PosZ_of_1seg = posZ;
+               ptrk_US_TX = tX;
+               ptrk_US_TY = tY;
 
-                  us_ptrk->Fill();
+               us_ptrk->Fill();
 
-                  pInAcc++;
-               }
-               else
-               {
-                  UStrIDOut[areaInd].push_back(trid);
-                  pOutAcc++;
-               }
+               pInAcc++;
+            }
+            else
+            {
+               UStrIDOut[areaInd].push_back(trid);
+               pOutAcc++;
+            }
          }
 
          for (int i = 0; i < DSPair[areaInd].size(); i++)
@@ -388,7 +388,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
                //cout << areaInd+1 << ", " << posX << ", " << posY << endl;
 
-               if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
+               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY))
                {
                   DStrID[areaInd].push_back(trid);
                   DSgtrID[areaInd].push_back(gtrid);
@@ -419,7 +419,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
          }
 
          cout << "Area " << areaInd << " - Done" << endl;
-            cout << "Number of Protons Inside Acceptance: " << pInAcc << ", Number of Protons Outside Acceptance: " << pOutAcc << endl;
+         cout << "Number of Protons Inside Acceptance: " << pInAcc << ", Number of Protons Outside Acceptance: " << pOutAcc << endl;
       }
 
       while (fgets(line,1024,fp))
@@ -591,20 +591,18 @@ vector<tuple<int, int, int, int, int, int, int>> ReadFile(char *inFile, int segN
    }
    fclose(fUS);
 
-   const int numL = numLines;
-
-   int initSegPlt[numLines];
-   int trID[numLines];
-   int globalTrID[numLines];
-   int initPosX[numLines];
-   int initPosY[numLines];
-   int initPosZ[numLines];
+   int* initSegPlt = new int[numLines];
+   int* trID = new int[numLines];
+   int* globalTrID = new int[numLines];
+   int* initPosX = new int[numLines];
+   int* initPosY = new int[numLines];
+   int* initPosZ = new int[numLines];
    
-   int pltID[numLines];
-   int segID[numLines];
+   int* pltID = new int[numLines];
+   int* segID = new int[numLines];
 
-   int initTX[numLines];
-   int initTY[numLines];
+   int* initTX = new int[numLines];
+   int* initTY = new int[numLines];
    
    fUS = fopen(inFile, "r");
    
@@ -618,6 +616,17 @@ vector<tuple<int, int, int, int, int, int, int>> ReadFile(char *inFile, int segN
    }
    fclose(fUS);
 
+   delete[] initSegPlt;
+   delete[] trID;
+   delete[] globalTrID;
+   delete[] initPosX;
+   delete[] initPosY;
+   delete[] initPosZ;
+   delete[] pltID;
+   delete[] segID;
+   delete[] initTX;
+   delete[] initTY;
+   
    return trIDVec;
 }
 
@@ -629,7 +638,7 @@ bool isTranslatedOut(int index, int posX, int posY, int posZ, float tX, int tY)
    int posXMax = 7500;
    int posYMax = 7500;
 
-   int zDif = 5700;
+   int zDif = 8325;
 
    //cout << "Area: " << index << ", " << posX << ", " << posY << endl;
 

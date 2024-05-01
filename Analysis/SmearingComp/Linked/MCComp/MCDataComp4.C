@@ -43,12 +43,12 @@ TH1F *SlpTYHistMC3 = new TH1F("Pythia","",50,-0.4,0.4);
 TH1F *SlpTYHistMC4 = new TH1F("DPMJET","",50,-0.4,0.4);
 TH1F *SlpTYHistMC5 = new TH1F("QGSJET","",50,-0.4,0.4);
 
-TH1F *SlpT2HistData = new TH1F("PD05","",50,0,0.34);
-TH1F *SlpT2HistMC1 = new TH1F("EPOS","",50,0,0.34);
-TH1F *SlpT2HistMC2 = new TH1F("Geant4","",50,0,0.34);
-TH1F *SlpT2HistMC3 = new TH1F("Pythia","",50,0,0.34);
-TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",50,0,0.34);
-TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",50,0,0.34);
+TH1F *SlpT2HistData = new TH1F("PD05","",25,0,0.34);
+TH1F *SlpT2HistMC1 = new TH1F("EPOS","",25,0,0.34);
+TH1F *SlpT2HistMC2 = new TH1F("Geant4","",25,0,0.34);
+TH1F *SlpT2HistMC3 = new TH1F("Pythia","",25,0,0.34);
+TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",25,0,0.34);
+TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",25,0,0.34);
 
 TH1F *IPDataData = new TH1F("PD05","",25,0,5.8);
 TH1F *IPDataMC1 = new TH1F("EPOS","",25,0,5.8);
@@ -643,7 +643,7 @@ void MCDataComp4()
   //if(intTypeActive) {SlpT2HistData->GetYaxis()->SetRangeUser(0, 150000);}
   //else {SlpT2HistData->GetYaxis()->SetRangeUser(0, 220000);}
 
-  if(compType == 2) {SlpT2HistMC2->GetYaxis()->SetRangeUser(-1000, 26000);}
+  if(compType == 2) {SlpT2HistMC2->GetYaxis()->SetRangeUser(-1000, 36000);}
   else {SlpT2HistMC2->GetYaxis()->SetRangeUser(-5000, 185000);}
 
   cout << SlpT2HistData->GetMean() << endl;
