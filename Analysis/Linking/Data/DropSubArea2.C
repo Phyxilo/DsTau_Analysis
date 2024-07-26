@@ -9,6 +9,9 @@
 
 using namespace std;
 
+double* DataEndPoints(TTree *data);
+double DataMean(TTree *data);
+
 TCanvas *Canvas;
 
 TFile *Data;
@@ -25,6 +28,8 @@ float subAreaVtxArr [21][7];
 float subAreaPriArr [21][7];
 float vtxIntArr [21][8];
 float priIntArr [21][8];
+
+float migCut = 18;
 
 const int acceptanceArray[21] = 
 {
@@ -82,6 +87,9 @@ void DropSubArea2()
             TTree *vtxData = (TTree*)Data->Get("VTX");
             TTree *ptrkData = (TTree*)Data->Get("US_PTRK");
 
+            double *endArr = DataEndPoints(vtxData);
+            double mean = DataMean(vtxData);
+
             for (int i = 0; i < parData->GetEntriesFast(); i++)
             {
                 parData->GetEntry(i);
@@ -105,14 +113,17 @@ void DropSubArea2()
                 int Plt = plt->GetValue();
                 int fp = flagp->GetValue();
 
-                if (area1->GetValue() == subA && (iMed->GetValue() == 1))
+                if (area1->GetValue() == subA && iMed->GetValue() == 1)
                 {
-                    if (fp >= 1)
+                    if (vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
                     {
-                        IntPar++;
-                    }
+                        if (fp >= 1)
+                        {
+                            IntPar++;
+                        }
 
-                    TotalPar++;
+                        TotalPar++;
+                    }
                 }
                 if (area1->GetValue() > subA) break;
 
@@ -416,4 +427,73 @@ void DropSubArea2()
     Canvas->Print(outNameEnd,"pdf");
 
     Data->Close();
+}
+
+double* DataEndPoints(TTree *data)
+{
+    TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+    static double endPoints[2];
+
+    for (int i = 0; i < data->GetEntriesFast(); i++)
+    {
+        data->GetEntry(i);
+        
+        TLeaf *vz = data->GetLeaf("vz");
+        TLeaf *intMedium = data->GetLeaf("intMed");
+        TLeaf *flagW = data->GetLeaf("flagw");
+        TLeaf *area1 = data->GetLeaf("area1");
+        TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+        bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
+        //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
+        //bool areaBool = area1->GetValue() == areaTest;
+
+        if (parNum->GetValue() == 1 && areaBool)
+        {
+            if (intMedium->GetValue() == 1)
+            {
+                InterHist->Fill(vz->GetValue());
+            }
+        }
+    }
+
+    endPoints[0] = InterHist->FindFirstBinAbove(0);
+    endPoints[1] = InterHist->FindLastBinAbove(0);
+
+    delete InterHist;
+
+    return endPoints;
+}
+
+double DataMean(TTree *data)
+{
+  TH1F *InterHist = new TH1F("InterHist","Vertex Z",50000,0,50000);
+
+  static double mean;
+
+  for (int i = 0; i < data->GetEntriesFast(); i++)
+  {
+    data->GetEntry(i);
+    
+    TLeaf *vz = data->GetLeaf("vz");
+    TLeaf *intMedium = data->GetLeaf("intMed");
+    TLeaf *flagW = data->GetLeaf("flagw");
+    TLeaf *area1 = data->GetLeaf("area1");
+    TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
+
+    if (parNum->GetValue() == 1)
+    {
+      if (flagW->GetValue() == 1)
+      {
+        InterHist->Fill(vz->GetValue());
+      }
+    }
+  }
+
+  mean = InterHist->GetMean();
+
+  delete InterHist;
+
+  return mean;
 }

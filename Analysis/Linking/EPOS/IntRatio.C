@@ -11,7 +11,9 @@ using namespace std;
 double* MCEndPoints(TTree *data);
 double DataMean(TTree *data);
 
-float migCut = 22.5;
+float migCut = 18;
+
+int sebAreaNum = 3;
 
 TCanvas *Canvas;
 
@@ -40,12 +42,12 @@ void IntRatio()
 
 	for (int j = 0; j < 8; j++)
 	{
-		int IntPar1 = 0, IntPar2 = 0, TotalPar = 0;
+		int IntPar1 = 0, IntPar2 = 0, IntPar3 = 0, TotalPar = 0, ProtonNum = 0;
 
 		//sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
 
-		if (j < 7){snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl0%d1_%02d0.root", j, j+3);}
-		else {snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root");}
+		if (j < 7){snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl0%d1_%02d0.root", j, j+3);}
+		else {snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl071_105.root");}
 
 		cout << dir << endl;
 
@@ -58,6 +60,8 @@ void IntRatio()
 
 		double *endArr = MCEndPoints(vtxData);
 		double mean = DataMean(vtxData);
+
+        //cout << endArr[0] << ", " << endArr[1] << ", " << endArr[1]-endArr[0] << endl;
 		
 		for (int i = 0; i < parData->GetEntriesFast(); i++)
 		{
@@ -73,31 +77,49 @@ void IntRatio()
 
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
             TLeaf *flagw = vtxData->GetLeaf("flagw");
+            TLeaf *area1 = vtxData->GetLeaf("area1");
 
             int VX = vx->GetValue();
             int VY = vy->GetValue();
             int Plt = plt->GetValue();
             int fp = flagp->GetValue();
             int fw = flagw->GetValue();
+            int a1 = area1->GetValue();
 
-            //if (fw == 1 && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
-            if (fw == 1 && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
+            if (fw == 1 && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut && a1 == 3)
             {
-                if (Plt >= 5 + j*10 && Plt < 10 + j*10)
-                {                    
-                    IntPar2++;
-                }
-                if (fp >= 1)
+                if (vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
                 {
-                    IntPar1++;
-                }
+                    if (Plt >= 5 + j*10 && Plt < 10 + j*10)
+                    {                    
+                        IntPar2++;
+                    }
+                    if (fp >= 1)
+                    {
+                        IntPar1++;
+                    }
 
-                TotalPar++;
+                    TotalPar++;
+                }
+                else{IntPar3++;}
             }
 		}
 
-		float ratio1 = ((float)IntPar1/ptrkData->GetEntriesFast())*100;
-		float ratio2 = ((float)TotalPar/ptrkData->GetEntriesFast())*100;
+        for (int i = 0; i < ptrkData->GetEntriesFast(); i++)
+        {
+            ptrkData->GetEntry(i);
+
+            TLeaf *area1 = ptrkData->GetLeaf("area1");
+            int a1 = area1->GetValue();
+
+            if (a1 == 3)
+            {
+                ProtonNum++;
+            }
+        }
+
+		float ratio1 = ((float)IntPar1/ProtonNum)*100;
+		float ratio2 = ((float)TotalPar/ProtonNum)*100;
 
 		intRatio1[j] = ratio1;
 		intRatio2[j] = ratio2;
@@ -111,8 +133,8 @@ void IntRatio()
 		err1Y[j] = ((1-ratio1)/IntPar1)*100;
 		err2Y[j] = ((1-ratio2)/IntPar2)*100;
 
-		//cout << "Int: " << IntPar1 << ", Total: " << ptrkData->GetEntriesFast() << ", Ratio: " << ratio1 << endl;
-		cout << "Total Protons: " << ptrkData->GetEntriesFast() << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
+		//cout << "Int: " << IntPar1 << ", Total: " << ProtonNum << ", Ratio: " << ratio1 << endl;
+		cout << "Total Protons: " << ProtonNum << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << " | Out Points: " << IntPar2 << ", Ratio: " << ((float)IntPar3/ProtonNum)*100 << endl;
     }
 
     TGraphErrors *IntGrapEr1 = new TGraphErrors(7, dirArr, intRatio1, err1X, err1Y);

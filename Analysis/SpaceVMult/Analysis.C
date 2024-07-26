@@ -47,10 +47,10 @@ void Analysis()
   {
     char dataName [256], MC1Name[256], MC2Name[256], MC3Name[256], MC4Name[256], MC5Name[256];
 
-    sprintf(dataName, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", dirIndex);
+    sprintf(dataName, "../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", dirIndex);
 
-    if (dirIndex < 7) { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
-    else { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+    if (dirIndex < 7) { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
+    else { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root"); }
 
     if (dirIndex < 7) { sprintf(MC2Name, "../../Geant4SM_v2.1/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
     else { sprintf(MC2Name, "../../Geant4SM_v2.1/RootOut/pl071_105.root"); }
@@ -64,7 +64,7 @@ void Analysis()
     if (dirIndex < 7) { sprintf(MC5Name, "../../QGSJETSM_v2.1/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
     else { sprintf(MC5Name, "../../QGSJETSM_v2.1/RootOut/pl071_105.root"); }
 
-    Data = TFile::Open(dataName);
+    Data = TFile::Open(MC5Name);
 
     TTree *treeDataTrk = (TTree*)Data->Get("TRK");
     TTree *treeDataVtx = (TTree*)Data->Get("VTX");

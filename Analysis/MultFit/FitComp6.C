@@ -56,7 +56,7 @@ void FitComp6()
   {
     char dir [128];
 
-    sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
+    sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", j);
 
     Data1 = TFile::Open(dir);
 
@@ -129,7 +129,7 @@ void FitComp6()
   {
     char dir [128];
 
-    sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
+    sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", j);
 
     Data1 = TFile::Open(dir);
     

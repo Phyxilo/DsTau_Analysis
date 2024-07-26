@@ -323,11 +323,86 @@ void IPSubArea()
 
     for (int k = 0; k < maxSubArea; k++)
     {
+        //TLegend *legend = new TLegend(0.80, 0.05, 0.95, 0.30);
+        
         for (int j = 0; j < 8; j++)
         {
             if (j == 0){HistArr[j][k]->Draw();}
             else {HistArr[j][k]->Draw("SAMES");}
+
+            if (j != 4) HistArr[j][k]->SetLineColor(j+1);
+            else HistArr[j][k]->SetLineColor(41);
         }
+        /*
+        legend->AddEntry(HistArr[0][k],"SubVol 1","f");
+        legend->AddEntry(HistArr[1][k],"SubVol 2","f");
+        legend->AddEntry(HistArr[2][k],"SubVol 3","f");
+        legend->AddEntry(HistArr[3][k],"SubVol 4","f");
+        legend->AddEntry(HistArr[4][k],"SubVol 5","f");
+        legend->AddEntry(HistArr[5][k],"SubVol 6","f");
+        legend->AddEntry(HistArr[6][k],"SubVol 7","f");
+        legend->AddEntry(HistArr[7][k],"SubVol 8","f");
+        legend->Draw();
+        */
+
+        //gStyle->SetOptStat(110);
+
+        Canvas->Modified(); Canvas->Update();
+        TPaveStats *StatBox1 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox1->SetName("SubVol 1");
+        StatBox1->SetY1NDC(0.9);
+        StatBox1->SetY2NDC(0.8);
+        StatBox1->SetTextColor(1);
+        StatBox1->Draw();
+
+        TPaveStats *StatBox2 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox2->SetName("SubVol 2");
+        StatBox2->SetY1NDC(0.8);
+        StatBox2->SetY2NDC(0.7);
+        StatBox2->SetTextColor(2);
+        StatBox2->Draw();
+
+        TPaveStats *StatBox3 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox3->SetName("SubVol 3");
+        StatBox3->SetY1NDC(0.7);
+        StatBox3->SetY2NDC(0.6);
+        StatBox3->SetTextColor(3);
+        StatBox3->Draw();
+
+        TPaveStats *StatBox4 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox4->SetName("SubVol 4");
+        StatBox4->SetY1NDC(0.6);
+        StatBox4->SetY2NDC(0.5);
+        StatBox4->SetTextColor(4);
+        StatBox4->Draw();
+
+        TPaveStats *StatBox5 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox5->SetName("SubVol 5");
+        StatBox5->SetY1NDC(0.5);
+        StatBox5->SetY2NDC(0.4);
+        StatBox5->SetTextColor(41);
+        StatBox5->Draw();
+
+        TPaveStats *StatBox6 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox6->SetName("SubVol 6");
+        StatBox6->SetY1NDC(0.4);
+        StatBox6->SetY2NDC(0.3);
+        StatBox6->SetTextColor(6);
+        StatBox6->Draw();
+
+        TPaveStats *StatBox7 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox7->SetName("SubVol 7");
+        StatBox7->SetY1NDC(0.3);
+        StatBox7->SetY2NDC(0.2);
+        StatBox7->SetTextColor(7);
+        StatBox7->Draw();
+
+        TPaveStats *StatBox8 = (TPaveStats*)Canvas->GetPrimitive("stats");
+        StatBox8->SetName("SubVol 8");
+        StatBox8->SetY1NDC(0.2);
+        StatBox8->SetY2NDC(0.1);
+        StatBox8->SetTextColor(8);
+        StatBox8->Draw();
         
         if (k == 0) {Canvas->Print(outNameStart,"pdf");}
         else if (k == maxSubArea-1) {Canvas->Print(outNameEnd,"pdf");}

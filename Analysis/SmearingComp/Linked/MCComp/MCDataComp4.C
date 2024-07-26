@@ -43,12 +43,12 @@ TH1F *SlpTYHistMC3 = new TH1F("Pythia","",50,-0.4,0.4);
 TH1F *SlpTYHistMC4 = new TH1F("DPMJET","",50,-0.4,0.4);
 TH1F *SlpTYHistMC5 = new TH1F("QGSJET","",50,-0.4,0.4);
 
-TH1F *SlpT2HistData = new TH1F("PD05","",25,0,0.34);
-TH1F *SlpT2HistMC1 = new TH1F("EPOS","",25,0,0.34);
-TH1F *SlpT2HistMC2 = new TH1F("Geant4","",25,0,0.34);
-TH1F *SlpT2HistMC3 = new TH1F("Pythia","",25,0,0.34);
-TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",25,0,0.34);
-TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",25,0,0.34);
+TH1F *SlpT2HistData = new TH1F("PD05","",50,0,0.34);
+TH1F *SlpT2HistMC1 = new TH1F("EPOS","",50,0,0.34);
+TH1F *SlpT2HistMC2 = new TH1F("Geant4","",50,0,0.34);
+TH1F *SlpT2HistMC3 = new TH1F("Pythia","",50,0,0.34);
+TH1F *SlpT2HistMC4 = new TH1F("DPMJET","",50,0,0.34);
+TH1F *SlpT2HistMC5 = new TH1F("QGSJET","",50,0,0.34);
 
 TH1F *IPDataData = new TH1F("PD05","",25,0,5.8);
 TH1F *IPDataMC1 = new TH1F("EPOS","",25,0,5.8);
@@ -91,10 +91,10 @@ void MCDataComp4()
 
     char dataName [256], MC1Name[256], MC2Name[256], MC3Name[256], MC4Name[256], MC5Name[256];
 
-    sprintf(dataName, "../../../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", dirIndex);
+    sprintf(dataName, "../../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", dirIndex);
 
-    if (dirIndex < 7) { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
-    else { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+    if (dirIndex < 7) { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
+    else { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root"); }
 
     if (dirIndex < 7) { sprintf(MC2Name, "../../../../Geant4SM_v2.1/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
     else { sprintf(MC2Name, "../../../../Geant4SM_v2.1/RootOut/pl071_105.root"); }

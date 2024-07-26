@@ -13,7 +13,7 @@ TFile *Data;
 
 double *dataEndArr;
 float migCut = 18;
-double dataCorrection = 1.052;
+double dataCorrection = 1.05;
 
 float totVtxNum = 0, inVtxNum = 0;
 
@@ -39,7 +39,7 @@ void ZDist2()
         int zWMin = 2520+(5700*j);
         int zWMax = zWMin+500;
 
-        sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
+        sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", j);
 
         //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
         //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
@@ -71,7 +71,7 @@ void ZDist2()
           TLeaf *w = vtxData->GetLeaf("flagw");
           TLeaf *iMed = vtxData->GetLeaf("intMed");
 
-          //if (iMed->GetValue() == 1)
+          if (iMed->GetValue() == 1)
           //if (w->GetValue() == 1)
           {
             zDist->Fill(vz->GetValue() * dataCorrection);
@@ -81,7 +81,7 @@ void ZDist2()
 
             //if (vz->GetValue() - dataEndArr[0] > migCut && vz->GetValue() - dataEndArr[1] < -migCut)
             //if (vz->GetValue() > zWMin+migCut && vz->GetValue() < zWMax-migCut)
-            if (vz->GetValue() * dataCorrection > mean - (250-migCut) * dataCorrection && vz->GetValue() * dataCorrection < mean + (250-migCut))
+            if (vz->GetValue() * dataCorrection > mean - (250-migCut) && vz->GetValue() * dataCorrection < mean + (250-migCut))
             {
               zDistCutted->Fill(vz->GetValue() * dataCorrection);
               zDistFullCutted->Fill(vz->GetValue() * dataCorrection);
@@ -95,7 +95,7 @@ void ZDist2()
 
         float vtxNumRatio = (totVtxNum-inVtxNum)/totVtxNum;
 
-        //cout << "Ratio: " << vtxNumRatio << endl;
+        cout << "Ratio: " << vtxNumRatio << endl;
 
         gStyle->SetOptStat(0);
 

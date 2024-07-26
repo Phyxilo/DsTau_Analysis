@@ -21,7 +21,7 @@ float dirArr[8];
 float intRatio1[8], intRatio2[8];
 float err1X[8], err1Y[8], err2X[8], err2Y[8];
 
-float migCut = 0;
+float migCut = 18;
 
 //int posXMin = 56000, posXMax = 74000;
 //int posYMin = 56000, posYMax = 74000;
@@ -46,7 +46,7 @@ void IntRatio()
 
     for (int j = 0; j < 8; j++)
     {
-        int IntPar1 = 0, TotalPar = 0;
+        int IntPar1 = 0, TotalPar = 0, IntPar2 = 0;
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
         //sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_TrackSel+Res5/p0%d6.root", j);
@@ -63,6 +63,8 @@ void IntRatio()
 
         double *endArr = DataEndPoints(vtxData);
         double mean = DataMean(vtxData);
+
+        //cout << endArr[0] << ", " << endArr[1] << ", " << endArr[1]-endArr[0]-(500-18*2) << endl;
         
         for (int i = 0; i < parData->GetEntriesFast(); i++)
         {
@@ -88,19 +90,23 @@ void IntRatio()
             int fp = flagp->GetValue();
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
+            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
             //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
-            bool areaBool = area1->GetValue() == areaTest;
+            //bool areaBool = area1->GetValue() == areaTest;
 
             //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
-            if (areaBool && (iMed->GetValue() == 1) && vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
+            if (areaBool && (iMed->GetValue() == 1))
             {
-                if (fp >= 1)
+                if (/*vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut)*/ true)
                 {
-                    IntPar1++;
-                }
+                    if (fp >= 1)
+                    {
+                        IntPar1++;
+                    }
 
-                TotalPar++;
+                    TotalPar++;
+                }
+                else{IntPar2++;}
             }
         }
 
@@ -114,9 +120,9 @@ void IntRatio()
             TLeaf *pltFirst = ptrkData->GetLeaf("US_plt_of_1seg");
 
             //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            //bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
-            //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
-            bool areaBool = area1->GetValue() == areaTest;
+            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29));  //New Method
+            //bool areaBool = ((area1->GetValue() < 53 && area1->GetValue() > 47) || (area1->GetValue() < 44 && area1->GetValue() > 38) || (area1->GetValue() < 35 && area1->GetValue() > 29)); //New Method
+            //bool areaBool = area1->GetValue() == areaTest;
 
             if(areaBool/* && pltFirst->GetValue() == 1*/){totProtons++;}
         }
@@ -141,7 +147,7 @@ void IntRatio()
         err2Y[j] = ((1-ratio2)/TotalPar)*100;
         //err2Y[j] = 0;
 
-        cout << "Total Protons: " << totProtons << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << endl;
+        cout << "Total Protons: " << totProtons << " | Primary Interaction: " << IntPar1 << ", Ratio: " << ratio1 << " | Vertex Points: " << TotalPar << ", Ratio: " << ratio2 << " | Out Points: " << IntPar2 << ", Ratio: " << ((float)IntPar2/totProtons)*100 << endl;
     }
 
     TGraphErrors *IntGrapEr1 = new TGraphErrors(7, dirArr, intRatio1, err1X, err1Y);
@@ -212,12 +218,13 @@ double* DataEndPoints(TTree *data)
         
         TLeaf *vz = data->GetLeaf("vz");
         TLeaf *intMedium = data->GetLeaf("intMed");
+        TLeaf *flagW = data->GetLeaf("flagw");
         TLeaf *area1 = data->GetLeaf("area1");
         TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
-        //bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
+        bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
         //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
-        bool areaBool = area1->GetValue() == areaTest;
+        //bool areaBool = area1->GetValue() == areaTest;
 
         if (parNum->GetValue() == 1 && areaBool)
         {
@@ -247,13 +254,14 @@ double DataMean(TTree *data)
     data->GetEntry(i);
     
     TLeaf *vz = data->GetLeaf("vz");
-    TLeaf *w = data->GetLeaf("flagw");
+    TLeaf *intMedium = data->GetLeaf("intMed");
+    TLeaf *flagW = data->GetLeaf("flagw");
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
     if (parNum->GetValue() == 1)
     {
-      if (w->GetValue() == 1)
+      if (flagW->GetValue() == 1)
       {
         InterHist->Fill(vz->GetValue());
       }

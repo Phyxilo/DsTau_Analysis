@@ -3,6 +3,10 @@
 
 using namespace std;
 
+const int subAreaNum = 13;
+
+bool removeOutOfBounds = false;
+
 vector<tuple<int, int, int, int, int, int, int>> ReadFile(char *inFile, int segNum);
 
 bool firstEqual(const tuple<int, int, int, int, int, int, int>& a, const tuple<int, int, int, int, int, int, int>& b) 
@@ -295,21 +299,21 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
    int prevSubArea = 1, recoNum = 1;
 
-   for (int segNum = 0; segNum <= 2; segNum++)
+   for (int segNum = 0; segNum <= 1; segNum++)
    {
       int parid = 0;
       vector<int> paridVec;
 
-      vector<tuple<int, int, int, int, int, int, int>> USPair [63], DSPair [63];
+      vector<tuple<int, int, int, int, int, int, int>> USPair [subAreaNum], DSPair [subAreaNum];
       //vector<pair<int, int>> USPair, DSPair;
       //set<pair<int, int>> USPair, DSPair;
 
-      vector<int> UStrID[63], USgtrID[63];
-      vector<int> DStrID[63], DSgtrID[63];
-      vector<int> intVec[63];
-      vector<int> UStrIDOut[63];
+      vector<int> UStrID[subAreaNum], USgtrID[subAreaNum];
+      vector<int> DStrID[subAreaNum], DSgtrID[subAreaNum];
+      vector<int> intVec[subAreaNum];
+      vector<int> UStrIDOut[subAreaNum];
 
-      for (int areaInd = 0; areaInd < 15; areaInd++)
+      for (int areaInd = 0; areaInd < subAreaNum; areaInd++)
       {
          int pInAcc = 0, pOutAcc = 0;
 
@@ -349,7 +353,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
             float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
 
-            if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY))
+            if ((removeOutOfBounds == true && !isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)) || removeOutOfBounds == false)
             {
                UStrID[areaInd].push_back(trid);
                USgtrID[areaInd].push_back(gtrid);
@@ -388,7 +392,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
                //cout << areaInd+1 << ", " << posX << ", " << posY << endl;
 
-               if (!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY))
+               if ((removeOutOfBounds == true && !isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)) || removeOutOfBounds == false)
                {
                   DStrID[areaInd].push_back(trid);
                   DSgtrID[areaInd].push_back(gtrid);
@@ -418,7 +422,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             }
          }
 
-         cout << "Area " << areaInd << " - Done" << endl;
+         cout << "Area " << areaInd+1 << " - Done" << endl;
          cout << "Number of Protons Inside Acceptance: " << pInAcc << ", Number of Protons Outside Acceptance: " << pOutAcc << endl;
       }
 
