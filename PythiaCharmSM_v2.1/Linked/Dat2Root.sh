@@ -59,6 +59,12 @@ do
 	dsFile=${linkDSDirs[$i]}
 	usFile=${linkUSDirs[$i]}
 
-	root -l -b -q 'Dat2Root.C('\"${dataDirs[$i]}\"','\"$outFile\"','\"$dsFile\"','\"$usFile\"','$i')'
-	mv $outFile $outFolder"/"$outFile
+	root -l -b -q 'Dat2Root.C('\"${dataDirs[$i]}\"','\"$outFile\"','\"$dsFile\"','\"$usFile\"','$i')' &
+done
+
+wait
+
+for i in ${!OutName[@]};
+do
+	mv ${OutName[$i]} $outFolder"/"${OutName[$i]}
 done

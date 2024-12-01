@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -228,6 +229,106 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    Int_t    ds_all_ntrk_around_2ry;
    Int_t    ds_all_ntrk_other_vtx_max;
    Int_t    ds_all_flag_final;
+
+   Int_t    ds_all_vtx_id;
+
+   // DecaySearch_final
+   Int_t    ds_final_area1;
+   Int_t    ds_final_area2;
+   Float_t  ds_final_txpeak;
+   Float_t  ds_final_typeak;
+   Int_t    ds_final_i; 
+   Float_t  ds_final_xc;
+   Float_t  ds_final_yc;
+   Float_t  ds_final_1ry_vx;
+   Float_t  ds_final_1ry_vy;
+   Float_t  ds_final_1ry_vz;
+   Int_t    ds_final_1ry_plt;
+   Int_t    ds_final_flagw;
+   Int_t    ds_final_n_1ry_trk;
+   Float_t  ds_final_2ry_vx;
+   Float_t  ds_final_2ry_vy;
+   Float_t  ds_final_2ry_vz;
+   Int_t    ds_final_2ry_plt;
+   Int_t    ds_final_parent_plt_1st;
+   Int_t    ds_final_parent_trkID;
+   Int_t    ds_final_parent_MCEvt;
+   Int_t    ds_final_parent_pdgID;
+   Float_t  ds_final_parent_MCp;
+   Int_t    ds_final_nparent_1ry;
+   Int_t    ds_final_nparent_1ry_penet;
+   Int_t    ds_final_nparent_non1ry;
+   Float_t  ds_final_parent_tx;
+   Float_t  ds_final_parent_ty;
+   Int_t    ds_final_ndau;
+   Int_t    ds_final_default1;
+   Int_t    ds_final_default2;
+   Int_t    ds_final_plt_dau1;
+   Int_t    ds_final_segid_dau1;
+   Int_t    ds_final_dau1_MCEvt;
+   Int_t    ds_final_dau1_pdgID;
+   Float_t  ds_final_dau1_MCp;
+   Float_t  ds_final_ip_to1ry_dau1;
+   Float_t  ds_final_ip_to2ry_dau1;
+   Float_t  ds_final_tx_dau1;
+   Float_t  ds_final_ty_dau1;
+   Float_t  ds_final_dt_dau1;
+   Float_t  ds_final_dtrms_dau1;
+   Float_t  ds_final_dtrmst_dau1;
+   Float_t  ds_final_dt_w_dau1;
+
+   Int_t    ds_final_plt_dau2;
+   Int_t    ds_final_segid_dau2;
+   Int_t    ds_final_dau2_MCEvt;
+   Int_t    ds_final_dau2_pdgID;
+   Float_t  ds_final_dau2_MCp;
+   Float_t  ds_final_ip_to1ry_dau2;
+   Float_t  ds_final_ip_to2ry_dau2;
+   Float_t  ds_final_tx_dau2;
+   Float_t  ds_final_ty_dau2;
+   Float_t  ds_final_dt_dau2;
+   Float_t  ds_final_dtrms_dau2;
+   Float_t  ds_final_dtrmst_dau2;
+   Float_t  ds_final_dt_w_dau2;
+
+   Int_t    ds_final_plt_dau3;
+   Int_t    ds_final_segid_dau3;
+   Int_t    ds_final_dau3_MCEvt;
+   Int_t    ds_final_dau3_pdgID;
+   Float_t  ds_final_dau3_MCp;
+   Float_t  ds_final_ip_to1ry_dau3;
+   Float_t  ds_final_ip_to2ry_dau3;
+   Float_t  ds_final_tx_dau3;
+   Float_t  ds_final_ty_dau3;
+   Float_t  ds_final_dt_dau3;
+   Float_t  ds_final_dtrms_dau3;
+   Float_t  ds_final_dtrmst_dau3;
+   Float_t  ds_final_dt_w_dau3;
+
+   Int_t    ds_final_plt_dau4;
+   Int_t    ds_final_segid_dau4;
+   Int_t    ds_final_dau4_MCEvt;
+   Int_t    ds_final_dau4_pdgID;
+   Float_t  ds_final_dau4_MCp;
+   Float_t  ds_final_ip_to1ry_dau4;
+   Float_t  ds_final_ip_to2ry_dau4;
+   Float_t  ds_final_tx_dau4;
+   Float_t  ds_final_ty_dau4;
+   Float_t  ds_final_dt_dau4;
+   Float_t  ds_final_dtrms_dau4;
+   Float_t  ds_final_dtrmst_dau4;
+   Float_t  ds_final_dt_w_dau4;
+
+   Float_t  ds_final_dmin_org_vee;
+   Float_t  ds_final_dmin_fine_vee;
+   Float_t  ds_final_topen_vee;
+   Float_t  ds_final_dt1dt2_vee;
+   Float_t  ds_final_dt012_vee;
+   Int_t    ds_final_ntrk_around_2ry;
+   Int_t    ds_final_ntrk_other_vtx_max;
+   Int_t    ds_final_flag_final;
+
+   Int_t    ds_final_vtx_id;
    
    //DecaySearch_intrk
    Int_t    ds_intrk_area1;
@@ -521,8 +622,6 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    Float_t  ds_intrk_for_pa_wt_dtrmst_dau3;
    Float_t  ds_intrk_for_pa_wt_dt_w_dau3;
 
-
-
    Char_t ipChar05[16],ipChar04[16],ntrk_smallChar[16],dtChar[16],dt_posChar[16];
 
    Int_t trk_multip = 0, vtx_multip = 0;
@@ -770,8 +869,108 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    ds_all->Branch("dt1dt2_vee",&ds_all_dt1dt2_vee,"dt1dt2_vee/F");
    ds_all->Branch("dt012_vee",&ds_all_dt012_vee,"dt012_vee/F");
    ds_all->Branch("ntrk_around_2ry",&ds_all_ntrk_around_2ry,"ntrk_around_2ry/I");
-   ds_all->Branch("ntrk_other_vtx_max",&ds_all_ntrk_other_vtx_max,"ntrk_other_vtx_max");
-   ds_all->Branch("flag_final",&ds_all_flag_final,"flag_final");
+   ds_all->Branch("ntrk_other_vtx_max",&ds_all_ntrk_other_vtx_max,"ntrk_other_vtx_max/I");
+   ds_all->Branch("flag_final",&ds_all_flag_final,"flag_final/I");
+
+   ds_all->Branch("vID",&ds_all_vtx_id,"vID/I");
+
+   TTree *ds_final = new TTree("DsFinal","DsFinalinfo");
+
+   ds_final->Branch("area1",&ds_final_area1,"area1/I");
+   ds_final->Branch("area2",&ds_final_area2,"area2/I");
+   ds_final->Branch("txpeak",&ds_final_txpeak,"txpeak/F");
+   ds_final->Branch("typeak",&ds_final_typeak,"typeak/F");
+   ds_final->Branch("i",&ds_final_i,"i/I");
+   ds_final->Branch("xc",&ds_final_xc,"xc/F");
+   ds_final->Branch("yc",&ds_final_yc,"yc/F");
+   ds_final->Branch("1ry_vx",&ds_final_1ry_vx,"1ry_vx/F");
+   ds_final->Branch("1ry_vy",&ds_final_1ry_vy,"1ry_vy/F");
+   ds_final->Branch("1ry_vz",&ds_final_1ry_vz,"1ry_vz/F");
+   ds_final->Branch("1ry_plt",&ds_final_1ry_plt,"1ry_plt/I");
+   ds_final->Branch("flagw",&ds_final_flagw,"flagw/I");
+   ds_final->Branch("n_1ry_trk",&ds_final_n_1ry_trk,"n_1ry_trk/I");
+   ds_final->Branch("2ry_vx",&ds_final_2ry_vx,"2ry_vx/F");
+   ds_final->Branch("2ry_vy",&ds_final_2ry_vy,"2ry_vy/F");
+   ds_final->Branch("2ry_vz",&ds_final_2ry_vz,"2ry_vz/F");
+   ds_final->Branch("2ry_plt",&ds_final_2ry_plt,"2ry_plt/I");
+   ds_final->Branch("parent_plt_1st",&ds_final_parent_plt_1st,"parent_plt_1st/I");
+   ds_final->Branch("parent_trkID",&ds_final_parent_trkID,"parent_trkID/I");
+   ds_final->Branch("parent_MCEvt",&ds_final_parent_MCEvt,"parent_MCEvt/I");
+   ds_final->Branch("parent_pdgID",&ds_final_parent_pdgID,"parent_pdgID/I");
+   ds_final->Branch("parent_MCp",&ds_final_parent_MCp,"parent_MCp/F");
+   ds_final->Branch("nparent_1ry",&ds_final_nparent_1ry,"nparent_1ry/I");
+   ds_final->Branch("nparent_1ry_penet",&ds_final_nparent_1ry_penet,"nparent_1ry/I");
+   ds_final->Branch("nparent_non1ry",&ds_final_nparent_non1ry,"nparent_non1ry/I");
+   ds_final->Branch("parent_tx",&ds_final_parent_tx,"parent_tx/F");
+   ds_final->Branch("parent_ty",&ds_final_parent_ty,"parent_ty/F");
+   ds_final->Branch("ndau",&ds_final_ndau,"ndau/I");
+   ds_final->Branch("default1",&ds_final_default1,"default1/I");
+   ds_final->Branch("default2",&ds_final_default2,"default2/I");
+
+   ds_final->Branch("plt_dau1",&ds_final_plt_dau1,"plt_dau1/I");
+   ds_final->Branch("segid_dau1",&ds_final_segid_dau1,"segid_dau1/I");
+   ds_final->Branch("dau1_MCEvt",&ds_final_dau1_MCEvt,"dau1_MCEvt/I");
+   ds_final->Branch("dau1_pdgID",&ds_final_dau1_pdgID,"dau1_pdgID/I");
+   ds_final->Branch("dau1_MCp",&ds_final_dau1_MCp,"dau1_MCp/F");
+   ds_final->Branch("ip_to1ry_dau1",&ds_final_ip_to1ry_dau1,"ip_to1ry_dau1/F");
+   ds_final->Branch("ip_to2ry_dau1",&ds_final_ip_to2ry_dau1,"ip_to2ry_dau1/F");
+   ds_final->Branch("tx_dau1",&ds_final_tx_dau1,"tx_dau1/F");
+   ds_final->Branch("ty_dau1",&ds_final_ty_dau1,"ty_dau1/F");
+   ds_final->Branch("dt_dau1",&ds_final_dt_dau1,"dt_dau1/F");
+   ds_final->Branch("dtrms_dau1",&ds_final_dtrms_dau1,"dtrms_dau1/F");
+   ds_final->Branch("dtrmst_dau1",&ds_final_dtrmst_dau1,"dtrmst_dau1/F");
+   ds_final->Branch("dt_w_dau1",&ds_final_dt_w_dau1,"dt_w_dau1/F");
+   ds_final->Branch("plt_dau2",&ds_final_plt_dau2,"plt_dau2/I");
+   ds_final->Branch("segid_dau2",&ds_final_segid_dau2,"segid_dau2/I");
+   ds_final->Branch("dau2_MCEvt",&ds_final_dau2_MCEvt,"dau2_MCEvt/I");
+   ds_final->Branch("dau2_pdgID",&ds_final_dau2_pdgID,"dau2_pdgID/I");
+   ds_final->Branch("dau2_MCp",&ds_final_dau2_MCp,"dau2_MCp/F");
+   ds_final->Branch("ip_to1ry_dau2",&ds_final_ip_to1ry_dau2,"ip_to1ry_dau2/F");
+   ds_final->Branch("ip_to2ry_dau2",&ds_final_ip_to2ry_dau2,"ip_to2ry_dau2/F");
+   ds_final->Branch("tx_dau2",&ds_final_tx_dau2,"tx_dau2/F");
+   ds_final->Branch("ty_dau2",&ds_final_ty_dau2,"ty_dau2/F");
+   ds_final->Branch("dt_dau2",&ds_final_dt_dau2,"dt_dau2/F");
+   ds_final->Branch("dtrms_dau2",&ds_final_dtrms_dau2,"dtrms_dau2/F");
+   ds_final->Branch("dtrmst_dau2",&ds_final_dtrmst_dau2,"dtrmst_dau2/F");
+   ds_final->Branch("dt_w_dau2",&ds_final_dt_w_dau2,"dt_w_dau2/F");
+   ds_final->Branch("plt_dau3",&ds_final_plt_dau3,"plt_dau3/I");
+   ds_final->Branch("segid_dau3",&ds_final_segid_dau3,"segid_dau3/I");
+   ds_final->Branch("dau3_MCEvt",&ds_final_dau3_MCEvt,"dau3_MCEvt/I");
+   ds_final->Branch("dau3_pdgID",&ds_final_dau3_pdgID,"dau3_pdgID/I");
+   ds_final->Branch("dau3_MCp",&ds_final_dau3_MCp,"dau3_MCp/F");
+   ds_final->Branch("ip_to1ry_dau3",&ds_final_ip_to1ry_dau3,"ip_to1ry_dau3/F");
+   ds_final->Branch("ip_to2ry_dau3",&ds_final_ip_to2ry_dau3,"ip_to2ry_dau3/F");
+   ds_final->Branch("tx_dau3",&ds_final_tx_dau3,"tx_dau3/F");
+   ds_final->Branch("ty_dau3",&ds_final_ty_dau3,"ty_dau3/F");
+   ds_final->Branch("dt_dau3",&ds_final_dt_dau3,"dt_dau3/F");
+   ds_final->Branch("dtrms_dau3",&ds_final_dtrms_dau3,"dtrms_dau3/F");
+   ds_final->Branch("dtrmst_dau3",&ds_final_dtrmst_dau3,"dtrmst_dau3/F");
+   ds_final->Branch("dt_w_dau3",&ds_final_dt_w_dau3,"dt_w_dau3/F"); 
+   ds_final->Branch("plt_dau4",&ds_final_plt_dau4,"plt_dau4/I");
+   ds_final->Branch("segid_dau4",&ds_final_segid_dau4,"segid_dau4/I");
+   ds_final->Branch("dau4_MCEvt",&ds_final_dau4_MCEvt,"dau4_MCEvt/I");
+   ds_final->Branch("dau4_pdgID",&ds_final_dau4_pdgID,"dau4_pdgID/I");
+   ds_final->Branch("dau4_MCp",&ds_final_dau4_MCp,"dau4_MCp/F");
+   ds_final->Branch("ip_to1ry_dau4",&ds_final_ip_to1ry_dau4,"ip_to1ry_dau4/F");
+   ds_final->Branch("ip_to2ry_dau4",&ds_final_ip_to2ry_dau4,"ip_to2ry_dau4/F");
+   ds_final->Branch("tx_dau4",&ds_final_tx_dau4,"tx_dau4/F");
+   ds_final->Branch("ty_dau4",&ds_final_ty_dau4,"ty_dau4/F");
+   ds_final->Branch("dt_dau4",&ds_final_dt_dau4,"dt_dau4/F");
+   ds_final->Branch("dtrms_dau4",&ds_final_dtrms_dau4,"dtrms_dau4/F");
+   ds_final->Branch("dtrmst_dau4",&ds_final_dtrmst_dau4,"dtrmst_dau4/F");
+   ds_final->Branch("dt_w_dau4",&ds_final_dt_w_dau4,"dt_w_dau4/F"); 
+
+   ds_final->Branch("dmin_org_vee",&ds_final_dmin_org_vee,"dmin_org_vee/F");
+   ds_final->Branch("dmin_fine_vee",&ds_final_dmin_fine_vee,"dmin_fine_vee/F");
+   ds_final->Branch("topen_vee",&ds_final_topen_vee,"topen_vee/F");
+   ds_final->Branch("dt1dt2_vee",&ds_final_dt1dt2_vee,"dt1dt2_vee/F");
+   ds_final->Branch("dt012_vee",&ds_final_dt012_vee,"dt012_vee/F");
+   ds_final->Branch("ntrk_around_2ry",&ds_final_ntrk_around_2ry,"ntrk_around_2ry/I");
+   ds_final->Branch("ntrk_other_vtx_max",&ds_final_ntrk_other_vtx_max,"ntrk_other_vtx_max/I");
+   ds_final->Branch("flag_final",&ds_final_flag_final,"flag_final/I");
+
+   ds_final->Branch("vID",&ds_final_vtx_id,"vID/I");
+
 
    TTree *ds_intrk = new TTree("DsInTrk","DsInTrkinfo");
 
@@ -919,7 +1118,6 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    ds_intrk_wt->Branch("dtrms_dau3",&ds_intrk_wt_dtrms_dau3,"dtrms_dau3/F");
    ds_intrk_wt->Branch("dtrmst_dau3",&ds_intrk_wt_dtrmst_dau3,"dtrmst_dau3/F");
    ds_intrk_wt->Branch("dt_w_dau3",&ds_intrk_wt_dt_w_dau3,"dt_w_dau3/F"); 
-
 
 
    TTree *ds_intrk_for_pa = new TTree("DsInTrkForPa","DsInTrkForPainfo");
@@ -1070,23 +1268,21 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    ds_intrk_for_pa_wt->Branch("dt_w_dau3",&ds_intrk_for_pa_wt_dt_w_dau3,"dt_w_dau3/F");               
 
 
-
    int VtxId = -1, chldNum = 0;
    char line[1024];
 
    int vNum = 0, pNum = 0, tNum = 0, recNum = 0, notRecNum = 0;
 
-   int prevSubArea = 1, recoNum = 1;
+   int prevSubAreaPar = 1, prevSubAreaTrk = 1, recoNum = 1;
 
    for (int segNum = 0; segNum <= 1; segNum++)
    {
       int parid = 0;
+
+      unordered_map<int, int> trkIDMap;
       vector<int> paridVec;
 
       vector<tuple<int, int, int, int, int, int, int>> USPair [63], DSPair [63];
-      //vector<pair<int, int>> USPair, DSPair;
-      //set<pair<int, int>> USPair, DSPair;
-
       vector<int> UStrID[63], USgtrID[63];
       vector<int> DStrID[63], DSgtrID[63];
       vector<int> intVec[63];
@@ -1123,72 +1319,72 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
          for (int i = 0; i < USPair[areaInd].size(); i++)
          {
-               int trid = get<0>(USPair[areaInd][i]);
-               int gtrid = get<1>(USPair[areaInd][i]);
-               int posX = get<2>(USPair[areaInd][i]);
-               int posY = get<3>(USPair[areaInd][i]);
-               int posZ = get<4>(USPair[areaInd][i]);
+            int trid = get<0>(USPair[areaInd][i]);
+            int gtrid = get<1>(USPair[areaInd][i]);
+            int posX = get<2>(USPair[areaInd][i]);
+            int posY = get<3>(USPair[areaInd][i]);
+            int posZ = get<4>(USPair[areaInd][i]);
 
-               float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
-               float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
+            float tX = ((float)get<5>(USPair[areaInd][i])/1000000);
+            float tY = ((float)get<6>(USPair[areaInd][i])/1000000);
 
-               if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
-               {
-                  UStrID[areaInd].push_back(trid);
-                  USgtrID[areaInd].push_back(gtrid);
+            if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
+            {
+               UStrID[areaInd].push_back(trid);
+               USgtrID[areaInd].push_back(gtrid);
 
-                  ptrk_US_area1 = areaInd;
-                  ptrk_US_trID = trid;
-                  ptrk_US_gtrID = gtrid;
-                  ptrk_US_plt_of_1seg = segNum+1;
-                  ptrk_US_PosX_of_1seg = posX;
-                  ptrk_US_PosY_of_1seg = posY;
-                  ptrk_US_PosZ_of_1seg = posZ;
-                  ptrk_US_TX = tX;
-                  ptrk_US_TY = tY;
+               ptrk_US_area1 = areaInd;
+               ptrk_US_trID = trid;
+               ptrk_US_gtrID = gtrid;
+               ptrk_US_plt_of_1seg = segNum+1;
+               ptrk_US_PosX_of_1seg = posX;
+               ptrk_US_PosY_of_1seg = posY;
+               ptrk_US_PosZ_of_1seg = posZ;
+               ptrk_US_TX = tX;
+               ptrk_US_TY = tY;
 
-                  us_ptrk->Fill();
+               us_ptrk->Fill();
 
-                  pInAcc++;
-               }
-               else
-               {
-                  UStrIDOut[areaInd].push_back(trid);
-                  pOutAcc++;
-               }
+               pInAcc++;
+            }
+            else
+            {
+               UStrIDOut[areaInd].push_back(trid);
+               pOutAcc++;
+            }
          }
 
          for (int i = 0; i < DSPair[areaInd].size(); i++)
+         {
+            int trid = get<0>(DSPair[areaInd][i]);
+            int gtrid = get<1>(DSPair[areaInd][i]);
+            int posX = get<2>(DSPair[areaInd][i]);
+            int posY = get<3>(DSPair[areaInd][i]);
+            int posZ = get<4>(DSPair[areaInd][i]);
+
+            float tX = ((float)get<5>(DSPair[areaInd][i])/1000000);
+            float tY = ((float)get<6>(DSPair[areaInd][i])/1000000);
+
+            //cout << areaInd+1 << ", " << posX << ", " << posY << endl;
+
+            if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
             {
-               int trid = get<0>(DSPair[areaInd][i]);
-               int gtrid = get<1>(DSPair[areaInd][i]);
-               int posX = get<2>(DSPair[areaInd][i]);
-               int posY = get<3>(DSPair[areaInd][i]);
-               int posZ = get<4>(DSPair[areaInd][i]);
+               DStrID[areaInd].push_back(trid);
+               DSgtrID[areaInd].push_back(gtrid);
 
-               float tX = ((float)get<5>(DSPair[areaInd][i])/1000000);
-               float tY = ((float)get<6>(DSPair[areaInd][i])/1000000);
+               ptrk_DS_area1 = areaInd;
+               ptrk_DS_trID = trid;
+               ptrk_DS_gtrID = gtrid;
+               ptrk_DS_plt_of_1seg = segNum+1;
+               ptrk_DS_PosX_of_1seg = posX;
+               ptrk_DS_PosY_of_1seg = posY;
+               ptrk_DS_PosZ_of_1seg = posZ;
+               ptrk_DS_TX = tX;
+               ptrk_DS_TY = tY;
 
-               //cout << areaInd+1 << ", " << posX << ", " << posY << endl;
-
-               if (/*!isTranslatedOut(areaInd+1, posX, posY, posZ, tX, tY)*/ true)
-               {
-                  DStrID[areaInd].push_back(trid);
-                  DSgtrID[areaInd].push_back(gtrid);
-
-                  ptrk_DS_area1 = areaInd;
-                  ptrk_DS_trID = trid;
-                  ptrk_DS_gtrID = gtrid;
-                  ptrk_DS_plt_of_1seg = segNum+1;
-                  ptrk_DS_PosX_of_1seg = posX;
-                  ptrk_DS_PosY_of_1seg = posY;
-                  ptrk_DS_PosZ_of_1seg = posZ;
-                  ptrk_DS_TX = tX;
-                  ptrk_DS_TY = tY;
-
-                  ds_ptrk->Fill();
-               }
+               ds_ptrk->Fill();
             }
+         }
 
          intVec[areaInd].assign(UStrID[areaInd].begin(), UStrID[areaInd].end());
 
@@ -1269,11 +1465,10 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             sscanf(&line[11],"%d %d %f %f %d %f %f %f %f %d %d %d %f %f %d %s %f %s %f %s %d %s %f %s %f %d %d %d %d",&parC_area1,&parC_area2,&parC_txpeak,&parC_typeak,&parC_i,&parC_vx,&parC_vy,&parC_vz,&parC_dz,
                &parid,&parC_plt_of_1seg,&parC_seg_id_of_1seg,&parC_tx05pos,&parC_ty05pos,&parC_nseg,&ipChar05[8],&parC_ip_pos05,&ipChar04[8],&parC_ip_pos04,&ntrk_smallChar[10],&parC_ntrk_small,&dtChar[2],&parC_dt,
                &dt_posChar[6],&parC_dt_pos,&parC_pl_up1ry_plmin,&parC_pl_up1ry_plmax,&parC_pl_dwn1ry_plmin,&parC_pl_dwn1ry_plmax);
-
-            if (parC_area2 != prevSubArea && parC_area2 == 1)
+            
+            if (parC_area2 != prevSubAreaPar)
             {
-               //cout << parC_area1 << endl;
-               recoNum++;
+               if (parC_area2 == 1){recoNum++;}
             }
             /*
             if (trk_n_1ry_parent_dmin_cut == 1)
@@ -1285,9 +1480,9 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             */
             if(parC_pl_up1ry_plmin == dirIndex*10+segNum+1){paridVec.push_back(parid);}
 
-            parC_area1 = recoNum-1;
+            parC_area1 = recoNum;
 
-            prevSubArea = parC_area2;
+            prevSubAreaPar = parC_area2;
          }
          else if(strcmp(type,"1ry_trk") == 0)
          {
@@ -1305,19 +1500,26 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                   trk_vID = VtxId;
                   parC_vID = VtxId;
 
+                  trkIDMap[trk_id] = trk_vID;
+                  if (trk_area2 != prevSubAreaTrk)
+                  {
+                     //cout << trk_area2 << endl;
+                     trkIDMap.clear();
+                  }
+
                   tNum++;
                   if (chldNum == vtx_multip)
                   {
                      notRecNum++;
-
                      //cout << "Parent TrkId (Parent not reconstructed): " << parC_id << endl;
                   }
                   trk->Fill();
+
+                  prevSubAreaTrk = trk_area2;
                }
                else
                {
                   recNum++;
-
                   //cout << "Parent TrkId: " << parC_id << endl;
                }
             }
@@ -1336,8 +1538,39 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             &ds_all_plt_dau4,&ds_all_segid_dau4,&ds_all_dau4_MCEvt,&ds_all_dau4_pdgID,&ds_all_dau4_MCp,&ds_all_ip_to1ry_dau4,&ds_all_ip_to2ry_dau4,&ds_all_tx_dau4,&ds_all_ty_dau4,&ds_all_dt_dau4,&ds_all_dtrms_dau4,&ds_all_dtrmst_dau4,&ds_all_dt_w_dau4,
             &ds_all_dmin_org_vee,&ds_all_dmin_fine_vee,&ds_all_topen_vee,&ds_all_dt1dt2_vee,&ds_all_dt012_vee,&ds_all_ntrk_around_2ry,&ds_all_ntrk_other_vtx_max,&ds_all_flag_final);
 
-            ds_all_area1 = recoNum-1 ;
+            ds_all_area1 = recoNum-1;
+            ds_all_vtx_id = -1;
+
+            auto it = trkIDMap.find(ds_all_parent_trkID);
+            if (it != trkIDMap.end()) 
+            {
+               ds_all_vtx_id = it->second;
+            }
             ds_all->Fill();
+         }
+
+         else if(strcmp(type,"ds_final") == 0)
+         {
+            sscanf(&line[8], "%d %d %f %f %d %f %f %f %f %f %d %d %d %f %f %f %d %d %d %d %d %f %d %d %d %f %f %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d ",
+            &ds_final_area1,&ds_final_area2,&ds_final_txpeak,&ds_final_typeak,&ds_final_i,&ds_final_xc,&ds_final_yc,&ds_final_1ry_vx,&ds_final_1ry_vy,&ds_final_1ry_vz,
+            &ds_final_1ry_plt,&ds_final_flagw,&ds_final_n_1ry_trk,&ds_final_2ry_vx,&ds_final_2ry_vy,&ds_final_2ry_vz,&ds_final_2ry_plt,&ds_final_parent_plt_1st,
+            &ds_final_parent_trkID,&ds_final_parent_MCEvt,&ds_final_parent_pdgID,&ds_final_parent_MCp,&ds_final_nparent_1ry,&ds_final_nparent_1ry_penet,
+            &ds_final_nparent_non1ry,&ds_final_parent_tx,&ds_final_parent_ty,&ds_final_ndau,&ds_final_default1,&ds_final_default2,
+            &ds_final_plt_dau1,&ds_final_segid_dau1,&ds_final_dau1_MCEvt,&ds_final_dau1_pdgID,&ds_final_dau1_MCp,&ds_final_ip_to1ry_dau1,&ds_final_ip_to2ry_dau1,&ds_final_tx_dau1,&ds_final_ty_dau1,&ds_final_dt_dau1,&ds_final_dtrms_dau1,&ds_final_dtrmst_dau1,&ds_final_dt_w_dau1,
+            &ds_final_plt_dau2,&ds_final_segid_dau2,&ds_final_dau2_MCEvt,&ds_final_dau2_pdgID,&ds_final_dau2_MCp,&ds_final_ip_to1ry_dau2,&ds_final_ip_to2ry_dau2,&ds_final_tx_dau2,&ds_final_ty_dau2,&ds_final_dt_dau2,&ds_final_dtrms_dau2,&ds_final_dtrmst_dau2,&ds_final_dt_w_dau2,
+            &ds_final_plt_dau3,&ds_final_segid_dau3,&ds_final_dau3_MCEvt,&ds_final_dau3_pdgID,&ds_final_dau3_MCp,&ds_final_ip_to1ry_dau3,&ds_final_ip_to2ry_dau3,&ds_final_tx_dau3,&ds_final_ty_dau3,&ds_final_dt_dau3,&ds_final_dtrms_dau3,&ds_final_dtrmst_dau3,&ds_final_dt_w_dau3,
+            &ds_final_plt_dau4,&ds_final_segid_dau4,&ds_final_dau4_MCEvt,&ds_final_dau4_pdgID,&ds_final_dau4_MCp,&ds_final_ip_to1ry_dau4,&ds_final_ip_to2ry_dau4,&ds_final_tx_dau4,&ds_final_ty_dau4,&ds_final_dt_dau4,&ds_final_dtrms_dau4,&ds_final_dtrmst_dau4,&ds_final_dt_w_dau4,
+            &ds_final_dmin_org_vee,&ds_final_dmin_fine_vee,&ds_final_topen_vee,&ds_final_dt1dt2_vee,&ds_final_dt012_vee,&ds_final_ntrk_around_2ry,&ds_final_ntrk_other_vtx_max,&ds_final_flag_final);
+
+            ds_final_area1 = recoNum-1;
+            ds_final_vtx_id = -1;
+
+            auto it = trkIDMap.find(ds_final_parent_trkID);
+            if (it != trkIDMap.end()) 
+            {
+               ds_final_vtx_id = it->second;
+            }
+            ds_final->Fill();
          }
 
          else if(strcmp(type,"ds_intrk") == 0)
@@ -1426,6 +1659,7 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
    ds_ptrk->Write();
 
    ds_all->Write();
+   ds_final->Write();
    ds_intrk->Write();
    ds_intrk_wt->Write();
    ds_intrk_for_pa->Write();
