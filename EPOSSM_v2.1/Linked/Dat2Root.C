@@ -328,8 +328,8 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
          char USIn[128], DSIn[128];
 
-         snprintf(USIn, 128, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
-         snprintf(DSIn, 128, "EPOS_Full_3Sigma/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
+         snprintf(USIn, 128, "EPOS_Full_5Sigma/Area_%02d/Output/Merged/%s", areaInd+1, USChr);
+         snprintf(DSIn, 128, "EPOS_Full_5Sigma/Area_%02d/Output/Merged/%s", areaInd+1, DSChr);
 
          cout << USIn << endl;
 

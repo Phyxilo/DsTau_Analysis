@@ -38,13 +38,14 @@ void NonMatchingVert()
     for (int j = 0; j < 7; j++)
     {
         //noMatch = new TH2F("NonMatched","Position Distribution",80,-8000,8000,80,-8000,8000);
+        int nonMatchNum = 0, matchNum;
 
         sprintf(outName,"NonMatched/NonMatched_%d.png", j);
         sprintf(outNameStart,"%s(", outName);
         sprintf(outNameEnd,"%s)", outName);
 
         char dir [128];
-        sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut/pl0%d1_%02d0.root", j, j+3);
+        sprintf(dir,"../../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl0%d1_%02d0.root", j, j+3);
 
         Data = TFile::Open(dir);
         
@@ -80,13 +81,17 @@ void NonMatchingVert()
                     //cout << fixed << trk->GetValue() << endl;
 
                     noMatch->Fill(VX, VY);
+                    nonMatchNum++;
                 }
+                matchNum++;
                 //Mult1->Fill(Mlt);
                 
             }
 
             dataSize++;
         }
+
+        cout << ((float)nonMatchNum/(float)matchNum)*100 << endl;
         
         gStyle->SetOptStat(0);
         gStyle->SetPalette(kRainBow);

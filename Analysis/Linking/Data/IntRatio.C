@@ -22,6 +22,7 @@ float intRatio1[8], intRatio2[8];
 float err1X[8], err1Y[8], err2X[8], err2Y[8];
 
 float migCut = 18;
+double dataCorrection = 1;
 
 //int posXMin = 56000, posXMax = 74000;
 //int posYMin = 56000, posYMax = 74000;
@@ -50,7 +51,7 @@ void IntRatio()
 
         //sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
         //sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_TrackSel+Res5/p0%d6.root", j);
-        snprintf(dir, 128, "../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p0%d6.root", j);
+        snprintf(dir, 128, "../../../Data_v20220912/PD05/Linked/RootOut_4Sigma/p0%d6.root", j);
 
         cout << dir << endl;
 
@@ -64,21 +65,21 @@ void IntRatio()
         double *endArr = DataEndPoints(vtxData);
         double mean = DataMean(vtxData);
 
-        //cout << endArr[0] << ", " << endArr[1] << ", " << endArr[1]-endArr[0]-(500-18*2) << endl;
+        //cout << endArr[0] + migCut << ", " << endArr[1] - migCut << ", " << endArr[1]-endArr[0] << endl;
         
-        for (int i = 0; i < parData->GetEntriesFast(); i++)
+        for (int i = 0; i < vtxData->GetEntriesFast(); i++)
         {
             parData->GetEntry(i);
             vtxData->GetEntry(i);
 
-            TLeaf *vx = parData->GetLeaf("vx");
-            TLeaf *vy = parData->GetLeaf("vy");
-            TLeaf *vz = parData->GetLeaf("vz");
             TLeaf *plt = parData->GetLeaf("plt_of_1seg");
             TLeaf *flagp = parData->GetLeaf("flagp");
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
             TLeaf *plmax = parData->GetLeaf("pl_up1ry_plmax");
 
+            TLeaf *vx = vtxData->GetLeaf("vx");
+            TLeaf *vy = vtxData->GetLeaf("vy");
+            TLeaf *vz = vtxData->GetLeaf("vz");
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
             TLeaf *area1 = vtxData->GetLeaf("area1");
             TLeaf *iMed = vtxData->GetLeaf("intMed");
@@ -89,15 +90,16 @@ void IntRatio()
             int Plt = plt->GetValue();
             int fp = flagp->GetValue();
 
-            //bool areaBool = ((area1->GetValue() <= 43 && area1->GetValue() >= 39) || (area1->GetValue() <= 34 && area1->GetValue() >= 30) || (area1->GetValue() <= 25 && area1->GetValue() >= 21));
-            bool areaBool = ((area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29)); //New Method
-            //bool areaBool = area1->GetValue() == 31 || area1->GetValue() == 33 || area1->GetValue() == 41 || area1->GetValue() == 42 || area1->GetValue() == 51;
             //bool areaBool = area1->GetValue() == areaTest;
 
-            //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
-            if (areaBool && (iMed->GetValue() == 1))
+            //if (areaBool /*&& plmin->GetValue() == j*10+1*/ && (iMed->GetValue() == 1) && vz->GetValue() * dataCorrection - endArr[0] > migCut && vz->GetValue() * dataCorrection - endArr[1] < -migCut)
+            if (iMed->GetValue() == 1)
             {
-                if (/*vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut)*/ true)
+                if (vz->GetValue() * dataCorrection > mean - (250-migCut) && vz->GetValue() * dataCorrection < mean + (250-migCut))
+                //if (vz->GetValue() * dataCorrection < endArr[1]-migCut)
+                //if (vz->GetValue() * dataCorrection < mean + (250-migCut))
+                //if (vz->GetValue() * dataCorrection < endArr[0] + (500-migCut))
+                //if(vz->GetValue() * dataCorrection > endArr[0] + migCut && vz->GetValue() * dataCorrection < endArr[1] - migCut)
                 {
                     if (fp >= 1)
                     {
@@ -230,7 +232,7 @@ double* DataEndPoints(TTree *data)
         {
             if (intMedium->GetValue() == 1)
             {
-                InterHist->Fill(vz->GetValue());
+                InterHist->Fill(vz->GetValue() * dataCorrection);
             }
         }
     }
@@ -261,9 +263,9 @@ double DataMean(TTree *data)
 
     if (parNum->GetValue() == 1)
     {
-      if (flagW->GetValue() == 1)
+      if (intMedium->GetValue() == 1)
       {
-        InterHist->Fill(vz->GetValue());
+        InterHist->Fill(vz->GetValue() * dataCorrection);
       }
     }
   }

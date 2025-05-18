@@ -36,8 +36,8 @@ void BinomialFit()
   sprintf(outNameStart,"%s(", outName);
   sprintf(outNameEnd,"%s)", outName);
 
-  Data1 = TFile::Open("../PD05/Out.root");
-  Data2 = TFile::Open("../PD04/Out.root");
+  Data1 = TFile::Open("../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p006.root");
+  Data2 = TFile::Open("../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl001_030.root");
   
   TTree *treeDataTrk1 = (TTree*)Data1->Get("TRK");
   TTree *treeDataTrk2 = (TTree*)Data2->Get("TRK");
@@ -92,8 +92,8 @@ void BinomialFit()
   int bin2 = Mult2->GetXaxis()->FindBin(Hist2Mean);
   float meanPeak2 = Mult2->GetBinContent(bin2);
 
-  Mult1->Scale(1/meanPeak1);
-  Mult2->Scale(1/meanPeak2);
+  Mult1->Scale(1/Mult1->Integral());
+  Mult2->Scale(1/Mult2->Integral());
 
   f1->SetNpx(45);
   f1->SetParameter(0, 1);
@@ -170,7 +170,6 @@ void BinomialFit()
 
   Mult2->Draw("SAMES HIST");
   Canvas->Print( outNameEnd, "pdf");
-  
 }
 
 Double_t customFit (Double_t *x, Double_t *par)

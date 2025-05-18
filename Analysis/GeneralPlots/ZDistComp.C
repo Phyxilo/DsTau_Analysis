@@ -13,7 +13,8 @@ TFile *Data;
 
 double *dataEndArr;
 float migCut = 18;
-double dataCorrection = 1.052;
+//double dataCorrection = 1.052;
+double dataCorrection = 1;
 
 float totVtxNum = 0, inVtxNum = 0;
 
@@ -23,7 +24,7 @@ void ZDistComp()
 
     float dataSize = 0;
 
-    sprintf(outName, "ZDistComp.pdf");
+    sprintf(outName, "ZDistCompMigrationCut.pdf");
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
 
@@ -39,10 +40,10 @@ void ZDistComp()
         int zWMin = 2520+(5700*j);
         int zWMax = zWMin+500;
 
-        sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut/p%02d6.root", j);
+        sprintf(dir, "../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", j);
 
-        //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
-        //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+        //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl%02d1_%02d0.root", j, j + 3); }
+        //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl071_105.root"); }
 
         //if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
         //else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/PythiaCharmSM_v2.1/Linked/RootOut/pl071_105.root"); }
@@ -61,8 +62,11 @@ void ZDistComp()
 
         prevMean = mean;
 
-        TH1F *zDist = new TH1F("ZDist","Z Distribution",540/2,dataEndArr[0]-20,dataEndArr[1]+20);
-        TH1F *zDistCutted = new TH1F("ZDistCutted","Z Distribution with Cutted",540/2,dataEndArr[0]-20,dataEndArr[1]+20);
+        //TH1F *zDist = new TH1F("ZDist","",536/2,dataEndArr[0],dataEndArr[1]);
+        //TH1F *zDistCutted = new TH1F("ZDistCutted","",536/2,dataEndArr[0],dataEndArr[1]);
+
+        TH1F *zDist = new TH1F("ZDist","",536/2,mean-268,mean+268);
+        TH1F *zDistCutted = new TH1F("ZDistCutted","",536/2,mean-268,mean+268);
 
         cout << dataEndArr[1] - dataEndArr[0] << endl;
         
@@ -77,7 +81,7 @@ void ZDistComp()
           float VZ = vz->GetValue() * dataCorrection;
 
           //if (iMed->GetValue() == 1)
-          //if (w->GetValue() == 1)
+          if (w->GetValue() == 1)
           {
             zDist->Fill(VZ);
             zDistFull->Fill(VZ);
@@ -102,9 +106,12 @@ void ZDistComp()
 
         //cout << "Ratio: " << vtxNumRatio << endl;
 
+        gStyle->SetOptStat(0);
+
         if(j == 0)
         {
           zDist->Draw();
+          zDist->SetXTitle("Z (#mum)");
           zDistCutted->Draw("SAMES");
           zDistCutted->SetLineColor(kRed);
           Canvas->Print(outNameStart, "pdf");
@@ -112,13 +119,13 @@ void ZDistComp()
         else if(j == 7)
         {
           zDist->Draw();
+          zDist->SetXTitle("Z (#mum)");
           zDistCutted->Draw("SAMES");
           zDistCutted->SetLineColor(kRed);
           Canvas->Print(outName, "pdf");
 
-          gStyle->SetOptStat(0);
-
           zDistFull->Draw();
+          zDistFull->SetXTitle("Z (#mum)");
           zDistFullCutted->Draw("SAMES");
           zDistFullCutted->SetLineColor(kRed);
           Canvas->Print(outNameEnd, "pdf");
@@ -126,6 +133,7 @@ void ZDistComp()
         else
         {
           zDist->Draw();
+          zDist->SetXTitle("Z (#mum)");
           zDistCutted->Draw("SAMES");
           zDistCutted->SetLineColor(kRed);
           Canvas->Print(outName, "pdf");
@@ -145,6 +153,7 @@ double* DataEndPoints(TTree *data)
     
     TLeaf *vz = data->GetLeaf("vz");
     TLeaf *intMedium = data->GetLeaf("intMed");
+    TLeaf *flagw = data->GetLeaf("flagw");
     TLeaf *area1 = data->GetLeaf("area1");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
@@ -154,7 +163,7 @@ double* DataEndPoints(TTree *data)
 
     if (parNum->GetValue() == 1 && areaBool)
     {
-      if (intMedium->GetValue() == 1)
+      if (flagw->GetValue() == 1)
       {
         InterHist->Fill(VZ);
       }

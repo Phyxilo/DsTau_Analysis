@@ -13,8 +13,6 @@ double DataMean(TTree *data);
 
 float migCut = 18;
 
-int sebAreaNum = 3;
-
 TCanvas *Canvas;
 
 TGraph *IntRatioGraph = new TGraph (7);
@@ -46,8 +44,8 @@ void IntRatio()
 
 		//sprintf(dir,"../../../Geant4SM_v1.0/RootOut/pl0%d1_%02d0.root", j, j+3);
 
-		if (j < 7){snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl0%d1_%02d0.root", j, j+3);}
-		else {snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl071_105.root");}
+		if (j < 7){snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_4Sigma_New/pl0%d1_%02d0.root", j, j+3);}
+		else {snprintf(dir, 128, "../../../EPOSSM_v2.1/Linked/RootOut_4Sigma_New/pl071_105.root");}
 
 		cout << dir << endl;
 
@@ -68,13 +66,13 @@ void IntRatio()
             parData->GetEntry(i);
             vtxData->GetEntry(i);
 
-            TLeaf *vx = parData->GetLeaf("vx");
-            TLeaf *vy = parData->GetLeaf("vy");
-            TLeaf *vz = parData->GetLeaf("vz");
             TLeaf *plt = parData->GetLeaf("plt_of_1seg");
             TLeaf *flagp = parData->GetLeaf("flagp");
             TLeaf *plmin = parData->GetLeaf("pl_up1ry_plmin");
 
+            TLeaf *vx = vtxData->GetLeaf("vx");
+            TLeaf *vy = vtxData->GetLeaf("vy");
+            TLeaf *vz = vtxData->GetLeaf("vz");
             TLeaf *pNum = vtxData->GetLeaf("n_1ry_parent_dmin_cut");
             TLeaf *flagw = vtxData->GetLeaf("flagw");
             TLeaf *area1 = vtxData->GetLeaf("area1");
@@ -86,7 +84,7 @@ void IntRatio()
             int fw = flagw->GetValue();
             int a1 = area1->GetValue();
 
-            if (fw == 1 && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut && a1 == 3)
+            if (fw == 1 && vz->GetValue() - endArr[0] > migCut && vz->GetValue() - endArr[1] < -migCut)
             {
                 if (vz->GetValue() > mean - (250-migCut) && vz->GetValue() < mean + (250-migCut))
                 {
@@ -112,10 +110,7 @@ void IntRatio()
             TLeaf *area1 = ptrkData->GetLeaf("area1");
             int a1 = area1->GetValue();
 
-            if (a1 == 3)
-            {
-                ProtonNum++;
-            }
+            ProtonNum++;
         }
 
 		float ratio1 = ((float)IntPar1/ProtonNum)*100;

@@ -49,8 +49,8 @@ void Analysis()
 
     sprintf(dataName, "../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", dirIndex);
 
-    if (dirIndex < 7) { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
-    else { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root"); }
+    if (dirIndex < 7) { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
+    else { sprintf(MC1Name, "../../EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl071_105.root"); }
 
     if (dirIndex < 7) { sprintf(MC2Name, "../../Geant4SM_v2.1/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
     else { sprintf(MC2Name, "../../Geant4SM_v2.1/RootOut/pl071_105.root"); }

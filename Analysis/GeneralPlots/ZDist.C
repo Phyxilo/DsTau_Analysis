@@ -24,8 +24,8 @@ void ZDist()
     {
         char dir [128];
 
-        if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl%02d1_%02d0.root", j, j + 3); }
-        else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut/pl071_105.root"); }
+        if (j < 7) { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl%02d1_%02d0.root", j, j + 3); }
+        else { sprintf(dir, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/RootOut_3Sigma_New/pl071_105.root"); }
 
         Data = TFile::Open(dir);
         
@@ -50,7 +50,7 @@ void ZDist()
     zDist->SetStats(0);
     zDist->SetLineWidth(2);
     zDist->SetLineColor(kBlue);
-    zDist->SetXTitle("Z Position (#mum)");
+    zDist->SetXTitle("Z (#mum)");
     Canvas->Print(outName, "png");
     /*
     zDistW->Draw();

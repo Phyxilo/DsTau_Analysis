@@ -14,8 +14,7 @@ TFile *Data;
 double *dataEndArr;
 float migCut = 18;
 double dataCorrection = 1.05;
-
-float totVtxNum = 0, inVtxNum = 0;
+//double dataCorrection = 1;
 
 void ZDist2()
 {
@@ -23,7 +22,7 @@ void ZDist2()
 
     float dataSize = 0;
 
-    sprintf(outName, "ZDist2.pdf");
+    sprintf(outName, "ZDist2_Test.pdf");
     sprintf(outNameStart,"%s(", outName);
     sprintf(outNameEnd,"%s)", outName);
 
@@ -34,6 +33,7 @@ void ZDist2()
 
     for (int j = 0; j < 8; j++)
     {
+        float totVtxNum = 0, inVtxNum = 0;
         char dir [128];
 
         int zWMin = 2520+(5700*j);
@@ -47,6 +47,7 @@ void ZDist2()
         Data = TFile::Open(dir);
         
         TTree *vtxData = (TTree*)Data->Get("VTX");
+        TTree *parData = (TTree*)Data->Get("PAR");
 
         dataEndArr = DataEndPoints(vtxData);
         //dataEndArr = MCEndPoints(vtxData);
@@ -61,27 +62,30 @@ void ZDist2()
         TH1F *zDist = new TH1F("ZDist","",900/3,dataEndArr[0]-200,dataEndArr[1]+200);
         TH1F *zDistCutted = new TH1F("ZDistCutted","",900/3,dataEndArr[0]-200,dataEndArr[1]+200);
 
-        //cout << dataEndArr[1] - dataEndArr[0] << endl;
+        cout << dataEndArr[0] + migCut << ", " << dataEndArr[1] - migCut << ", " << dataEndArr[1] - dataEndArr[0] << endl;
         
         for (int i = 0; i < vtxData->GetEntriesFast(); i++)
         {
           vtxData->GetEntry(i);
+          parData->GetEntry(i);
 
           TLeaf *vz = vtxData->GetLeaf("vz");
           TLeaf *w = vtxData->GetLeaf("flagw");
           TLeaf *iMed = vtxData->GetLeaf("intMed");
 
-          if (iMed->GetValue() == 1)
-          //if (w->GetValue() == 1)
+          TLeaf *p = parData->GetLeaf("flagp");
+
+          //if (iMed->GetValue() == 1)
+          if (w->GetValue() == 1 && p->GetValue() >= 1)
           {
             zDist->Fill(vz->GetValue() * dataCorrection);
             zDistFull->Fill(vz->GetValue() * dataCorrection);
 
             totVtxNum++;
 
-            //if (vz->GetValue() - dataEndArr[0] > migCut && vz->GetValue() - dataEndArr[1] < -migCut)
-            //if (vz->GetValue() > zWMin+migCut && vz->GetValue() < zWMax-migCut)
-            if (vz->GetValue() * dataCorrection > mean - (250-migCut) && vz->GetValue() * dataCorrection < mean + (250-migCut))
+            if (vz->GetValue() * dataCorrection > dataEndArr[0] + migCut && vz->GetValue() * dataCorrection < dataEndArr[1] - migCut)
+            //if (vz->GetValue() * dataCorrection > zWMin+migCut && vz->GetValue() * dataCorrection < zWMax-migCut)
+            //if (vz->GetValue() * dataCorrection > mean - (250-migCut) && vz->GetValue() * dataCorrection < mean + (250-migCut))
             {
               zDistCutted->Fill(vz->GetValue() * dataCorrection);
               zDistFullCutted->Fill(vz->GetValue() * dataCorrection);
@@ -95,7 +99,7 @@ void ZDist2()
 
         float vtxNumRatio = (totVtxNum-inVtxNum)/totVtxNum;
 
-        cout << "Ratio: " << vtxNumRatio << endl;
+        cout << "Ratio: " << inVtxNum << endl;
 
         gStyle->SetOptStat(0);
 
@@ -143,13 +147,14 @@ double* DataEndPoints(TTree *data)
     TLeaf *vz = data->GetLeaf("vz");
     TLeaf *intMedium = data->GetLeaf("intMed");
     TLeaf *area1 = data->GetLeaf("area1");
+    TLeaf *flagw = data->GetLeaf("flagw");
     TLeaf *parNum = data->GetLeaf("n_1ry_parent_dmin_cut");
 
     bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
 
     if (parNum->GetValue() == 1 && areaBool)
     {
-      if (intMedium->GetValue() == 1)
+      if (flagw->GetValue() == 1)
       {
         InterHist->Fill(vz->GetValue() * dataCorrection);
       }

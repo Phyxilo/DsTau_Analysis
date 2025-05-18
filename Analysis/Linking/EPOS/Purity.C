@@ -4,6 +4,8 @@
 
 using namespace std;
 
+float errCalc(float N0, float N);
+
 TCanvas *Canvas= new TCanvas("Canvas","Histogram Canvas",20,20,1920,1080);
 
 char dir [128];
@@ -45,13 +47,13 @@ void Purity()
     char inName[128];
     int PCnt = 0, nonPCnt = 0;
 
-    for (int dirNum = 0; dirNum < 15; dirNum++)
+    for (int dirNum = 0; dirNum < 13; dirNum++)
     {
         char line[1024], firstElement[1024];
         int PCntTemp = 0, nonPCntTemp = 0;
         int ind = 0;
 
-        sprintf(inName, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/EPOS_Full_3Sigma/Area_%.2d/LinkResults.log", dirNum+1);
+        snprintf(inName, 128, "/Users/emin/Desktop/Workspace/DsTau_Analysis/EPOSSM_v2.1/Linked/EPOS_Full_3Sigma/Area_%.2d/LinkResults.log", dirNum+1);
         //cout << inName << endl;
         FILE *fp = fopen(inName,"r");
         
@@ -79,13 +81,6 @@ void Purity()
         }
     }
 
-    /*
-    for (int x = 0; x < 8; x++)
-    {
-        cout << totalSeg[x] << endl;
-    }
-    */
-
     float dataSize = 0;
 
     for (int i = 0; i < 8; i++)
@@ -95,7 +90,16 @@ void Purity()
         
         sumProtonPer += protonPer[i];
     }
+    float mean = sumProtonPer/8;
     
+    for (int i = 0; i < 8; i++)
+    {
+        float err = errCalc(protonPer[i], mean);
+
+        cout << protonPer[i] << " +- " << err << endl; 
+    }
+    cout << "Mean: " << mean << endl;
+
     Canvas->SetGrid();
 
     TGraph *PurGraph = new TGraph (8, wArr, protonPer);
@@ -111,9 +115,14 @@ void Purity()
 
     PurGraph->SetMaximum(1);
     PurGraph->SetMinimum(0.9);
-
-    //cout << "Mean: " << sumProtonPer/7 << endl;
     
     Canvas->Print(outName,"png");
     delete Canvas;
+}
+
+float errCalc(float N0, float N)
+{
+    float epsilon = N/N0;
+
+    return sqrt((epsilon*abs(1-epsilon))/N0);
 }

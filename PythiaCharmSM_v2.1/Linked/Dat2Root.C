@@ -1273,13 +1273,13 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
 
    int vNum = 0, pNum = 0, tNum = 0, recNum = 0, notRecNum = 0;
 
-   int prevSubAreaPar = 1, prevSubAreaTrk = 1, recoNum = 1;
+   int prevSubAreaVtx = 1, prevSubAreaPar = 1, prevSubAreaTrk = 1, recoNum = 1;
 
    for (int segNum = 0; segNum <= 1; segNum++)
    {
       int parid = 0;
 
-      unordered_map<int, int> trkIDMap;
+      unordered_map<int, int> iMap;
       vector<int> paridVec;
 
       vector<tuple<int, int, int, int, int, int, int>> USPair [63], DSPair [63];
@@ -1454,8 +1454,13 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                pNum++;
                vNum++;
 
+               iMap[vtx_i] = vtx_vID;
+               if (vtx_area2 != prevSubAreaVtx){iMap.clear();}
+
                par->Fill();
                vtx->Fill();
+
+               prevSubAreaVtx = vtx_area2;
             }
 
             paridVec.clear();
@@ -1500,13 +1505,6 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
                   trk_vID = VtxId;
                   parC_vID = VtxId;
 
-                  trkIDMap[trk_id] = trk_vID;
-                  if (trk_area2 != prevSubAreaTrk)
-                  {
-                     //cout << trk_area2 << endl;
-                     trkIDMap.clear();
-                  }
-
                   tNum++;
                   if (chldNum == vtx_multip)
                   {
@@ -1541,8 +1539,8 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             ds_all_area1 = recoNum-1;
             ds_all_vtx_id = -1;
 
-            auto it = trkIDMap.find(ds_all_parent_trkID);
-            if (it != trkIDMap.end()) 
+            auto it = iMap.find(ds_all_i);
+            if (it != iMap.end()) 
             {
                ds_all_vtx_id = it->second;
             }
@@ -1565,8 +1563,8 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             ds_final_area1 = recoNum-1;
             ds_final_vtx_id = -1;
 
-            auto it = trkIDMap.find(ds_final_parent_trkID);
-            if (it != trkIDMap.end()) 
+            auto it = iMap.find(ds_final_i);
+            if (it != iMap.end()) 
             {
                ds_final_vtx_id = it->second;
             }
@@ -1640,8 +1638,6 @@ TFile *Dat2Root(string inputName, string outputName, string inputDS, string inpu
             ds_intrk_for_pa_wt_area1 = recoNum-1 ;
             ds_intrk_for_pa_wt->Fill();
          }
-
-
       }
    }
 

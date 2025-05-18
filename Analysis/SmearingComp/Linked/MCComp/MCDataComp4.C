@@ -18,9 +18,10 @@ using namespace std;
 // compType == 0 for all events
 // compType == 1 for multiplicity >= 10 events
 // compType == 2 for multiplicity < 10 events
-int compType = 2;
+int compType = 0;
 
 void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3, TH1F *hist4, TH1F *hist5, TH1F *hist6);
+void DigitizeData(TH1F *histMultiplicity[6], TH1F *histT2[6], TH1F *histIP[6]);
 void ShowChi2Test();
 
 double* DataEndPoints(TTree *data);
@@ -91,10 +92,10 @@ void MCDataComp4()
 
     char dataName [256], MC1Name[256], MC2Name[256], MC3Name[256], MC4Name[256], MC5Name[256];
 
-    sprintf(dataName, "../../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p%02d6.root", dirIndex);
+    sprintf(dataName, "../../../../Data_v20220912/PD05/Linked/RootOut_4Sigma/p%02d6.root", dirIndex);
 
-    if (dirIndex < 7) { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
-    else { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_3Sigma/pl071_105.root"); }
+    if (dirIndex < 7) { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_4Sigma_New/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
+    else { sprintf(MC1Name, "../../../../EPOSSM_v2.1/Linked/RootOut_4Sigma_New/pl071_105.root"); }
 
     if (dirIndex < 7) { sprintf(MC2Name, "../../../../Geant4SM_v2.1/RootOut/pl%02d1_%02d0.root", dirIndex, dirIndex + 3); }
     else { sprintf(MC2Name, "../../../../Geant4SM_v2.1/RootOut/pl071_105.root"); }
@@ -417,6 +418,7 @@ void MCDataComp4()
         }
       }
     }
+    cout << "DataVtxSize: " << DataVtxSize << endl;
 
     initZ = MC1EndArr[0];
     lastZ = MC1EndArr[1];
@@ -643,8 +645,8 @@ void MCDataComp4()
   //if(intTypeActive) {SlpT2HistData->GetYaxis()->SetRangeUser(0, 150000);}
   //else {SlpT2HistData->GetYaxis()->SetRangeUser(0, 220000);}
 
-  if(compType == 2) {SlpT2HistMC2->GetYaxis()->SetRangeUser(-1000, 36000);}
-  else {SlpT2HistMC2->GetYaxis()->SetRangeUser(-5000, 185000);}
+  if(compType == 2) {SlpT2HistMC2->GetYaxis()->SetRangeUser(-1000, 21000);}
+  else {SlpT2HistMC2->GetYaxis()->SetRangeUser(-5000, 165000);}
 
   cout << SlpT2HistData->GetMean() << endl;
 
@@ -661,11 +663,22 @@ void MCDataComp4()
   copyT2HistMC2->GetYaxis()->SetLabelSize(0.05);
   copyT2HistMC2->GetXaxis()->SetLabelSize(0.05);
 
-  copyT2HistMC2->Draw("HIST E1"); copyT2HistMC2->SetLineWidth(2); copyT2HistMC2->SetLineColor(kGreen); copyT2HistMC2->GetYaxis()->SetRangeUser(0.6, 1.45);
-  copyT2HistMC3->Draw("SAMES HIST E1"); copyT2HistMC3->SetLineWidth(2); copyT2HistMC3->SetLineColor(kBlue); copyT2HistMC3->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC3->SetStats(0);
-  copyT2HistMC4->Draw("SAMES HIST E1"); copyT2HistMC4->SetLineWidth(2); copyT2HistMC4->SetLineColor(kMagenta); copyT2HistMC4->GetYaxis()->SetRangeUser(0.6, 1.45);  copyT2HistMC4->SetStats(0);
-  copyT2HistMC5->Draw("SAMES HIST E1"); copyT2HistMC5->SetLineWidth(2); copyT2HistMC5->SetLineColor(kOrange + 2); copyT2HistMC5->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC5->SetStats(0);
-  copyT2HistMC1->Draw("SAMES HIST E1"); copyT2HistMC1->SetLineWidth(2); copyT2HistMC1->SetLineColor(kRed); copyT2HistMC1->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC1->SetStats(0);
+  if(compType == 2)
+  {
+    copyT2HistMC2->Draw("HIST E1"); copyT2HistMC2->SetLineWidth(2); copyT2HistMC2->SetLineColor(kGreen); copyT2HistMC2->GetYaxis()->SetRangeUser(0.5, 1.35);
+    copyT2HistMC3->Draw("SAMES HIST E1"); copyT2HistMC3->SetLineWidth(2); copyT2HistMC3->SetLineColor(kBlue); copyT2HistMC3->GetYaxis()->SetRangeUser(0.5, 1.35); copyT2HistMC3->SetStats(0);
+    copyT2HistMC4->Draw("SAMES HIST E1"); copyT2HistMC4->SetLineWidth(2); copyT2HistMC4->SetLineColor(kMagenta); copyT2HistMC4->GetYaxis()->SetRangeUser(0.5, 1.35);  copyT2HistMC4->SetStats(0);
+    copyT2HistMC5->Draw("SAMES HIST E1"); copyT2HistMC5->SetLineWidth(2); copyT2HistMC5->SetLineColor(kOrange + 2); copyT2HistMC5->GetYaxis()->SetRangeUser(0.5, 1.35); copyT2HistMC5->SetStats(0);
+    copyT2HistMC1->Draw("SAMES HIST E1"); copyT2HistMC1->SetLineWidth(2); copyT2HistMC1->SetLineColor(kRed); copyT2HistMC1->GetYaxis()->SetRangeUser(0.5, 1.35); copyT2HistMC1->SetStats(0);
+  }
+  else
+  {
+    copyT2HistMC2->Draw("HIST E1"); copyT2HistMC2->SetLineWidth(2); copyT2HistMC2->SetLineColor(kGreen); copyT2HistMC2->GetYaxis()->SetRangeUser(0.6, 1.45);
+    copyT2HistMC3->Draw("SAMES HIST E1"); copyT2HistMC3->SetLineWidth(2); copyT2HistMC3->SetLineColor(kBlue); copyT2HistMC3->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC3->SetStats(0);
+    copyT2HistMC4->Draw("SAMES HIST E1"); copyT2HistMC4->SetLineWidth(2); copyT2HistMC4->SetLineColor(kMagenta); copyT2HistMC4->GetYaxis()->SetRangeUser(0.6, 1.45);  copyT2HistMC4->SetStats(0);
+    copyT2HistMC5->Draw("SAMES HIST E1"); copyT2HistMC5->SetLineWidth(2); copyT2HistMC5->SetLineColor(kOrange + 2); copyT2HistMC5->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC5->SetStats(0);
+    copyT2HistMC1->Draw("SAMES HIST E1"); copyT2HistMC1->SetLineWidth(2); copyT2HistMC1->SetLineColor(kRed); copyT2HistMC1->GetYaxis()->SetRangeUser(0.6, 1.45); copyT2HistMC1->SetStats(0);
+  }
 
   gPad->Update();
   TPaveStats *statT2 = (TPaveStats*)copyT2HistMC2->GetListOfFunctions()->FindObject("stats"); 
@@ -676,12 +689,12 @@ void MCDataComp4()
   fa1->SetLineWidth(2);
   fa1->SetLineColor(kBlack);
 
-  Canvas->Print( outNameStart, "pdf");
+  Canvas->Print(outNameStart, "pdf");
 
   //if(intTypeActive) {IPDataData->GetYaxis()->SetRangeUser(0, 400000);}
   //else {IPDataData->GetYaxis()->SetRangeUser(0, 580000);}
 
-  IPDataMC2->GetYaxis()->SetRangeUser(-10000, 460000);
+  IPDataMC2->GetYaxis()->SetRangeUser(-10000, 410000);
 
   Canvas->cd(1);
   IPDataData->SetXTitle("Impact Parameter (#mum)");
@@ -709,7 +722,7 @@ void MCDataComp4()
   fa2->SetLineWidth(2);
   fa2->SetLineColor(kBlack);
 
-  Canvas->Print( outName, "pdf");
+  Canvas->Print(outName, "pdf");
 
   //if(intTypeActive) {MultData->GetYaxis()->SetRangeUser(0, 4000);}
   //else {MultData->GetYaxis()->SetRangeUser(0, 6000);}
@@ -742,9 +755,15 @@ void MCDataComp4()
   fa3->SetLineWidth(2);
   fa3->SetLineColor(kBlack);
 
-  Canvas->Print( outNameEnd, "pdf");
+  Canvas->Print(outNameEnd, "pdf");
 
   //ShowChi2Test();
+
+  TH1F *multHistArr[6] = {MultData, MultMC1, MultMC2, MultMC3, MultMC4, MultMC5};
+  TH1F *slpHistArr[6] = {SlpT2HistData, SlpT2HistMC1, SlpT2HistMC2, SlpT2HistMC3, SlpT2HistMC4, SlpT2HistMC5};
+  TH1F *ipHistArr[6] = {IPDataData, IPDataMC1, IPDataMC2, IPDataMC3, IPDataMC4, IPDataMC5};
+
+  DigitizeData(multHistArr, slpHistArr, ipHistArr);
 }
 
 void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3, TH1F *hist4, TH1F *hist5, TH1F *hist6)
@@ -838,6 +857,37 @@ void HistDraw(TH1F *hist1, TH1F *hist2, TH1F *hist3, TH1F *hist4, TH1F *hist5, T
   legend->AddEntry(hist4,"DPMJET","f");
   legend->AddEntry(hist5,"QGSJET","f");
   legend->Draw();
+}
+
+void DigitizeData(TH1F *histMultiplicity[6], TH1F *histT2[6], TH1F *histIP[6])
+{
+  const char *labels[6] = {"Data", "EPOS", "Geant4", "Pythia", "DPMJET", "QGSJET"};
+  
+  for (int j = 0; j < 6; ++j)
+  {
+    std::ofstream fileMult(std::string(labels[j]) + "_Multiplicity.txt");
+    std::ofstream fileT2(std::string(labels[j]) + "_SpaceAngle.txt");
+    std::ofstream fileIP(std::string(labels[j]) + "_ImpactParameter.txt");
+    
+    int nbins = histMultiplicity[j]->GetNbinsX();
+    for (int i = 1; i <= nbins; ++i)
+    {
+      double mult = histMultiplicity[j]->GetBinContent(i);
+      double multBinCenter = histMultiplicity[j]->GetBinCenter(i);
+      double t2 = histT2[j]->GetBinContent(i);
+      double t2BinCenter = histT2[j]->GetBinCenter(i);
+      double ip = histIP[j]->GetBinContent(i);
+      double ipBinCenter = histIP[j]->GetBinCenter(i);
+      
+      fileMult << multBinCenter << " " << mult << "\n";
+      fileT2 << t2BinCenter << " " << t2 << "\n";
+      fileIP << ipBinCenter << " " << ip << "\n";
+    }
+    
+    fileMult.close();
+    fileT2.close();
+    fileIP.close();
+  }
 }
 
 void ShowChi2Test()

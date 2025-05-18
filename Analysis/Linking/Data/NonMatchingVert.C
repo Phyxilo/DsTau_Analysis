@@ -53,7 +53,7 @@ void NonMatchingVert()
         sprintf(outNameEnd,"%s)", outName);
 
         char dir [128];
-        sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut/p0%d6.root", j);
+        sprintf(dir,"../../../Data_v20220912/PD05/Linked/RootOut_3Sigma/p0%d6.root", j);
         //sprintf(dir,"../../../Data_v20220912/PD05/Linked/Backup/RootOut_3Sigma/p0%d6.root", j);
 
         Data = TFile::Open(dir);
@@ -87,7 +87,7 @@ void NonMatchingVert()
 
             bool areaBool = (area1->GetValue() <= 53 && area1->GetValue() >= 47) || (area1->GetValue() <= 44 && area1->GetValue() >= 38) || (area1->GetValue() <= 35 && area1->GetValue() >= 29);
 
-            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) &&*/ areaBool && plmax->GetValue() == 5+j*10)
+            if (/*(VX > posXMin && VX < posXMax) && (VY > posYMin && VY < posYMax) && areaBool && plmax->GetValue() == 5+j*10*/ true)
             {
                 if (fp == 0)
                 {

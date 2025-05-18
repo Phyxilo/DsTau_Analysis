@@ -258,6 +258,17 @@ void IntSubArea()
     IntGraph1->GetXaxis()->SetTitle("Sub-Area");
     IntGraph1->GetYaxis()->SetTitle("Percentage");
 
+    TLegend *legend1 = new TLegend(0.74, 0.65, 0.97, 0.95);
+    legend1->AddEntry(IntGraph1,"Tungsten1","P");
+    legend1->AddEntry(IntGraph2,"Tungsten2","P");
+    legend1->AddEntry(IntGraph3,"Tungsten3","P");
+    legend1->AddEntry(IntGraph4,"Tungsten4","P");
+    legend1->AddEntry(IntGraph5,"Tungsten5","P");
+    legend1->AddEntry(IntGraph6,"Tungsten6","P");
+    legend1->AddEntry(IntGraph7,"Tungsten7","P");
+    legend1->AddEntry(IntGraph8,"Tungsten8","P");
+    legend1->Draw();
+
     Canvas->Print(outNameStart,"pdf");
 
     TotParGraph1->Draw("AP");
@@ -304,6 +315,17 @@ void IntSubArea()
     TotParGraph1->GetXaxis()->SetTitle("Sub-Area");
     TotParGraph1->GetYaxis()->SetTitle("Percentage");
 
+    TLegend *legend2 = new TLegend(0.74, 0.65, 0.97, 0.95);
+    legend2->AddEntry(TotParGraph1,"Tungsten1","P");
+    legend2->AddEntry(TotParGraph2,"Tungsten2","P");
+    legend2->AddEntry(TotParGraph3,"Tungsten3","P");
+    legend2->AddEntry(TotParGraph4,"Tungsten4","P");
+    legend2->AddEntry(TotParGraph5,"Tungsten5","P");
+    legend2->AddEntry(TotParGraph6,"Tungsten6","P");
+    legend2->AddEntry(TotParGraph7,"Tungsten7","P");
+    legend2->AddEntry(TotParGraph8,"Tungsten8","P");
+    legend2->Draw();
+
     Canvas->Print(outName,"pdf");
 
     TotProtonsGraph1->Draw("AP");
@@ -349,6 +371,17 @@ void IntSubArea()
     TotProtonsGraph1->SetTitle("Total Number of Protons");
     TotProtonsGraph1->GetXaxis()->SetTitle("Sub-Area");
     TotProtonsGraph1->GetYaxis()->SetTitle("Percentage");
+
+    TLegend *legend3 = new TLegend(0.74, 0.65, 0.97, 0.95);
+    legend3->AddEntry(TotProtonsGraph1,"Tungsten1","P");
+    legend3->AddEntry(TotProtonsGraph2,"Tungsten2","P");
+    legend3->AddEntry(TotProtonsGraph3,"Tungsten3","P");
+    legend3->AddEntry(TotProtonsGraph4,"Tungsten4","P");
+    legend3->AddEntry(TotProtonsGraph5,"Tungsten5","P");
+    legend3->AddEntry(TotProtonsGraph6,"Tungsten6","P");
+    legend3->AddEntry(TotProtonsGraph7,"Tungsten7","P");
+    legend3->AddEntry(TotProtonsGraph8,"Tungsten8","P");
+    legend3->Draw();
 
     Canvas->Print(outNameEnd,"pdf");
     
